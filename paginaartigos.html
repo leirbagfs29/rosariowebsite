@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <title>Artigos | Rosário</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- CSS principal -->
+  <link rel="stylesheet" href="../css/style.css">
+
+  <style>
+    /* ===== PÁGINA ARTIGOS ===== */
+
+    .articles-container {
+      max-width: 1100px;
+      margin: 50px auto;
+      padding: 0 24px;
+    }
+
+    .articles-header {
+      text-align: center;
+      margin-bottom: 40px;
+    }
+
+    .articles-header h1 {
+      font-size: 32px;
+      margin-bottom: 10px;
+    }
+
+    .articles-header p {
+      font-size: 16px;
+      color: #6b665a;
+    }
+
+    /* GRID */
+    .articles-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 30px;
+    }
+
+    /* CARD */
+    .article-card {
+      background: #f7f3e9;
+      border-radius: 14px;
+      overflow: hidden;
+      box-shadow: 0 6px 16px rgba(0,0,0,0.08);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      text-decoration: none;
+      color: inherit;
+    }
+
+    .article-card:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 10px 24px rgba(0,0,0,0.12);
+    }
+
+    /* IMAGEM */
+    .article-card img {
+      width: 100%;
+      height: 180px;
+      object-fit: cover;
+      display: block;
+    }
+
+    /* CONTEÚDO */
+    .article-card-content {
+      padding: 18px 18px 22px;
+      text-align: center;
+    }
+
+    .article-card-content h2 {
+      font-size: 20px;
+      margin-bottom: 8px;
+    }
+
+    .article-card-content p {
+      font-size: 15px;
+      color: #555;
+      line-height: 1.5;
+    }
+
+    header {
+  text-align: center;
+  padding: 32px 20px;
+  border-bottom: 1px solid #ddd4c2;
+}
+
+header h1 {
+  font-weight: normal;
+  letter-spacing: 3px;
+  font-size: 26px;
+}
+body {
+  margin: 0;
+  font-family: Georgia, serif;
+  background: #f6f2e9;
+  color: #2a2a2a;
+  line-height: 1.6;
+}
+.meditation-switch {
+  margin-top: 20px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 8px;
+}
+
+.meditation-switch button {
+  background: #f0eadc;
+  border: 1px solid #b9ad92;
+  padding: 8px 14px;
+  font-family: inherit;
+  cursor: pointer;
+  color: #2a2a2a
+}
+
+  </style>
+<body>
+<header>
+  <h1>Rosarium – Meditação do Santo Rosário</h1>
+  <p>Meditação do Santo Rosário</p>
+
+  <div class="meditation-switch">
+    <button onclick="location.href='como-rezar-o-terco.html'">
+      Como rezar o Terço
+    </button>
+    <button onclick="location.href='paginaartigos.html'">
+      Artigos
+    </button>
+    <button onclick="window.scrollTo({ top: 0, behavior: 'smooth' })">
+      Meditações
+    </button>
+  </div>
+</header>
+
+  <main class="articles-container">
+
+    <div class="articles-header">
+      <h1>Artigos</h1>
+      <p>Reflexões, ensinamentos e espiritualidade mariana</p>
+    </div>
+
+    <div class="articles-grid">
+
+      <!-- ARTIGO 1 -->
+      <a href="artigos/ImportanciaRosario.html" class="article-card">
+        <img src="images2/1.jpg" alt="O Rosário">
+        <div class="article-card-content">
+          <h2>O Poder do Santo Rosário</h2>
+          <p>Por que o Rosário transforma vidas e fortalece a fé.</p>
+        </div>
+      </a>
+
+      <!-- ARTIGO 2 -->
+      <a href="como-rezar-o-terco.html" class="article-card">
+        <img src="images2/2.jpg" alt="Como rezar o terço">
+        <div class="article-card-content">
+          <h2>Como Rezar o Terço</h2>
+          <p>Guia simples e contemplativo para a oração diária.</p>
+        </div>
+      </a>
+
+      <!-- ARTIGO 3 -->
+      <a href="meditacoes-marianas.html" class="article-card">
+        <img src="../images/artigos/maria.jpg" alt="Maria Santíssima">
+        <div class="article-card-content">
+          <h2>Meditações Marianas</h2>
+          <p>Aprendendo com o silêncio e a fé da Virgem Maria.</p>
+        </div>
+      </a>
+
+    </div>
+
+  </main>
+
+</body>
+</html>

@@ -1,0 +1,2474 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Rosarium – Meditação do Santo Rosário</title>
+
+<style>
+body {
+  margin: 0;
+  font-family: Georgia, serif;
+  background: #f6f2e9;
+  color: #2a2a2a;
+  line-height: 1.6;
+}
+
+header {
+  text-align: center;
+  padding: 32px 20px;
+  border-bottom: 1px solid #ddd4c2;
+}
+
+header h1 {
+  font-weight: normal;
+  letter-spacing: 3px;
+  font-size: 26px;
+}
+
+header p {
+  font-size: 14px;
+  color: #666;
+}
+
+.meditation-switch {
+  margin-top: 20px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 8px;
+}
+
+.meditation-switch button {
+  background: #f0eadc;
+  border: 1px solid #b9ad92;
+  padding: 8px 14px;
+  font-family: inherit;
+  cursor: pointer;
+  color: #2a2a2a
+}
+
+/* TOGGLE */
+.toggle h2 {
+  font-size: 25px;
+  padding: 14px 10px;
+  cursor: pointer;
+  border-bottom: 1px solid #d6cdb4;
+  list-style: none;
+  background: #f0eadc;
+}
+
+
+.content {
+  display: none;
+  padding: 20px;
+}
+
+/* CARROSSEL */
+.carousel {
+  position: relative;
+  text-align: center;
+}
+
+.slide {
+  display: none;
+}
+
+.slide.active {
+  display: block;
+}
+
+.carousel img {
+  display: block;
+  max-width: 90%;
+  width: auto;
+  max-height: 320px;
+  margin: 40px auto 24px auto;
+  object-fit: contain;
+  border-radius: 14px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.12);
+  @media (max-width: 600px) {
+  .carousel img {
+    max-height: 240px;
+    border-radius: 12px;
+  }
+}
+
+}
+
+
+/* TEXTO */
+.meditation {
+  font-size: 17px;
+  padding: 0 10px;
+}
+
+/* BOTÕES */
+.prev, .next {
+  position: absolute;
+  top: 40%;
+  background: rgba(246,242,233,0.85);
+  border: none;
+  font-size: 22px;
+  padding: 8px 12px;
+  cursor: pointer;
+}
+
+.prev { left: 0; }
+.next { right: 0; }
+
+footer {
+  text-align: center;
+  padding: 30px;
+  font-size: 13px;
+  font-style: italic;
+  color: #777;
+}
+.main-toggle summary {
+  font-size: 25px;
+  padding: 14px 10px;
+  cursor: pointer;
+  border-bottom: 1px solid #d6cdb4;
+  list-style: none;
+  background: #f0eadc;
+}
+
+.mystery-toggle summary {
+  font-size: 18px;
+  padding: 10px;
+  cursor: pointer;
+}
+
+
+
+</style>
+</head>
+
+<body>
+
+<header>
+  <h1>Rosarium – Meditação do Santo Rosário</h1>
+  <p>Meditação do Santo Rosário</p>
+
+  <div class="meditation-switch">
+    <button onclick="location.href='como-rezar-o-terco.html'">
+      Como rezar o Terço
+    </button>
+    <button onclick="location.href='paginaartigos.html'">
+      Artigos
+    </button>
+    <button onclick="window.scrollTo({ top: 0, behavior: 'smooth' })">
+      Meditações
+    </button>
+  </div>
+</header>
+
+<main>
+
+<!-- ORAÇÕES INICIAIS -->
+<section class="toggle">
+<h2 onclick="toggle(this)">Orações Iniciais</h2>
+<div class="content">
+
+<p><strong>Sinal da Cruz</strong></p>
+<p><strong>Latim:</strong><br>
+In nomine Patris, et Filii, et Spiritus Sancti. Amen.
+</p>
+<p><strong>Português:</strong><br>
+Em nome do Pai, do Filho e do Espírito Santo. Amém.
+</p>
+
+<hr>
+
+<p><strong>Credo</strong></p>
+<p><strong>Latim:</strong><br>
+Credo in Deum Patrem omnipotentem, Creatorem caeli et terrae.
+Et in Iesum Christum, Filium eius unicum, Dominum nostrum,
+qui conceptus est de Spiritu Sancto, natus ex Maria Virgine,
+passus sub Pontio Pilato, crucifixus, mortuus et sepultus;
+descendit ad inferos; tertia die resurrexit a mortuis;
+ascendit ad caelos; sedet ad dexteram Dei Patris omnipotentis;
+inde venturus est iudicare vivos et mortuos.
+Credo in Spiritum Sanctum, sanctam Ecclesiam catholicam,
+sanctorum communionem, remissionem peccatorum,
+carnis resurrectionem, vitam aeternam. Amen.
+</p>
+
+<p><strong>Português:</strong><br>
+Creio em Deus Pai todo-poderoso, Criador do céu e da terra;
+e em Jesus Cristo, seu único Filho, nosso Senhor;
+que foi concebido pelo poder do Espírito Santo;
+nasceu da Virgem Maria; padeceu sob Pôncio Pilatos,
+foi crucificado, morto e sepultado;
+desceu à mansão dos mortos;
+ressuscitou ao terceiro dia;
+subiu aos céus;
+está sentado à direita de Deus Pai todo-poderoso,
+de onde há de vir a julgar os vivos e os mortos.
+Creio no Espírito Santo,
+na santa Igreja católica,
+na comunhão dos santos,
+na remissão dos pecados,
+na ressurreição da carne,
+na vida eterna. Amém.
+</p>
+
+<hr>
+
+<p><strong>Pai-Nosso</strong></p>
+<p><strong>Latim:</strong><br>
+Pater noster, qui es in caelis,
+sanctificetur nomen tuum;
+adveniat regnum tuum;
+fiat voluntas tua, sicut in caelo et in terra.
+Panem nostrum quotidianum da nobis hodie;
+et dimitte nobis debita nostra,
+sicut et nos dimittimus debitoribus nostris;
+et ne nos inducas in tentationem;
+sed libera nos a malo. Amen.
+</p>
+
+<p><strong>Português:</strong><br>
+Pai nosso que estais nos céus,
+santificado seja o vosso nome;
+venha a nós o vosso Reino;
+seja feita a vossa vontade,
+assim na terra como no céu.
+O pão nosso de cada dia nos dai hoje;
+perdoai-nos as nossas ofensas,
+assim como nós perdoamos a quem nos tem ofendido;
+e não nos deixeis cair em tentação,
+mas livrai-nos do mal. Amém.
+</p>
+
+<hr>
+
+<p><strong>Ave-Maria</strong></p>
+<p><strong>Latim:</strong><br>
+Ave Maria, gratia plena, Dominus tecum;
+benedicta tu in mulieribus,
+et benedictus fructus ventris tui, Iesus.
+Sancta Maria, Mater Dei,
+ora pro nobis peccatoribus,
+nunc et in hora mortis nostrae. Amen.
+</p>
+
+<p><strong>Português:</strong><br>
+Ave Maria, cheia de graça, o Senhor é convosco;
+bendita sois vós entre as mulheres,
+e bendito é o fruto do vosso ventre, Jesus.
+Santa Maria, Mãe de Deus,
+rogai por nós, pecadores,
+agora e na hora de nossa morte. Amém.
+</p>
+
+<hr>
+
+<p><strong>Glória ao Pai</strong></p>
+<p><strong>Latim:</strong><br>
+Gloria Patri, et Filio, et Spiritui Sancto.
+Sicut erat in principio, et nunc, et semper,
+et in saecula saeculorum. Amen.
+</p>
+
+<p><strong>Português:</strong><br>
+Glória ao Pai, ao Filho e ao Espírito Santo.
+Como era no princípio, agora e sempre.
+Amém.
+</p>
+
+<hr>
+
+<p><strong>Oração de Fátima – “Ó meu Jesus”</strong></p>
+<p><strong>Latim:</strong><br>
+O mi Iesu, dimitte nobis debita nostra,
+libera nos ab igne inferni,
+conduc in caelum omnes animas,
+praesertim illas quae maxime indigent misericordia tua.
+</p>
+
+<p><strong>Português:</strong><br>
+Ó meu Jesus, perdoai-nos os nossos pecados,
+livrai-nos do fogo do inferno,
+levai as almas todas para o céu,
+socorrei principalmente as que mais precisarem da vossa misericórdia.
+</p>
+
+</div>
+</section>
+
+
+
+<!-- MISTÉRIOS GOZOSOS -->
+<section>
+
+<details class="main-toggle">
+  <summary>Mistérios Gozosos</summary>
+  <details class="mystery-toggle">
+    <summary>1º Mistério — A Anunciação do Anjo a Maria</summary>
+
+    <div class="carousel">
+    <button class="prev" onclick="prevSlide(this)">❮</button>
+<div class="slide active">
+  <img src="images/gozosos/0.jpg" alt="">
+  <p class="meditation">
+    Maria, jovem temente a Deus, perseverante na oração e obediente. Imaculada e sempre pronta para fazer a vontade de Deus, recebeu a honra de ser a Mãe de Deus Filho, assumindo com amor e responsabilidade a missão de gerar, cuidar e educar Aquele que é o Salvador do mundo.
+    <br><strong>Pai nosso que estais no céu...</strong>
+  </p>
+</div>
+
+<div class="slide">
+  <img src="images/gozosos/1.jpg" alt="">
+  <p class="meditation">
+    O Anjo Gabriel é enviado por Deus a uma cidade chamada Nazaré, na Galileia.
+    <br><strong>Ave Maria, cheia de graça...</strong>
+  </p>
+</div>
+
+<div class="slide">
+  <img src="images/gozosos/2.jpg" alt="">
+  <p class="meditation">
+    Ele vai até a humilde morada de uma Virgem chamada Maria.
+    <br><strong>Ave Maria, cheia de graça...</strong>
+  </p>
+</div>
+
+<div class="slide">
+  <img src="images/gozosos/3.jpg" alt="">
+  <p class="meditation">
+    Maria, em profunda oração, escuta a belíssima saudação do Anjo.
+    <br><strong>Ave Maria, cheia de graça...</strong>
+  </p>
+</div>
+
+<div class="slide">
+  <img src="images/gozosos/4.jpg" alt="">
+  <p class="meditation">
+    “Ave, cheia de graça, o Senhor é contigo. Bendita és tu entre as mulheres.”
+    <br><strong>Ave Maria, cheia de graça...</strong>
+  </p>
+</div>
+
+<div class="slide">
+  <img src="images/gozosos/5.jpg" alt="">
+  <p class="meditation">
+    Maria se perturba ao ouvir a saudação do Anjo.
+    <br><strong>Ave Maria, cheia de graça...</strong>
+  </p>
+</div>
+
+<div class="slide">
+  <img src="images/gozosos/6.jpg" alt="">
+  <p class="meditation">
+    O Anjo anuncia a Encarnação do Verbo, Jesus Cristo.
+    <br><strong>Ave Maria, cheia de graça...</strong>
+  </p>
+</div>
+
+<div class="slide">
+  <img src="images/gozosos/7.jpg" alt="">
+  <p class="meditation">
+    A Santíssima Virgem pergunta como se dará a concepção, pois vive no propósito da virgindade.
+    <br><strong>Ave Maria, cheia de graça...</strong>
+  </p>
+</div>
+
+<div class="slide">
+  <img src="images/gozosos/8.jpg" alt="">
+  <p class="meditation">
+    O Anjo responde que o Espírito Santo descerá sobre ela, e o poder do Altíssimo a cobrirá com sua sombra; por isso, o Menino será chamado Filho de Deus.
+    <br><strong>Ave Maria, cheia de graça...</strong>
+  </p>
+</div>
+
+<div class="slide">
+  <img src="images/gozosos/9.jpg" alt="">
+  <p class="meditation">
+    Maria se coloca prontamente à disposição da vontade divina: “Eis aqui a serva do Senhor; faça-se em mim segundo a tua palavra.”
+    <br><strong>Ave Maria, cheia de graça...</strong>
+  </p>
+</div>
+
+<div class="slide">
+  <img src="images/gozosos/10.jpg" alt="">
+  <p class="meditation">
+    Pela sua obediência e fé, Maria torna-se a nova Arca da Aliança.
+    <br><strong>Ave Maria, cheia de graça...</strong>
+  </p>
+  <p><strong>Glória ao Pai, ao Filho e ao Espírito Santo.
+Como era no princípio, agora e sempre.
+Amém.</strong><br>
+</p>
+<p><strong>Ó meu Jesus, perdoai-nos os nossos pecados,
+livrai-nos do fogo do inferno,
+levai as almas todas para o céu,
+socorrei principalmente as que mais precisarem da vossa misericórdia.</strong><br>
+</p>
+</div>
+  <button class="next" onclick="nextSlide(this)">❯</button>
+  </details>
+  
+<details class="mystery-toggle">
+    <summary>2º Mistério — A Visitação de Maria a Isabel</summary>
+
+    <div class="carousel">
+    <button class="prev" onclick="prevSlide(this)">❮</button>
+<div class="slide active">
+  <img src="images/gozosos/11.jpg" alt="">
+  <p class="meditation">
+Maria, grávida do Verbo, coloca-se prontamente a caminho para servir. Dirige-se com pressa a uma cidade da Judeia para auxiliar sua prima Isabel durante a gestação. Nesse gesto, a Santíssima Virgem manifesta a verdadeira caridade cristã: um amor totalmente atento às necessidades do próximo.
+    <br><strong>Pai nosso, que estais no céu...</strong>
+  </p>
+</div>
+
+<div class="slide">
+  <img src="images/gozosos/12.jpg" alt="">
+  <p class="meditation">
+Movida pelo desejo de ajudar sua prima Isabel em sua gestação, Maria parte de Nazaré para uma cidade da Judeia, percorrendo cerca de 150 km.    <br><strong>Ave Maria, cheia de graça...</strong>
+  </p>
+</div>
+
+<div class="slide">
+  <img src="images/gozosos/13.jpg" alt="">
+  <p class="meditation">
+Isabel está no sexto mês de gravidez, apesar de ser considerada estéril.
+    <br><strong>Ave Maria, cheia de graça...</strong>
+  </p>
+</div>
+
+<div class="slide">
+  <img src="images/gozosos/14.jpg" alt="">
+  <p class="meditation">
+Maria manifesta que é verdadeiramente a serva do Senhor, sempre pronta a cumprir a vontade divina, servindo com amor ao próximo.    <br><strong>Ave Maria, cheia de graça...</strong>
+  </p>
+</div>
+
+<div class="slide">
+  <img src="images/gozosos/15.jpg" alt="">
+  <p class="meditation">
+Ao chegar à Judeia, Maria saúda Isabel, e João Batista salta de alegria em seu ventre, ficando Isabel cheia do Espírito Santo.    <br><strong>Ave Maria, cheia de graça...</strong>
+  </p>
+</div>
+
+<div class="slide">
+  <img src="images/gozosos/16.jpg" alt="">
+  <p class="meditation">
+Isabel exclama: “Bendita és tu entre as mulheres, e bendito é o fruto do teu ventre”.    <br><strong>Ave Maria, cheia de graça...</strong>
+  </p>
+</div>
+
+<div class="slide">
+  <img src="images/gozosos/17.jpg" alt="">
+  <p class="meditation">
+Isabel reconhece que está diante da Mãe do seu Senhor.
+    <br><strong>Ave Maria, cheia de graça...</strong>
+  </p>
+</div>
+
+<div class="slide">
+  <img src="images/gozosos/18.jpg" alt="">
+  <p class="meditation">
+Maria então exalta o Senhor por meio do Magnificat.
+    <br><strong>Ave Maria, cheia de graça...</strong>
+  </p>
+</div>
+
+<div class="slide">
+  <img src="images/gozosos/19.jpg" alt="">
+  <p class="meditation">
+“A minha alma glorifica ao Senhor, e o meu espírito exulta em Deus, meu Salvador.”
+    <br><strong>Ave Maria, cheia de graça...</strong>
+  </p>
+</div>
+
+<div class="slide">
+  <img src="images/gozosos/20.jpg" alt="">
+  <p class="meditation">
+Com profunda humildade, Maria reconhece que é totalmente dependente de Deus e que todas as graças provêm d’Ele.
+    <br><strong>Ave Maria, cheia de graça...</strong>
+  </p>
+</div>
+
+<div class="slide">
+  <img src="images/gozosos/21.jpg" alt="">
+  <p class="meditation">
+Maria permanece com Isabel por cerca de três meses, prestando-lhe auxílio, e depois retorna à sua casa.
+    <br><strong>Ave Maria, cheia de graça...</strong>
+  </p>
+  <p><strong>Glória ao Pai, ao Filho e ao Espírito Santo.
+Como era no princípio, agora e sempre.
+Amém.</strong><br>
+</p>
+<p><strong>Ó meu Jesus, perdoai-nos os nossos pecados,
+livrai-nos do fogo do inferno,
+levai as almas todas para o céu,
+socorrei principalmente as que mais precisarem da vossa misericórdia.</strong><br>
+</p>
+</div>
+ <button class="next" onclick="nextSlide(this)">❯</button>
+  </details>
+
+  <details class="mystery-toggle">
+    <summary>3º Mistério — Nascimento de Jesus Cristo</summary>
+    <div class="carousel">
+    <button class="prev" onclick="prevSlide(this)">❮</button>
+<div class="slide active">
+    <img src="images/gozosos/22.jpg" alt="">
+  <p class="meditation">
+    O Filho eterno de Deus assumiu a nossa natureza humana, não para ocultar sua divindade, mas para torná-la acessível à nossa realidade, aproximando-Se de nós com amor e misericórdia. Ao fazer-Se homem, Jesus veio ao mundo para nos salvar, reparar os pecados da humanidade e reconciliar-nos com o Pai, oferecendo-Se em sacrifício por nossa redenção.
+    <br><strong>Pai nosso que estais no céu...</strong>
+  </p>
+</div>
+
+<div class="slide">
+  <img src="images/gozosos/23.jpg" alt="">
+  <p class="meditation">
+    José parte de Nazaré para Belém da Judeia a fim de se recensear, juntamente com Maria, que estava grávida.
+    <br><strong>Ave Maria, cheia de graça...</strong>
+  </p>
+</div>
+
+<div class="slide">
+  <img src="images/gozosos/24.jpg" alt="">
+  <p class="meditation">
+    Chegando a Belém da Judeia, Maria dá à luz o Redentor.
+    <br><strong>Ave Maria, cheia de graça...</strong>
+  </p>
+</div>
+
+<div class="slide">
+  <img src="images/gozosos/25.jpg" alt="">
+  <p class="meditation">
+    A Santíssima Virgem dá à luz Aquele que é a Luz do mundo.
+    <br><strong>Ave Maria, cheia de graça...</strong>
+  </p>
+</div>
+
+<div class="slide">
+  <img src="images/gozosos/26.jpg" alt="">
+  <p class="meditation">
+    Não havendo lugar na estalagem, Maria acolhe Jesus em seus braços e o deita em uma manjedoura.
+    <br><strong>Ave Maria, cheia de graça...</strong>
+  </p>
+</div>
+
+<div class="slide">
+  <img src="images/gozosos/27.jpg" alt="">
+  <p class="meditation">
+    Contemplamos a profunda humildade da Sagrada Família e pedimos a graça da pobreza de espírito.
+    <br><strong>Ave Maria, cheia de graça...</strong>
+  </p>
+</div>
+
+<div class="slide">
+  <img src="images/gozosos/28.jpg" alt="">
+  <p class="meditation">
+    Um Anjo do Senhor aparece aos pastores que velavam seus rebanhos naquela noite, anunciando o nascimento do Salvador.
+    <br><strong>Ave Maria, cheia de graça...</strong>
+  </p>
+</div>
+
+<div class="slide">
+  <img src="images/gozosos/29.jpg" alt="">
+  <p class="meditation">
+    Em seguida, uma multidão do exército celeste louva a Deus, dizendo: “Glória a Deus nas alturas, e paz na terra aos homens de boa vontade”.
+    <br><strong>Ave Maria, cheia de graça...</strong>
+  </p>
+</div>
+
+<div class="slide">
+  <img src="images/gozosos/30.jpg" alt="">
+  <p class="meditation">
+    Os pastores vão apressadamente até a manjedoura, onde encontram o Menino Jesus, O adoram e anunciam a todos o que lhes fora revelado.
+    <br><strong>Ave Maria, cheia de graça...</strong>
+  </p>
+</div>
+
+<div class="slide">
+  <img src="images/gozosos/31.jpg" alt="">
+  <p class="meditation">
+    Maria, porém, guarda todas essas coisas em seu coração, meditando-as em silêncio.
+    <br><strong>Ave Maria, cheia de graça...</strong>
+  </p>
+</div>
+
+<div class="slide">
+  <img src="images/gozosos/32.jpg" alt="">
+  <p class="meditation">
+    A exemplo da Virgem Maria, peçamos a graça de ouvir, guardar e meditar a Palavra de Deus em nossos corações.
+    <br><strong>Ave Maria, cheia de graça...</strong>
+     </p>
+  <p><strong>Glória ao Pai, ao Filho e ao Espírito Santo.
+Como era no princípio, agora e sempre.
+Amém.</strong><br>
+</p>
+<p><strong>Ó meu Jesus, perdoai-nos os nossos pecados,
+livrai-nos do fogo do inferno,
+levai as almas todas para o céu,
+socorrei principalmente as que mais precisarem da vossa misericórdia.</strong><br>
+</p>
+</div>
+ <button class="next" onclick="nextSlide(this)">❯</button>
+  </details>
+
+<details class="mystery-toggle">
+    <summary>4º Mistério — Apresentação de Jesus no Templo</summary>
+    <div class="carousel">
+    <button class="prev" onclick="prevSlide(this)">❮</button>
+<div class="slide active">
+  <img src="images/gozosos/33.jpg" alt="">
+  <p class="meditation">
+    Em obediência à Lei de Moisés, Maria e José levam o Menino Jesus ao Templo para apresentá-lo ao Senhor e cumprir o rito da purificação da mãe, embora Jesus, verdadeiro Deus, não necessitasse ser resgatado, e Maria, Imaculada, não precisasse de purificação. Submetendo-se livremente à Lei, manifestam as virtudes da humildade e da obediência.
+    <br><strong>Pai nosso que estais no céu...</strong>
+  </p>
+</div>
+
+<div class="slide">
+  <img src="images/gozosos/34.jpg" alt="">
+  <p class="meditation">
+    Após se completarem os dias da purificação de Maria, levam o Menino Jesus ao Templo para apresentá-Lo e cumprir a Lei do Senhor.
+    <br><strong>Ave Maria, cheia de graça...</strong>
+  </p>
+</div>
+
+<div class="slide">
+  <img src="images/gozosos/35.jpg" alt="">
+  <p class="meditation">
+    Cristo entra na história humana não para abolir a Lei, mas para cumpri-la desde o início.
+    <br><strong>Ave Maria, cheia de graça...</strong>
+  </p>
+</div>
+
+<div class="slide">
+  <img src="images/gozosos/36.jpg" alt="">
+  <p class="meditation">
+    Jesus nos ensina que a verdadeira fidelidade a Deus se vive também nos pequenos atos de obediência.
+    <br><strong>Ave Maria, cheia de graça...</strong>
+  </p>
+</div>
+
+<div class="slide">
+  <img src="images/gozosos/37.jpg" alt="">
+  <p class="meditation">
+    Conforme o costume da Lei, ofereciam animais em sacrifício na apresentação; Maria e José oferecem um par de pombinhas, o sacrifício dos pobres.
+    <br><strong>Ave Maria, cheia de graça...</strong>
+  </p>
+</div>
+
+<div class="slide">
+  <img src="images/gozosos/38.jpg" alt="">
+  <p class="meditation">
+    Contemplamos São José, modelo de fé obediente, que conduz sua família sempre segundo a vontade divina.
+    <br><strong>Ave Maria, cheia de graça...</strong>
+  </p>
+</div>
+
+<div class="slide">
+  <img src="images/gozosos/39.jpg" alt="">
+  <p class="meditation">
+    No Templo encontra-se um homem justo e piedoso, cheio do Espírito Santo, chamado Simeão.
+    <br><strong>Ave Maria, cheia de graça...</strong>
+  </p>
+</div>
+
+<div class="slide">
+  <img src="images/gozosos/40.jpg" alt="">
+  <p class="meditation">
+    Simeão havia recebido a revelação de que não morreria sem antes ver o Cristo do Senhor.
+    <br><strong>Ave Maria, cheia de graça...</strong>
+  </p>
+</div>
+
+<div class="slide">
+  <img src="images/gozosos/41.jpg" alt="">
+  <p class="meditation">
+    Tomando o Menino Jesus em seus braços, Simeão proclama louvores a Deus.
+    <br><strong>Ave Maria, cheia de graça...</strong>
+  </p>
+</div>
+
+<div class="slide">
+  <img src="images/gozosos/42.jpg" alt="">
+  <p class="meditation">
+    Simeão profetiza à Virgem Maria que uma espada transpassará o seu coração, anunciando a dor que ela sofrerá na Paixão de Cristo.
+    <br><strong>Ave Maria, cheia de graça...</strong>
+  </p>
+</div>
+
+<div class="slide">
+  <img src="images/gozosos/43.jpg" alt="">
+  <p class="meditation">
+    Depois de cumprirem tudo o que determinava a Lei do Senhor, a Sagrada Família retorna para Nazaré.
+    <br><strong>Ave Maria, cheia de graça...</strong>
+    </p>
+    <p><strong>Glória ao Pai, ao Filho e ao Espírito Santo.
+Como era no princípio, agora e sempre.
+Amém.</strong><br>
+</p>
+<p><strong>Ó meu Jesus, perdoai-nos os nossos pecados,
+livrai-nos do fogo do inferno,
+levai as almas todas para o céu,
+socorrei principalmente as que mais precisarem da vossa misericórdia.</strong><br>
+</p>
+</div>
+ <button class="next" onclick="nextSlide(this)">❯</button>
+  </details>
+
+
+<details class="mystery-toggle">
+    <summary>5º Mistério — Perca e o Encontro de Jesus</summary>
+    <div class="carousel">
+    <button class="prev" onclick="prevSlide(this)">❮</button>
+<div class="slide active">
+  <img src="images/gozosos/44.jpg" alt="">
+  <p class="meditation">
+    Após celebrarem a festa da Páscoa em Jerusalém, Maria e José retomam o caminho de volta, quando percebem, com grande dor, que o Menino Jesus não se encontra. A angústia dessa perda ensina-nos quanto é doloroso viver afastados de Cristo e quanto devemos empenhar-nos em buscá-Lo com perseverança.
+    <br><strong>Pai nosso que estais no céu...</strong>
+  </p>
+</div>
+
+<div class="slide">
+  <img src="images/gozosos/45.jpg" alt="">
+  <p class="meditation">
+    Aos doze anos, Jesus sobe a Jerusalém com Maria e José para a festa da Páscoa.
+    <br><strong>Ave Maria, cheia de graça...</strong>
+  </p>
+</div>
+
+<div class="slide">
+  <img src="images/gozosos/46.jpg" alt="">
+  <p class="meditation">
+    Ao retornarem para casa, Maria e José percebem que o Menino Jesus não estava entre eles.
+    <br><strong>Ave Maria, cheia de graça...</strong>
+  </p>
+</div>
+
+<div class="slide">
+  <img src="images/gozosos/47.jpg" alt="">
+  <p class="meditation">
+    Angustiados, voltam a Jerusalém à sua procura, mas não O encontram.
+    <br><strong>Ave Maria, cheia de graça...</strong>
+  </p>
+</div>
+
+<div class="slide">
+  <img src="images/gozosos/48.jpg" alt="">
+  <p class="meditation">
+    Contemplamos a dor da ausência de Cristo em nossas vidas.
+    <br><strong>Ave Maria, cheia de graça...</strong>
+  </p>
+</div>
+
+<div class="slide">
+  <img src="images/gozosos/49.jpg" alt="">
+  <p class="meditation">
+    Peçamos a graça de jamais nos conformarmos em viver afastados d’Ele.
+    <br><strong>Ave Maria, cheia de graça...</strong>
+  </p>
+</div>
+
+<div class="slide">
+  <img src="images/gozosos/50.jpg" alt="">
+  <p class="meditation">
+    Somente após três dias, encontram Jesus no Templo, sentado entre os doutores, ouvindo-os e ensinando a Palavra de Deus.
+    <br><strong>Ave Maria, cheia de graça...</strong>
+  </p>
+</div>
+
+<div class="slide">
+  <img src="images/gozosos/51.jpg" alt="">
+  <p class="meditation">
+    A Sabedoria eterna nos ensina, com mansidão, a ouvir antes de falar.
+    <br><strong>Ave Maria, cheia de graça...</strong>
+  </p>
+</div>
+
+<div class="slide">
+  <img src="images/gozosos/52.jpg" alt="">
+  <p class="meditation">
+    Ao ser encontrado por seus pais, Jesus afirma que deve ocupar-Se das coisas de seu Pai celeste.
+    <br><strong>Ave Maria, cheia de graça...</strong>
+  </p>
+</div>
+
+<div class="slide">
+  <img src="images/gozosos/53.jpg" alt="">
+  <p class="meditation">
+    Retornando para Nazaré, Jesus se submete a Maria e José com perfeita obediência.
+    <br><strong>Ave Maria, cheia de graça...</strong>
+  </p>
+</div>
+
+<div class="slide">
+  <img src="images/gozosos/54.jpg" alt="">
+  <p class="meditation">
+    A humildade de Cristo santifica a vida familiar e nos ensina o valor da obediência cristã.
+    <br><strong>Ave Maria, cheia de graça...</strong>
+     </p>
+     <p><strong>Glória ao Pai, ao Filho e ao Espírito Santo.
+Como era no princípio, agora e sempre.
+Amém.</strong><br>
+</p>
+<p><strong>Ó meu Jesus, perdoai-nos os nossos pecados,
+livrai-nos do fogo do inferno,
+levai as almas todas para o céu,
+socorrei principalmente as que mais precisarem da vossa misericórdia.</strong><br>
+</p>
+</div>
+ <button class="next" onclick="nextSlide(this)">❯</button>
+  </details>
+  </p>
+</div>
+</div>
+</section>
+</details>
+</section>
+<!-- MISTÉRIOS DOLOROSOS -->
+<details class="main-toggle">
+  <summary>Mistérios Dolorosos</summary>
+  <details class="mystery-toggle">
+    <summary>1º Mistério — A agonia de Jesus no horto</summary>
+
+    <div class="carousel">
+    <button class="prev" onclick="prevSlide(this)">❮</button>
+<div class="slide active">
+  <img src="images/dolorosos/1.jpg" alt="">
+  <p class="meditation">
+    A agonia no Horto revela a verdadeira humanidade de Jesus, que teme a dor mas aceita livremente a Paixão para reparar a desobediência do pecado e nos conceder o caminho da salvação.
+    <br><strong>Pai nosso que estais no céu...</strong>
+  </p>
+</div>
+
+<div class="slide">
+  <img src="images/dolorosos/2.jpg" alt="">
+  <p class="meditation">
+    Jesus dirige-Se ao Horto das Oliveiras acompanhado de seus discípulos.
+    <br><strong>Ave Maria, cheia de graça...</strong>
+  </p>
+</div>
+
+<div class="slide">
+  <img src="images/dolorosos/3.jpg" alt="">
+  <p class="meditation">
+    Ele exorta os discípulos a vigiar e orar, para que não caiam em tentação.
+    <br><strong>Ave Maria, cheia de graça...</strong>
+  </p>
+</div>
+
+<div class="slide">
+  <img src="images/dolorosos/4.jpg" alt="">
+  <p class="meditation">
+    Jesus afasta-Se para orar e pede ao Pai que afaste d’Ele o cálice, mas submete-Se plenamente à vontade divina.
+    <br><strong>Ave Maria, cheia de graça...</strong>
+  </p>
+</div>
+
+<div class="slide">
+  <img src="images/dolorosos/5.jpg" alt="">
+  <p class="meditation">
+    Contemplamos a obediência perfeita de Jesus, que aceita a vontade do Pai por amor a nós.
+    <br><strong>Ave Maria, cheia de graça...</strong>
+  </p>
+</div>
+
+<div class="slide">
+  <img src="images/dolorosos/6.jpg" alt="">
+  <p class="meditation">
+    Sua tristeza e angústia são tão intensas que Ele chega a suar sangue, carregando o peso dos pecados da humanidade.
+    <br><strong>Ave Maria, cheia de graça...</strong>
+  </p>
+</div>
+
+<div class="slide">
+  <img src="images/dolorosos/7.jpg" alt="">
+  <p class="meditation">
+    Peçamos a graça de reconhecer a gravidade de nossos pecados.
+    <br><strong>Ave Maria, cheia de graça...</strong>
+  </p>
+</div>
+
+<div class="slide">
+  <img src="images/dolorosos/8.jpg" alt="">
+  <p class="meditation">
+    Fortalecido na oração, Cristo entrega-Se livremente à sua Paixão.
+    <br><strong>Ave Maria, cheia de graça...</strong>
+  </p>
+</div>
+
+<div class="slide">
+  <img src="images/dolorosos/9.jpg" alt="">
+  <p class="meditation">
+    Ele encontra os discípulos adormecidos; reconheçamos nossas fraquezas espirituais e peçamos a Deus a graça da vigilância.
+    <br><strong>Ave Maria, cheia de graça...</strong>
+  </p>
+</div>
+
+<div class="slide">
+  <img src="images/dolorosos/10.jpg" alt="">
+  <p class="meditation">
+    Aproximam-se de Jesus as tropas, acompanhadas de Judas, o traidor.
+    <br><strong>Ave Maria, cheia de graça...</strong>
+  </p>
+</div>
+
+<div class="slide">
+  <img src="images/dolorosos/11.jpg" alt="">
+  <p class="meditation">
+    Pedro tenta defendê-Lo com a espada, mas é repreendido, pois Cristo escolhe livremente o caminho da Paixão.
+    <br><strong>Ave Maria, cheia de graça...</strong>
+</p>
+<p><strong>Glória ao Pai, ao Filho e ao Espírito Santo.
+Como era no princípio, agora e sempre.
+Amém.</strong><br>
+</p>
+<p><strong>Ó meu Jesus, perdoai-nos os nossos pecados,
+livrai-nos do fogo do inferno,
+levai as almas todas para o céu,
+socorrei principalmente as que mais precisarem da vossa misericórdia.</strong><br>
+</p>
+</div>
+ <button class="next" onclick="nextSlide(this)">❯</button>
+  </details>
+
+
+<details class="mystery-toggle">
+    <summary>2º Mistério — A flagelação de Jesus</summary>
+    <div class="carousel">
+    <button class="prev" onclick="prevSlide(this)">❮</button>
+<div class="slide active">
+  <img src="images/dolorosos/12.jpg" alt="">
+  <p class="meditation">
+    Medite a grande humilhação que passou Jesus Cristo, por nós. Que através desse mistério nós possamos reconhecer a dor do pecado e que o sofrimento de Cristo não tenha sido em vão.
+    <br><strong>Pai nosso que estais no céu...</strong>
+  </p>
+</div>
+
+<div class="slide">
+  <img src="images/dolorosos/13.jpg" alt="">
+  <p class="meditation">
+    Jesus é condenado à morte.
+    <br><strong>Ave Maria, cheia de graça...</strong>
+  </p>
+</div>
+
+<div class="slide">
+  <img src="images/dolorosos/14.jpg" alt="">
+  <p class="meditation">
+    Pilatos manda que Cristo seja flagelado, e Ele é atado à coluna.
+    <br><strong>Ave Maria, cheia de graça...</strong>
+  </p>
+</div>
+
+<div class="slide">
+  <img src="images/dolorosos/15.jpg" alt="">
+  <p class="meditation">
+    Diante de muitos algozes, que empunham chicotes com pontas de chumbo, Jesus é cruelmente açoitado.
+    <br><strong>Ave Maria, cheia de graça...</strong>
+  </p>
+</div>
+
+<div class="slide">
+  <img src="images/dolorosos/16.jpg" alt="">
+  <p class="meditation">
+    O Filho de Deus é profundamente humilhado, dilacerado e cuspido.
+    <br><strong>Ave Maria, cheia de graça...</strong>
+  </p>
+</div>
+
+<div class="slide">
+  <img src="images/dolorosos/17.jpg" alt="">
+  <p class="meditation">
+    Chagas se abrem no corpo do Redentor, derramando o sangue que purifica e salva.
+    <br><strong>Ave Maria, cheia de graça...</strong>
+  </p>
+</div>
+
+<div class="slide">
+  <img src="images/dolorosos/18.jpg" alt="">
+  <p class="meditation">
+    Quantas injustiças Jesus sofreu por você!
+    <br><strong>Ave Maria, cheia de graça...</strong>
+  </p>
+</div>
+
+<div class="slide">
+  <img src="images/dolorosos/19.jpg" alt="">
+  <p class="meditation">
+    Mesmo tendo o poder de impedir tudo isso, Ele aceita todo o sofrimento sem se defender.
+    <br><strong>Ave Maria, cheia de graça...</strong>
+  </p>
+</div>
+
+<div class="slide">
+  <img src="images/dolorosos/20.jpg" alt="">
+  <p class="meditation">
+    Oferece a dor que sente em reparação pelos pecadores.
+    <br><strong>Ave Maria, cheia de graça...</strong>
+  </p>
+</div>
+
+<div class="slide">
+  <img src="images/dolorosos/21.jpg" alt="">
+  <p class="meditation">
+    Mais chicotadas, bofetadas e gritos blasfemos… e Cristo continua sofrendo por você.
+    <br><strong>Ave Maria, cheia de graça...</strong>
+  </p>
+</div>
+
+<div class="slide">
+  <img src="images/dolorosos/22.jpg" alt="">
+  <p class="meditation">
+    Em meio a todo esse padecimento, Jesus nos dá a esperança da vida eterna.
+    <br><strong>Ave Maria, cheia de graça...</strong>
+    <p><strong>Glória ao Pai, ao Filho e ao Espírito Santo.
+Como era no princípio, agora e sempre.
+Amém.</strong><br>
+</p>
+<p><strong>Ó meu Jesus, perdoai-nos os nossos pecados,
+livrai-nos do fogo do inferno,
+levai as almas todas para o céu,
+socorrei principalmente as que mais precisarem da vossa misericórdia.</strong><br>
+</p>
+</p>
+</div>
+ <button class="next" onclick="nextSlide(this)">❯</button>
+  </details>
+
+<details class="mystery-toggle">
+    <summary>3º Mistério — Coroação de espinhos em Jesus</summary>
+    <div class="carousel">
+    <button class="prev" onclick="prevSlide(this)">❮</button>
+<div class="slide active">
+  <img src="images/dolorosos/23.jpg" alt="">
+  <p class="meditation">
+    Jesus é novamente humilhado: vestem-no com trajes de rei para zombar de sua realeza e colocam-lhe uma coroa de espinhos, que rasga sua cabeça, ferindo-O profundamente, mas o seu amor prevalece.
+    <br><strong>Pai nosso que estais no céu...</strong>
+  </p>
+</div>
+
+<div class="slide">
+  <img src="images/dolorosos/24.jpg" alt="">
+  <p class="meditation">
+    Jesus continua a ouvir blasfêmias e insultos por parte dos soldados.
+    <br><strong>Ave Maria, cheia de graça...</strong>
+  </p>
+</div>
+
+<div class="slide">
+  <img src="images/dolorosos/25.jpg" alt="">
+  <p class="meditation">
+    Eles retiram as vestes de Jesus e O revestem com um manto de púrpura, colocando-Lhe um cetro de cana e uma coroa de espinhos.
+    <br><strong>Ave Maria, cheia de graça...</strong>
+  </p>
+</div>
+
+<div class="slide">
+  <img src="images/dolorosos/26.jpg" alt="">
+  <p class="meditation">
+    A coroa, feita de espinhos grandes e pontiagudos, causa ferimentos profundos na cabeça de Cristo.
+    <br><strong>Ave Maria, cheia de graça...</strong>
+  </p>
+</div>
+
+<div class="slide">
+  <img src="images/dolorosos/27.jpg" alt="">
+  <p class="meditation">
+    Ela é cravada em sua cabeça com golpes violentos.
+    <br><strong>Ave Maria, cheia de graça...</strong>
+  </p>
+</div>
+
+<div class="slide">
+  <img src="images/dolorosos/28.jpg" alt="">
+  <p class="meditation">
+    Zombando d’Ele, dizem com ironia: “Salve, Rei dos Judeus!”.
+    <br><strong>Ave Maria, cheia de graça...</strong>
+  </p>
+</div>
+
+<div class="slide">
+  <img src="images/dolorosos/29.jpg" alt="">
+  <p class="meditation">
+    Jesus é apresentado ao povo, que grita: “Crucifica-o!”.
+    <br><strong>Ave Maria, cheia de graça...</strong>
+  </p>
+</div>
+
+<div class="slide">
+  <img src="images/dolorosos/30.jpg" alt="">
+  <p class="meditation">
+    Com dor, recordamos que o mundo continua a rejeitar Cristo até os dias de hoje.
+    <br><strong>Ave Maria, cheia de graça...</strong>
+  </p>
+</div>
+
+<div class="slide">
+  <img src="images/dolorosos/31.jpg" alt="">
+  <p class="meditation">
+    Eles cospem em Jesus, tomam o cetro de cana e O golpeiam com ele.
+    <br><strong>Ave Maria, cheia de graça...</strong>
+  </p>
+</div>
+
+<div class="slide">
+  <img src="images/dolorosos/32.jpg" alt="">
+  <p class="meditation">
+    Cristo aceita todas essas humilhações em profundo silêncio.
+    <br><strong>Ave Maria, cheia de graça...</strong>
+  </p>
+</div>
+
+<div class="slide">
+  <img src="images/dolorosos/33.jpg" alt="">
+  <p class="meditation">
+    Perguntemo-nos: temos nós força para carregar nossa cruz em silêncio, unidos a Cristo?
+    <br><strong>Ave Maria, cheia de graça...</strong>
+</p>
+<p><strong>Glória ao Pai, ao Filho e ao Espírito Santo.
+Como era no princípio, agora e sempre.
+Amém.</strong><br>
+</p>
+<p><strong>Ó meu Jesus, perdoai-nos os nossos pecados,
+livrai-nos do fogo do inferno,
+levai as almas todas para o céu,
+socorrei principalmente as que mais precisarem da vossa misericórdia.</strong><br>
+</p>
+</div>
+ <button class="next" onclick="nextSlide(this)">❯</button>
+  </details>
+
+
+<details class="mystery-toggle">
+    <summary>4º Mistério — Jesus carregando a cruz até o Calvário</summary>
+    <div class="carousel">
+    <button class="prev" onclick="prevSlide(this)">❮</button>
+<div class="slide active">
+  <img src="images/dolorosos/34.jpg" alt="">
+  <p class="meditation">
+    Contemplo Jesus indo para o Calvário com a Cruz nos ombros, carregando os pecados de toda a humanidade. Muito ferido, Ele caminha em silêncio, obedecendo ao Pai e oferecendo cada passo por amor. Em suas quedas, Jesus nos ensina que a salvação passa por aceitar a cruz com fé e união à vontade de Deus.
+    <br><strong>Pai nosso que estais no céu...</strong>
+  </p>
+</div>
+
+<div class="slide">
+  <img src="images/dolorosos/35.jpg" alt="">
+  <p class="meditation">
+    Jesus recebe a cruz de madeira e compreende que ela não é apenas um peso, mas o meio escolhido para salvar a humanidade.
+    <br><strong>Ave Maria, cheia de graça...</strong>
+  </p>
+</div>
+
+<div class="slide">
+  <img src="images/dolorosos/36.jpg" alt="">
+  <p class="meditation">
+    Ele mostra, na prática, seu ensinamento: tomar a cruz de cada dia e segui-Lo sem murmurações.
+    <br><strong>Ave Maria, cheia de graça...</strong>
+  </p>
+</div>
+
+<div class="slide">
+  <img src="images/dolorosos/37.jpg" alt="">
+  <p class="meditation">
+    Peçamos a Deus a graça de suportar nossas cruzes diárias, sem fugir delas.
+    <br><strong>Ave Maria, cheia de graça...</strong>
+  </p>
+</div>
+
+<div class="slide">
+  <img src="images/dolorosos/38.jpg" alt="">
+  <p class="meditation">
+    Sob o peso da cruz, Jesus cai por várias vezes, mas se levanta e segue firme para cumprir a missão de redimir os pecados do mundo.
+    <br><strong>Ave Maria, cheia de graça...</strong>
+  </p>
+</div>
+
+<div class="slide">
+  <img src="images/dolorosos/39.jpg" alt="">
+  <p class="meditation">
+    No caminho, Jesus encontra sua Mãe, e sua presença torna-se consolo no sofrimento.
+    <br><strong>Ave Maria, cheia de graça...</strong>
+  </p>
+</div>
+
+<div class="slide">
+  <img src="images/dolorosos/40.jpg" alt="">
+  <p class="meditation">
+    Contemplamos a dor da Mãe Santíssima ao ver seu Filho desfigurado, humilhado e aflito.
+    <br><strong>Ave Maria, cheia de graça...</strong>
+  </p>
+</div>
+
+<div class="slide">
+  <img src="images/dolorosos/41.jpg" alt="">
+  <p class="meditation">
+    Surge então um homem chamado Simão de Cirene, que ajuda Jesus a carregar a cruz, ensinando-nos que sozinhos nada podemos.
+    <br><strong>Ave Maria, cheia de graça...</strong>
+  </p>
+</div>
+
+<div class="slide">
+  <img src="images/dolorosos/42.jpg" alt="">
+  <p class="meditation">
+    Senhor, cura em nós o egoísmo e a prepotência.
+    <br><strong>Ave Maria, cheia de graça...</strong>
+  </p>
+</div>
+
+<div class="slide">
+  <img src="images/dolorosos/43.jpg" alt="">
+  <p class="meditation">
+    Jesus encontra um grupo de mulheres que choram por sua Paixão e as consola.
+    <br><strong>Ave Maria, cheia de graça...</strong>
+  </p>
+</div>
+
+<div class="slide">
+  <img src="images/dolorosos/44.jpg" alt="">
+  <p class="meditation">
+    Contemplamos a compaixão e o amor de Cristo pelo próximo, que, mesmo no auge do sofrimento, não deixa de cuidar dos outros.
+    <br><strong>Ave Maria, cheia de graça...</strong>
+ </p>
+ <p><strong>Glória ao Pai, ao Filho e ao Espírito Santo.
+Como era no princípio, agora e sempre.
+Amém.</strong><br>
+</p>
+<p><strong>Ó meu Jesus, perdoai-nos os nossos pecados,
+livrai-nos do fogo do inferno,
+levai as almas todas para o céu,
+socorrei principalmente as que mais precisarem da vossa misericórdia.</strong><br>
+</p>
+</div>
+ <button class="next" onclick="nextSlide(this)">❯</button>
+  </details>
+
+
+<details class="mystery-toggle">
+    <summary>5º Mistério — Crucificação de Jesus</summary>
+    <div class="carousel">
+    <button class="prev" onclick="prevSlide(this)">❮</button>
+<div class="slide active">
+  <img src="images/dolorosos/45.jpg" alt="">
+  <p class="meditation">
+    Jesus é elevado na Cruz, oferecendo livremente sua vida em sacrifício pela salvação dos pecadores. Pregado no madeiro, Ele assume até o fim o peso do pecado humano e manifesta o amor do Pai, que entrega o Filho para nos reconciliar consigo.
+    <br><strong>Pai nosso que estais no céu...</strong>
+  </p>
+</div>
+
+<div class="slide">
+  <img src="images/dolorosos/46.jpg" alt="">
+  <p class="meditation">
+    Jesus, totalmente desfigurado e coberto de chagas, chega ao Calvário e aceita a crucificação por amor a nós.
+    <br><strong>Ave Maria, cheia de graça...</strong>
+  </p>
+</div>
+
+<div class="slide">
+  <img src="images/dolorosos/47.jpg" alt="">
+  <p class="meditation">
+    Após inúmeras humilhações e violências, Jesus é despojado de suas vestes; pregam-Lhe as mãos e os pés, e a cruz é erguida.
+    <br><strong>Ave Maria, cheia de graça...</strong>
+  </p>
+</div>
+
+<div class="slide">
+  <img src="images/dolorosos/48.jpg" alt="">
+  <p class="meditation">
+    Ao seu lado estão dois ladrões: um rejeita sua divindade, enquanto o outro reconhece seus pecados e confia na misericórdia de Cristo.
+    <br><strong>Ave Maria, cheia de graça...</strong>
+  </p>
+</div>
+
+<div class="slide">
+  <img src="images/dolorosos/49.jpg" alt="">
+  <p class="meditation">
+    Sigamos o exemplo do bom ladrão e jamais duvidemos da misericórdia divina.
+    <br><strong>Ave Maria, cheia de graça...</strong>
+  </p>
+</div>
+
+<div class="slide">
+  <img src="images/dolorosos/50.jpg" alt="">
+  <p class="meditation">
+    Aos pés da cruz, Jesus entrega Maria como Mãe ao discípulo amado, João.
+    <br><strong>Ave Maria, cheia de graça...</strong>
+  </p>
+</div>
+
+<div class="slide">
+  <img src="images/dolorosos/51.jpg" alt="">
+  <p class="meditation">
+    Contemplamos a bondade infinita de Cristo, que nos dá a graça de acolher a Santíssima Virgem como nossa Mãe.
+    <br><strong>Ave Maria, cheia de graça...</strong>
+  </p>
+</div>
+
+<div class="slide">
+  <img src="images/dolorosos/52.jpg" alt="">
+  <p class="meditation">
+    Jesus manifesta sua sede, e os soldados lhe oferecem vinagre, cumprindo a profecia anunciada nos Salmos.
+    <br><strong>Ave Maria, cheia de graça...</strong>
+  </p>
+</div>
+
+<div class="slide">
+  <img src="images/dolorosos/53.jpg" alt="">
+  <p class="meditation">
+    A sede de Jesus não é apenas física, mas sede de amor pelas almas, sede de cada um de nós.
+    <br><strong>Ave Maria, cheia de graça...</strong>
+  </p>
+</div>
+
+<div class="slide">
+  <img src="images/dolorosos/54.jpg" alt="">
+  <p class="meditation">
+    Peçamos a graça de ter essa mesma sede de salvar almas, rezando pela conversão dos pecadores.
+    <br><strong>Ave Maria, cheia de graça...</strong>
+  </p>
+</div>
+
+<div class="slide">
+  <img src="images/dolorosos/55.jpg" alt="">
+  <p class="meditation">
+    Por fim, Jesus entrega sua vida e expia por todos nós, para nos salvar.
+    <br><strong>Ave Maria, cheia de graça...</strong>
+  </p>
+  <p><strong>Glória ao Pai, ao Filho e ao Espírito Santo.
+Como era no princípio, agora e sempre.
+Amém.</strong><br>
+</p>
+<p><strong>Ó meu Jesus, perdoai-nos os nossos pecados,
+livrai-nos do fogo do inferno,
+levai as almas todas para o céu,
+socorrei principalmente as que mais precisarem da vossa misericórdia.</strong><br>
+</p>
+</div>
+ <button class="next" onclick="nextSlide(this)">❯</button>
+  </details>
+  </p>
+</div>
+</div>
+</section>
+</details>
+</section>
+<!-- MISTÉRIOS GLORIOSOS -->
+<details class="main-toggle">
+  <summary>Mistérios Gloriosos</summary>
+  <details class="mystery-toggle">
+    <summary>1º Mistério — A ressurreição de Jesus Cristo</summary>
+
+    <div class="carousel">
+    <button class="prev" onclick="prevSlide(this)">❮</button>
+<div class="slide active">
+  <img src="images/gloriosos/0.jpg" alt="">
+  <p class="meditation">
+    O sepulcro é encontrado vazio e a morte já não tem poder sobre Cristo. Jesus ressuscita glorioso, confirmando sua vitória definitiva sobre o pecado e abrindo à humanidade o caminho da vida eterna.
+    <br><strong>Pai nosso que estais no céu...</strong>
+  </p>
+</div>
+
+<div class="slide">
+  <img src="images/gloriosos/1.jpg" alt="">
+  <p class="meditation">
+    Maria Madalena vai ao sepulcro de Jesus e vê que a pedra havia sido retirada.
+    <br><strong>Ave Maria, cheia de graça...</strong>
+  </p>
+</div>
+
+<div class="slide">
+  <img src="images/gloriosos/2.jpg" alt="">
+  <p class="meditation">
+    Cristo venceu a morte, o pecado e ressuscitou glorioso.
+    <br><strong>Ave Maria, cheia de graça...</strong>
+  </p>
+</div>
+
+<div class="slide">
+  <img src="images/gloriosos/3.jpg" alt="">
+  <p class="meditation">
+    Jesus aparece aos apóstolos, mas eles não O reconhecem de imediato.
+    <br><strong>Ave Maria, cheia de graça...</strong>
+  </p>
+</div>
+
+<div class="slide">
+  <img src="images/gloriosos/4.jpg" alt="">
+  <p class="meditation">
+    Somente quando Jesus a chama pelo nome, Maria Madalena reconhece que é o Mestre.
+    <br><strong>Ave Maria, cheia de graça...</strong>
+  </p>
+</div>
+
+<div class="slide">
+  <img src="images/gloriosos/5.jpg" alt="">
+  <p class="meditation">
+    Jesus também aparece aos discípulos no caminho de Emaús, que passam o dia inteiro com Ele.
+    <br><strong>Ave Maria, cheia de graça...</strong>
+  </p>
+</div>
+
+<div class="slide">
+  <img src="images/gloriosos/6.jpg" alt="">
+  <p class="meditation">
+    Apenas no partir do pão reconhecem que era o Senhor.
+    <br><strong>Ave Maria, cheia de graça...</strong>
+  </p>
+</div>
+
+<div class="slide">
+  <img src="images/gloriosos/7.jpg" alt="">
+  <p class="meditation">
+    Quantas vezes Jesus já falou comigo e eu não O reconheci?
+    <br><strong>Ave Maria, cheia de graça...</strong>
+  </p>
+</div>
+
+<div class="slide">
+  <img src="images/gloriosos/8.jpg" alt="">
+  <p class="meditation">
+    Jesus aparece aos seus apóstolos, e toda a tristeza pela sua morte transforma-se em alegria.
+    <br><strong>Ave Maria, cheia de graça...</strong>
+  </p>
+</div>
+
+<div class="slide">
+  <img src="images/gloriosos/9.jpg" alt="">
+  <p class="meditation">
+    Cristo sopra sobre eles o Espírito Santo e lhes concede o poder de perdoar os pecados.
+    <br><strong>Ave Maria, cheia de graça...</strong>
+  </p>
+</div>
+
+<div class="slide">
+  <img src="images/gloriosos/10.jpg" alt="">
+  <p class="meditation">
+    Tomé não crê até tocar nas chagas de Jesus; felizes os que creram sem ver. Senhor, aumenta a minha fé.
+    <br><strong>Ave Maria, cheia de graça...</strong>
+  </p>
+  <p><strong>Glória ao Pai, ao Filho e ao Espírito Santo.
+Como era no princípio, agora e sempre.
+Amém.</strong><br>
+</p>
+<p><strong>Ó meu Jesus, perdoai-nos os nossos pecados,
+livrai-nos do fogo do inferno,
+levai as almas todas para o céu,
+socorrei principalmente as que mais precisarem da vossa misericórdia.</strong><br>
+</p>
+</div>
+ <button class="next" onclick="nextSlide(this)">❯</button>
+  </details>
+
+
+<details class="mystery-toggle">
+    <summary>2º Mistério — Assunção de Jesus aos céus</summary>
+    <div class="carousel">
+    <button class="prev" onclick="prevSlide(this)">❮</button>
+<div class="slide active">
+  <img src="images/gloriosos/11.jpg" alt="">
+  <p class="meditation">
+    Após cumprir sua missão redentora e manifestar-se ressuscitado aos discípulos, Jesus sobe aos céus diante deles, passando agora a sentar ao lado direito de Deus Pai governando todas as coisas celestes e terrenas.
+    <br><strong>Pai nosso que estais no céu...</strong>
+  </p>
+</div>
+
+<div class="slide">
+  <img src="images/gloriosos/12.jpg" alt="">
+  <p class="meditation">
+    Jesus ressuscitado aparece pela última vez no meio de seus discípulos.
+    <br><strong>Ave Maria, cheia de graça...</strong>
+  </p>
+</div>
+
+<div class="slide">
+  <img src="images/gloriosos/13.jpg" alt="">
+  <p class="meditation">
+    Ordena que permaneçam na cidade, pois enviará o Espírito Santo prometido.
+    <br><strong>Ave Maria, cheia de graça...</strong>
+  </p>
+</div>
+
+<div class="slide">
+  <img src="images/gloriosos/14.jpg" alt="">
+  <p class="meditation">
+    Ele os abençoa e, despedindo-Se, começa a elevar-Se aos céus.
+    <br><strong>Ave Maria, cheia de graça...</strong>
+  </p>
+</div>
+
+<div class="slide">
+  <img src="images/gloriosos/15.jpg" alt="">
+  <p class="meditation">
+    Todos se maravilham ao contemplar a subida gloriosa do Redentor.
+    <br><strong>Ave Maria, cheia de graça...</strong>
+  </p>
+</div>
+
+<div class="slide">
+  <img src="images/gloriosos/16.jpg" alt="">
+  <p class="meditation">
+    Os discípulos aprendem a elevar seus olhos e seus corações para as coisas do alto.
+    <br><strong>Ave Maria, cheia de graça...</strong>
+  </p>
+</div>
+
+<div class="slide">
+  <img src="images/gloriosos/17.jpg" alt="">
+  <p class="meditation">
+    Maria Santíssima, após tantos sofrimentos, contempla com alegria a glorificação de seu Filho.
+    <br><strong>Ave Maria, cheia de graça...</strong>
+  </p>
+</div>
+
+<div class="slide">
+  <img src="images/gloriosos/18.jpg" alt="">
+  <p class="meditation">
+    Uma multidão de anjos acompanha Cristo em sua subida aos céus.
+    <br><strong>Ave Maria, cheia de graça...</strong>
+  </p>
+</div>
+
+<div class="slide">
+  <img src="images/gloriosos/19.jpg" alt="">
+  <p class="meditation">
+    Jesus retorna ao seu Reino eterno, junto do Pai.
+    <br><strong>Ave Maria, cheia de graça...</strong>
+  </p>
+</div>
+
+<div class="slide">
+  <img src="images/gloriosos/20.jpg" alt="">
+  <p class="meditation">
+    Deus Pai O coloca à sua direita para governar o céu e a terra.
+    <br><strong>Ave Maria, cheia de graça...</strong>
+  </p>
+</div>
+
+<div class="slide">
+  <img src="images/gloriosos/21.jpg" alt="">
+  <p class="meditation">
+    Contemplamos a glória de Cristo e pedimos a graça de alcançar a vida eterna.
+    <br><strong>Ave Maria, cheia de graça...</strong>
+  </p>
+  <p><strong>Glória ao Pai, ao Filho e ao Espírito Santo.
+Como era no princípio, agora e sempre.
+Amém.</strong><br>
+</p>
+<p><strong>Ó meu Jesus, perdoai-nos os nossos pecados,
+livrai-nos do fogo do inferno,
+levai as almas todas para o céu,
+socorrei principalmente as que mais precisarem da vossa misericórdia.</strong><br>
+</p>
+</div>
+ <button class="next" onclick="nextSlide(this)">❯</button>
+  </details>
+
+
+<details class="mystery-toggle">
+    <summary>3º Mistério — Vinda do Espírito Santo em Pentecostes</summary>
+    <div class="carousel">
+    <button class="prev" onclick="prevSlide(this)">❮</button>
+<div class="slide active">
+  <img src="images/gloriosos/22.jpg" alt="">
+  <p class="meditation">
+    Reunidos no Cenáculo com Maria, os Apóstolos perseveram em oração quando o Espírito Santo desce sobre eles em forma de línguas de fogo. Aquele mesmo Espírito prometido por Cristo fortalece os discípulos e dá início à missão da Igreja no mundo.
+    <br><strong>Pai nosso que estais no céu...</strong>
+  </p>
+</div>
+
+<div class="slide">
+  <img src="images/gloriosos/23.jpg" alt="">
+  <p class="meditation">
+    Os discípulos sobem ao Cenáculo para aguardar a promessa que Jesus fez de enviar o Espírito Santo.
+    <br><strong>Ave Maria, cheia de graça...</strong>
+  </p>
+</div>
+
+<div class="slide">
+  <img src="images/gloriosos/24.jpg" alt="">
+  <p class="meditation">
+    Eles perseveram unidos em profunda oração.
+    <br><strong>Ave Maria, cheia de graça...</strong>
+  </p>
+</div>
+
+<div class="slide">
+  <img src="images/gloriosos/25.jpg" alt="">
+  <p class="meditation">
+    Maria Santíssima está entre os discípulos, guiando-os na oração.
+    <br><strong>Ave Maria, cheia de graça...</strong>
+  </p>
+</div>
+
+<div class="slide">
+  <img src="images/gloriosos/26.jpg" alt="">
+  <p class="meditation">
+    Após um estrondo vindo do céu, aparece o Espírito Santo repartido como línguas de fogo.
+    <br><strong>Ave Maria, cheia de graça...</strong>
+  </p>
+</div>
+
+<div class="slide">
+  <img src="images/gloriosos/27.jpg" alt="">
+  <p class="meditation">
+    Ele pousa sobre cada um dos presentes, e todos ficam cheios do Espírito Santo.
+    <br><strong>Ave Maria, cheia de graça...</strong>
+  </p>
+</div>
+
+<div class="slide">
+  <img src="images/gloriosos/28.jpg" alt="">
+  <p class="meditation">
+    Os Apóstolos começam a anunciar o Evangelho de Jesus a pessoas de diversas regiões, e todos os compreendem.
+    <br><strong>Ave Maria, cheia de graça...</strong>
+  </p>
+</div>
+
+<div class="slide">
+  <img src="images/gloriosos/29.jpg" alt="">
+  <p class="meditation">
+    Cada um ouve as maravilhas de Deus em sua própria língua.
+    <br><strong>Ave Maria, cheia de graça...</strong>
+  </p>
+</div>
+
+<div class="slide">
+  <img src="images/gloriosos/30.jpg" alt="">
+  <p class="meditation">
+    Milhares de pessoas se convertem ao escutar a pregação dos discípulos.
+    <br><strong>Ave Maria, cheia de graça...</strong>
+  </p>
+</div>
+
+<div class="slide">
+  <img src="images/gloriosos/31.jpg" alt="">
+  <p class="meditation">
+    A Virgem Maria alegra-se ao ver a Palavra de seu Filho sendo anunciada a muitas nações.
+    <br><strong>Ave Maria, cheia de graça...</strong>
+  </p>
+</div>
+
+<div class="slide">
+  <img src="images/gloriosos/32.jpg" alt="">
+  <p class="meditation">
+    Que nós também sejamos anunciadores do Evangelho de Cristo.
+    <br><strong>Ave Maria, cheia de graça...</strong>
+  </p>
+  <p><strong>Glória ao Pai, ao Filho e ao Espírito Santo.
+Como era no princípio, agora e sempre.
+Amém.</strong><br>
+</p>
+<p><strong>Ó meu Jesus, perdoai-nos os nossos pecados,
+livrai-nos do fogo do inferno,
+levai as almas todas para o céu,
+socorrei principalmente as que mais precisarem da vossa misericórdia.</strong><br>
+</p>
+</div>
+ <button class="next" onclick="nextSlide(this)">❯</button>
+  </details>
+
+
+<details class="mystery-toggle">
+    <summary>4º Mistério — Assunção de Maria aos céus</summary>
+    <div class="carousel">
+    <button class="prev" onclick="prevSlide(this)">❮</button>
+<div class="slide active">
+  <img src="images/gloriosos/33.jpg" alt="">
+  <p class="meditation">
+    Concluída sua vida terrena, a Virgem Maria é elevada ao Céu em corpo e alma, como fruto singular da redenção de Cristo. Na Assunção, Deus glorifica aquela que foi fiel desde a concepção do Verbo até o fim.
+    <br><strong>Pai nosso que estais no céu...</strong>
+  </p>
+</div>
+
+<div class="slide">
+  <img src="images/gloriosos/34.jpg" alt="">
+  <p class="meditation">
+    Todos os Apóstolos se reúnem na casa de Maria, que se encontra enferma em seu leito.
+    <br><strong>Ave Maria, cheia de graça...</strong>
+  </p>
+</div>
+
+<div class="slide">
+  <img src="images/gloriosos/35.jpg" alt="">
+  <p class="meditation">
+    A Virgem Imaculada, preservada do pecado original, entrega seu último suspiro ao Senhor.
+    <br><strong>Ave Maria, cheia de graça...</strong>
+  </p>
+</div>
+
+<div class="slide">
+  <img src="images/gloriosos/36.jpg" alt="">
+  <p class="meditation">
+    Após uma vida inteira dedicada ao serviço divino, Maria é elevada aos Céus em corpo e alma.
+    <br><strong>Ave Maria, cheia de graça...</strong>
+  </p>
+</div>
+
+<div class="slide">
+  <img src="images/gloriosos/37.jpg" alt="">
+  <p class="meditation">
+    Todo o amor e cuidado de Maria para com seu Filho são recompensados com sua gloriosa Assunção.
+    <br><strong>Ave Maria, cheia de graça...</strong>
+  </p>
+</div>
+
+<div class="slide">
+  <img src="images/gloriosos/38.jpg" alt="">
+  <p class="meditation">
+    Deus exalta sua serva fiel e a constitui Rainha.
+    <br><strong>Ave Maria, cheia de graça...</strong>
+  </p>
+</div>
+
+<div class="slide">
+  <img src="images/gloriosos/39.jpg" alt="">
+  <p class="meditation">
+    A Mãe Santíssima alcança plenamente a fonte da vida eterna.
+    <br><strong>Ave Maria, cheia de graça...</strong>
+  </p>
+</div>
+
+<div class="slide">
+  <img src="images/gloriosos/40.jpg" alt="">
+  <p class="meditation">
+    Aquela que concebeu o Deus vivo continua a interceder para livrar nossas almas da morte eterna.
+    <br><strong>Ave Maria, cheia de graça...</strong>
+  </p>
+</div>
+
+<div class="slide">
+  <img src="images/gloriosos/41.jpg" alt="">
+  <p class="meditation">
+    Maria é nossa Mãe na ordem da graça, pois cooperou de modo singular na redenção da humanidade.
+    <br><strong>Ave Maria, cheia de graça...</strong>
+  </p>
+</div>
+
+<div class="slide">
+  <img src="images/gloriosos/42.jpg" alt="">
+  <p class="meditation">
+    A Virgem Maria torna-se modelo perfeito de fé e caridade.
+    <br><strong>Ave Maria, cheia de graça...</strong>
+  </p>
+</div>
+
+<div class="slide">
+  <img src="images/gloriosos/43.jpg" alt="">
+  <p class="meditation">
+    Ó Santíssima Virgem Maria, vós que sois a porta do Céu, rogai por nós!
+    <br><strong>Ave Maria, cheia de graça...</strong>
+  </p>
+  <p><strong>Glória ao Pai, ao Filho e ao Espírito Santo.
+Como era no princípio, agora e sempre.
+Amém.</strong><br>
+</p>
+<p><strong>Ó meu Jesus, perdoai-nos os nossos pecados,
+livrai-nos do fogo do inferno,
+levai as almas todas para o céu,
+socorrei principalmente as que mais precisarem da vossa misericórdia.</strong><br>
+</p>
+</div>
+ <button class="next" onclick="nextSlide(this)">❯</button>
+  </details>
+
+
+<details class="mystery-toggle">
+    <summary>5º Mistério — Coroação de Nossa Senhora</summary>
+    <div class="carousel">
+    <button class="prev" onclick="prevSlide(this)">❮</button>
+<div class="slide active">
+  <img src="images/gloriosos/44.jpg" alt="">
+  <p class="meditation">
+    No Céu, Maria é coroada Rainha, não por poder humano, mas por sua total união com Cristo, Rei do universo. Aquela que foi humilde serva na terra é exaltada na glória, intercedendo por todos os seus filhos.
+    <br><strong>Pai nosso que estais no céu...</strong>
+  </p>
+</div>
+
+<div class="slide">
+  <img src="images/gloriosos/45.jpg" alt="">
+  <p class="meditation">
+    Aquela que foi serva na terra é agora exaltada como Rainha no Céu.
+    <br><strong>Ave Maria, cheia de graça...</strong>
+  </p>
+</div>
+
+<div class="slide">
+  <img src="images/gloriosos/46.jpg" alt="">
+  <p class="meditation">
+    Por sua humildade, pureza, fidelidade e cooperação na obra da redenção, Maria é coroada Rainha do Céu e da Terra.
+    <br><strong>Ave Maria, cheia de graça...</strong>
+  </p>
+</div>
+
+<div class="slide">
+  <img src="images/gloriosos/47.jpg" alt="">
+  <p class="meditation">
+    Sua maternidade divina permanece gloriosa nos Céus, e todos os anjos se submetem à sua realeza.
+    <br><strong>Ave Maria, cheia de graça...</strong>
+  </p>
+</div>
+
+<div class="slide">
+  <img src="images/gloriosos/48.jpg" alt="">
+  <p class="meditation">
+    Mesmo elevada à glória celeste, Maria não abandona sua missão maternal e salvadora.
+    <br><strong>Ave Maria, cheia de graça...</strong>
+  </p>
+</div>
+
+<div class="slide">
+  <img src="images/gloriosos/49.jpg" alt="">
+  <p class="meditation">
+    Por desígnio de Deus, é por meio de Nossa Senhora que nos chegam as graças da salvação, que é o próprio Jesus Cristo.
+    <br><strong>Ave Maria, cheia de graça...</strong>
+  </p>
+</div>
+
+<div class="slide">
+  <img src="images/gloriosos/50.jpg" alt="">
+  <p class="meditation">
+    Ela continua a interceder por nós para alcançarmos os dons da vida eterna.
+    <br><strong>Ave Maria, cheia de graça...</strong>
+  </p>
+</div>
+
+<div class="slide">
+  <img src="images/gloriosos/51.jpg" alt="">
+  <p class="meditation">
+    Maria, nossa Mãe, torna-se o caminho mais seguro para nos conduzir a Jesus Cristo.
+    <br><strong>Ave Maria, cheia de graça...</strong>
+  </p>
+</div>
+
+<div class="slide">
+  <img src="images/gloriosos/52.jpg" alt="">
+  <p class="meditation">
+    Nossa devoção a Ela nos faz crescer nas virtudes e no amor ao seu Filho.
+    <br><strong>Ave Maria, cheia de graça...</strong>
+  </p>
+</div>
+
+<div class="slide">
+  <img src="images/gloriosos/53.jpg" alt="">
+  <p class="meditation">
+    Quanto mais amamos Maria, mais profundamente amamos Jesus.
+    <br><strong>Ave Maria, cheia de graça...</strong>
+  </p>
+</div>
+
+<div class="slide">
+  <img src="images/gloriosos/54.jpg" alt="">
+  <p class="meditation">
+    Ofereço meu coração ao Céu, desejando um dia estar com Maria e Jesus na glória eterna.
+    <br><strong>Ave Maria, cheia de graça...</strong>
+    <p><strong>Glória ao Pai, ao Filho e ao Espírito Santo.
+Como era no princípio, agora e sempre.
+Amém.</strong><br>
+</p>
+<p><strong>Ó meu Jesus, perdoai-nos os nossos pecados,
+livrai-nos do fogo do inferno,
+levai as almas todas para o céu,
+socorrei principalmente as que mais precisarem da vossa misericórdia.</strong><br>
+</p>
+  </p>
+</div>
+ <button class="next" onclick="nextSlide(this)">❯</button>
+  </details>
+  </p>
+</div>
+</div>
+</section>
+</details>
+</section>
+<!-- MISTÉRIOS LUMINOSOS -->
+<details class="main-toggle">
+  <summary>Mistérios Luminosos (Opcional)</summary>
+  <details class="mystery-toggle">
+    <summary>1º Mistério — O Batismo de Jesus Cristo</summary>
+
+    <div class="carousel">
+    <button class="prev" onclick="prevSlide(this)">❮</button>
+<div class="slide active">
+  <img src="images/luminosos/0.jpg" alt="">
+  <p class="meditation">
+    Jesus desce às águas do Jordão para ser batizado por João, embora não tenha pecado, manifestando sua obediência ao Pai e sua misericórdia com os pecadores.
+    <br><strong>Pai nosso que estais no céu...</strong>
+  </p>
+</div>
+
+<div class="slide">
+  <img src="images/luminosos/1.jpg" alt="">
+  <p class="meditation">
+    João Batista anuncia no deserto da Judeia: “O Reino dos Céus está próximo”.
+    <br><strong>Ave Maria, cheia de graça...</strong>
+  </p>
+</div>
+
+<div class="slide">
+  <img src="images/luminosos/2.jpg" alt="">
+  <p class="meditation">
+    Ele batiza no rio Jordão aqueles que vão até ele, confessando seus pecados.
+    <br><strong>Ave Maria, cheia de graça...</strong>
+  </p>
+</div>
+
+<div class="slide">
+  <img src="images/luminosos/3.jpg" alt="">
+  <p class="meditation">
+    João Batista prepara o caminho para a vinda do Salvador.
+    <br><strong>Ave Maria, cheia de graça...</strong>
+  </p>
+</div>
+
+<div class="slide">
+  <img src="images/luminosos/4.jpg" alt="">
+  <p class="meditation">
+    Ele anuncia que virá alguém mais poderoso, que batizará no Espírito Santo e no fogo.
+    <br><strong>Ave Maria, cheia de graça...</strong>
+  </p>
+</div>
+
+<div class="slide">
+  <img src="images/luminosos/5.jpg" alt="">
+  <p class="meditation">
+    O Filho de Deus, em profunda humildade, pede para ser batizado por João Batista.
+    <br><strong>Ave Maria, cheia de graça...</strong>
+  </p>
+</div>
+
+<div class="slide">
+  <img src="images/luminosos/6.jpg" alt="">
+  <p class="meditation">
+    Cristo entra nas águas do Jordão por amor aos pecadores.
+    <br><strong>Ave Maria, cheia de graça...</strong>
+  </p>
+</div>
+
+<div class="slide">
+  <img src="images/luminosos/7.jpg" alt="">
+  <p class="meditation">
+    O Céu se abre, e o Espírito Santo desce sobre Jesus em forma de pomba.
+    <br><strong>Ave Maria, cheia de graça...</strong>
+  </p>
+</div>
+
+<div class="slide">
+  <img src="images/luminosos/8.jpg" alt="">
+  <p class="meditation">
+    Deus Pai proclama: “Este é o meu Filho amado, em quem pus todo o meu agrado”.
+    <br><strong>Ave Maria, cheia de graça...</strong>
+  </p>
+</div>
+
+<div class="slide">
+  <img src="images/luminosos/9.jpg" alt="">
+  <p class="meditation">
+    Contemplamos a glória da Santíssima Trindade manifestada no Batismo de Jesus.
+    <br><strong>Ave Maria, cheia de graça...</strong>
+  </p>
+</div>
+
+<div class="slide">
+  <img src="images/luminosos/10.jpg" alt="">
+  <p class="meditation">
+    Renovemos as promessas do nosso Batismo, renunciando ao pecado e professando nossa fé.
+    <br><strong>Ave Maria, cheia de graça...</strong>
+   </p>
+   <p><strong>Glória ao Pai, ao Filho e ao Espírito Santo.
+Como era no princípio, agora e sempre.
+Amém.</strong><br>
+</p>
+<p><strong>Ó meu Jesus, perdoai-nos os nossos pecados,
+livrai-nos do fogo do inferno,
+levai as almas todas para o céu,
+socorrei principalmente as que mais precisarem da vossa misericórdia.</strong><br>
+</p>
+</div>
+ <button class="next" onclick="nextSlide(this)">❯</button>
+  </details>
+
+
+<details class="mystery-toggle">
+    <summary>2º Mistério — Primeiro milagre das Bodas de Caná</summary>
+    <div class="carousel">
+    <button class="prev" onclick="prevSlide(this)">❮</button>
+<div class="slide active">
+  <img src="images/luminosos/11.jpg" alt="">
+  <p class="meditation">
+    Nas bodas de Caná, Jesus realiza seu primeiro sinal a pedido de Maria, transformando a água em vinho e manifestando sua glória. Este milagre revela o poder de Cristo sobre a criação e a intercessão materna de Nossa Senhora, que confia plenamente no Filho e nos ensina a obedecer.
+    <br><strong>Pai nosso que estais no céu...</strong>
+  </p>
+</div>
+
+<div class="slide">
+  <img src="images/luminosos/12.jpg" alt="">
+  <p class="meditation">
+    Jesus e seus discípulos vão a um casamento em Caná da Galileia.
+    <br><strong>Ave Maria, cheia de graça...</strong>
+  </p>
+</div>
+
+<div class="slide">
+  <img src="images/luminosos/13.jpg" alt="">
+  <p class="meditation">
+    A Mãe Santíssima também está presente naquela celebração.
+    <br><strong>Ave Maria, cheia de graça...</strong>
+  </p>
+</div>
+
+<div class="slide">
+  <img src="images/luminosos/14.jpg" alt="">
+  <p class="meditation">
+    O vinho acaba, e Maria recorre ao seu Filho.
+    <br><strong>Ave Maria, cheia de graça...</strong>
+  </p>
+</div>
+
+<div class="slide">
+  <img src="images/luminosos/15.jpg" alt="">
+  <p class="meditation">
+    Jesus responde que sua hora ainda não chegou.
+    <br><strong>Ave Maria, cheia de graça...</strong>
+  </p>
+</div>
+
+<div class="slide">
+  <img src="images/luminosos/16.jpg" alt="">
+  <p class="meditation">
+    Maria diz aos servos: “Fazei tudo o que Ele vos disser”.
+    <br><strong>Ave Maria, cheia de graça...</strong>
+  </p>
+</div>
+
+<div class="slide">
+  <img src="images/luminosos/17.jpg" alt="">
+  <p class="meditation">
+    Contemplamos a primeira intercessão registrada da Virgem Maria.
+    <br><strong>Ave Maria, cheia de graça...</strong>
+  </p>
+</div>
+
+<div class="slide">
+  <img src="images/luminosos/18.jpg" alt="">
+  <p class="meditation">
+    Como é consolador ter uma Mãe que intercede e advoga por nós.
+    <br><strong>Ave Maria, cheia de graça...</strong>
+  </p>
+</div>
+
+<div class="slide">
+  <img src="images/luminosos/19.jpg" alt="">
+  <p class="meditation">
+    Os servos obedecem às ordens de Jesus, e Ele transforma a água em vinho.
+    <br><strong>Ave Maria, cheia de graça...</strong>
+  </p>
+</div>
+
+<div class="slide">
+  <img src="images/luminosos/20.jpg" alt="">
+  <p class="meditation">
+    Assim, Jesus manifesta sua glória, e seus discípulos crescem na fé.
+    <br><strong>Ave Maria, cheia de graça...</strong>
+  </p>
+</div>
+
+<div class="slide">
+  <img src="images/luminosos/21.jpg" alt="">
+  <p class="meditation">
+    Quando fazemos com docilidade tudo o que Cristo nos ordena, recebemos as graças pedidas na oração.
+    <br><strong>Ave Maria, cheia de graça...</strong>
+  </p>
+  <p><strong>Glória ao Pai, ao Filho e ao Espírito Santo.
+Como era no princípio, agora e sempre.
+Amém.</strong><br>
+</p>
+<p><strong>Ó meu Jesus, perdoai-nos os nossos pecados,
+livrai-nos do fogo do inferno,
+levai as almas todas para o céu,
+socorrei principalmente as que mais precisarem da vossa misericórdia.</strong><br>
+</p>
+</div>
+ <button class="next" onclick="nextSlide(this)">❯</button>
+  </details>
+
+
+<details class="mystery-toggle">
+    <summary>3º Mistério — Anuncio do Reino dos Céus</summary>
+    <div class="carousel">
+    <button class="prev" onclick="prevSlide(this)">❮</button>
+<div class="slide active">
+  <img src="images/luminosos/22.jpg" alt="">
+  <p class="meditation">
+    O Reino de Deus pertence a todos: aos pobres, aos pequenos, aos humildes de coração e a todos os que acolhem a mensagem do Evangelho. Ao anunciar o Reino, Jesus chama à conversão, convida à confiança e envia seus discípulos a testemunhar a Boa-Nova sem medo.
+    <br><strong>Pai nosso que estais no céu...</strong>
+  </p>
+</div>
+
+<div class="slide">
+  <img src="images/luminosos/23.jpg" alt="">
+  <p class="meditation">
+    Em suas pregações, Jesus anuncia constantemente que o Reino dos Céus está próximo.
+    <br><strong>Ave Maria, cheia de graça...</strong>
+  </p>
+</div>
+
+<div class="slide">
+  <img src="images/luminosos/24.jpg" alt="">
+  <p class="meditation">
+    O Reino do qual Jesus fala não é deste mundo, mas um Reino eterno.
+    <br><strong>Ave Maria, cheia de graça...</strong>
+  </p>
+</div>
+
+<div class="slide">
+  <img src="images/luminosos/25.jpg" alt="">
+  <p class="meditation">
+    Ele inaugura esse Reino por meio de sua vida, morte e ressurreição.
+    <br><strong>Ave Maria, cheia de graça...</strong>
+  </p>
+</div>
+
+<div class="slide">
+  <img src="images/luminosos/26.jpg" alt="">
+  <p class="meditation">
+    Por meio de seus milagres, Jesus encanta as multidões e fortalece a fé dos que O seguem.
+    <br><strong>Ave Maria, cheia de graça...</strong>
+  </p>
+</div>
+
+<div class="slide">
+  <img src="images/luminosos/27.jpg" alt="">
+  <p class="meditation">
+    A Santa Igreja Católica é a continuação da missão de Cristo, sendo instrumento do anúncio do Reino e da catequese dos fiéis.
+    <br><strong>Ave Maria, cheia de graça...</strong>
+  </p>
+</div>
+
+<div class="slide">
+  <img src="images/luminosos/28.jpg" alt="">
+  <p class="meditation">
+    Confiemos plenamente nesse anúncio e preparemo-nos, renunciando ao pecado e entrando na barca de Jesus.
+    <br><strong>Ave Maria, cheia de graça...</strong>
+  </p>
+</div>
+
+<div class="slide">
+  <img src="images/luminosos/29.jpg" alt="">
+  <p class="meditation">
+    Peço a Jesus a coragem para nos lançarmos como ovelhas no meio dos lobos.
+    <br><strong>Ave Maria, cheia de graça...</strong>
+  </p>
+</div>
+
+<div class="slide">
+  <img src="images/luminosos/30.jpg" alt="">
+  <p class="meditation">
+    Que, mesmo em meio às perseguições, eu jamais cesse de orar e de anunciar Cristo.
+    <br><strong>Ave Maria, cheia de graça...</strong>
+  </p>
+</div>
+
+<div class="slide">
+  <img src="images/luminosos/31.jpg" alt="">
+  <p class="meditation">
+    Senhor, aumenta a minha fé para que eu possa atravessar as provações.
+    <br><strong>Ave Maria, cheia de graça...</strong>
+  </p>
+</div>
+
+<div class="slide">
+  <img src="images/luminosos/32.jpg" alt="">
+  <p class="meditation">
+    Concede-me o desapego, Senhor, para que meus olhos estejam voltados para as coisas do teu Reino.
+    <br><strong>Ave Maria, cheia de graça...</strong>
+  </p>
+  <p><strong>Glória ao Pai, ao Filho e ao Espírito Santo.
+Como era no princípio, agora e sempre.
+Amém.</strong><br>
+</p>
+<p><strong>Ó meu Jesus, perdoai-nos os nossos pecados,
+livrai-nos do fogo do inferno,
+levai as almas todas para o céu,
+socorrei principalmente as que mais precisarem da vossa misericórdia.</strong><br>
+</p>
+</div>
+ <button class="next" onclick="nextSlide(this)">❯</button>
+  </details>
+
+
+<details class="mystery-toggle">
+    <summary>4º Mistério — Transfiguração de Jesus</summary>
+    <div class="carousel">
+    <button class="prev" onclick="prevSlide(this)">❮</button>
+<div class="slide active">
+  <img src="images/luminosos/33.jpg" alt="">
+  <p class="meditation">
+    Neste mistério, Jesus fortalece a fé dos discípulos e prepara-os para o escândalo da Cruz, ensinando-nos que a glória passa pelo caminho da obediência e da escuta fiel da Palavra de Deus.
+    <br><strong>Pai nosso que estais no céu...</strong>
+  </p>
+</div>
+
+<div class="slide">
+  <img src="images/luminosos/34.jpg" alt="">
+  <p class="meditation">
+    Jesus leva Pedro, Tiago e João ao alto de um monte para orar.
+    <br><strong>Ave Maria, cheia de graça...</strong>
+  </p>
+</div>
+
+<div class="slide">
+  <img src="images/luminosos/35.jpg" alt="">
+  <p class="meditation">
+    Enquanto rezava, Ele se transfigura: seu rosto resplandece como o sol, e suas vestes tornam-se brancas como a neve.
+    <br><strong>Ave Maria, cheia de graça...</strong>
+  </p>
+</div>
+
+<div class="slide">
+  <img src="images/luminosos/36.jpg" alt="">
+  <p class="meditation">
+    Jesus revela sua glória e manifesta sua divindade aos discípulos, fortalecendo-lhes a fé.
+    <br><strong>Ave Maria, cheia de graça...</strong>
+  </p>
+</div>
+
+<div class="slide">
+  <img src="images/luminosos/37.jpg" alt="">
+  <p class="meditation">
+    Contemplo que as glórias de Cristo também fortalecem a minha fé.
+    <br><strong>Ave Maria, cheia de graça...</strong>
+  </p>
+</div>
+
+<div class="slide">
+  <img src="images/luminosos/38.jpg" alt="">
+  <p class="meditation">
+    Aparecem Moisés e Elias, conversando com Jesus sobre sua partida em Jerusalém.
+    <br><strong>Ave Maria, cheia de graça...</strong>
+  </p>
+</div>
+
+<div class="slide">
+  <img src="images/luminosos/39.jpg" alt="">
+  <p class="meditation">
+    Os discípulos contemplam a glória de Deus e desejam permanecer naquele lugar.
+    <br><strong>Ave Maria, cheia de graça...</strong>
+  </p>
+</div>
+
+<div class="slide">
+  <img src="images/luminosos/40.jpg" alt="">
+  <p class="meditation">
+    Uma voz do Céu proclama: “Este é o meu Filho amado; escutai-O”.
+    <br><strong>Ave Maria, cheia de graça...</strong>
+  </p>
+</div>
+
+<div class="slide">
+  <img src="images/luminosos/41.jpg" alt="">
+  <p class="meditation">
+    Jesus ensina que não há caminho para a glória sem passar pela cruz.
+    <br><strong>Ave Maria, cheia de graça...</strong>
+  </p>
+</div>
+
+<div class="slide">
+  <img src="images/luminosos/42.jpg" alt="">
+  <p class="meditation">
+    A Transfiguração nos oferece uma antecipação da glória da ressurreição que nos espera.
+    <br><strong>Ave Maria, cheia de graça...</strong>
+  </p>
+</div>
+
+<div class="slide">
+  <img src="images/luminosos/43.jpg" alt="">
+  <p class="meditation">
+    Concede-me, Senhor, a graça de permanecer fiel mesmo nos momentos de provação.
+    <br><strong>Ave Maria, cheia de graça...</strong>
+  </p>
+  <p><strong>Glória ao Pai, ao Filho e ao Espírito Santo.
+Como era no princípio, agora e sempre.
+Amém.</strong><br>
+</p>
+<p><strong>Ó meu Jesus, perdoai-nos os nossos pecados,
+livrai-nos do fogo do inferno,
+levai as almas todas para o céu,
+socorrei principalmente as que mais precisarem da vossa misericórdia.</strong><br>
+</p>
+</div>
+ <button class="next" onclick="nextSlide(this)">❯</button>
+  </details>
+
+
+<details class="mystery-toggle">
+    <summary>5º Mistério — Insituição da Eucaristia na Última Ceia</summary>
+    <div class="carousel">
+    <button class="prev" onclick="prevSlide(this)">❮</button>
+<div class="slide active">
+  <img src="images/luminosos/44.jpg" alt="">
+  <p class="meditation">
+    Na noite da Última Ceia, Jesus, sabendo que havia chegado a sua hora, entrega-se livremente por amor e permanece conosco no Santíssimo Sacramento da Eucaristia.
+    <br><strong>Pai nosso que estais no céu...</strong>
+  </p>
+</div>
+
+<div class="slide">
+  <img src="images/luminosos/45.jpg" alt="">
+  <p class="meditation">
+    Jesus põe-se à mesa com os doze apóstolos.
+    <br><strong>Ave Maria, cheia de graça...</strong>
+  </p>
+</div>
+
+<div class="slide">
+  <img src="images/luminosos/46.jpg" alt="">
+  <p class="meditation">
+    Ele anuncia que aquela será sua última refeição, até que se cumpra plenamente no Reino de Deus.
+    <br><strong>Ave Maria, cheia de graça...</strong>
+  </p>
+</div>
+
+<div class="slide">
+  <img src="images/luminosos/47.jpg" alt="">
+  <p class="meditation">
+    Toma o pão, dá graças e o entrega aos discípulos, dizendo: “Isto é o meu corpo, que é dado por vós; fazei isto em memória de mim”.
+    <br><strong>Ave Maria, cheia de graça...</strong>
+  </p>
+</div>
+
+<div class="slide">
+  <img src="images/luminosos/48.jpg" alt="">
+  <p class="meditation">
+    Do mesmo modo, após a ceia, toma o cálice e declara: “Este cálice é a nova aliança em meu sangue, que será derramado por vós”.
+    <br><strong>Ave Maria, cheia de graça...</strong>
+  </p>
+</div>
+
+<div class="slide">
+  <img src="images/luminosos/49.jpg" alt="">
+  <p class="meditation">
+    Por meio da Eucaristia, Jesus nos prepara para o Reino dos Céus e nos deixa a esperança da mesa eterna.
+    <br><strong>Ave Maria, cheia de graça...</strong>
+  </p>
+</div>
+
+<div class="slide">
+  <img src="images/luminosos/50.jpg" alt="">
+  <p class="meditation">
+    Que honra é poder experimentar a presença real de Cristo na Sagrada Comunhão.
+    <br><strong>Ave Maria, cheia de graça...</strong>
+  </p>
+</div>
+
+<div class="slide">
+  <img src="images/luminosos/51.jpg" alt="">
+  <p class="meditation">
+    Que, a cada Comunhão, possamos nos aproximar mais do Senhor, agradecendo-Lhe por sua misericórdia infinita.
+    <br><strong>Ave Maria, cheia de graça...</strong>
+  </p>
+</div>
+
+<div class="slide">
+  <img src="images/luminosos/52.jpg" alt="">
+  <p class="meditation">
+    Jesus anuncia que um de seus discípulos irá traí-Lo e entregá-Lo.
+    <br><strong>Ave Maria, cheia de graça...</strong>
+  </p>
+</div>
+
+<div class="slide">
+  <img src="images/luminosos/53.jpg" alt="">
+  <p class="meditation">
+    Judas caminhou com Jesus, ouviu suas palavras e presenciou seus milagres, mas não permitiu que seu coração fosse verdadeiramente convertido.
+    <br><strong>Ave Maria, cheia de graça...</strong>
+  </p>
+</div>
+
+<div class="slide">
+  <img src="images/luminosos/54.jpg" alt="">
+  <p class="meditation">
+    Peço a graça de nunca trocar Jesus por nada deste mundo.
+    <br><strong>Ave Maria, cheia de graça...</strong>
+  </p>
+  <p><strong>Glória ao Pai, ao Filho e ao Espírito Santo.
+Como era no princípio, agora e sempre.
+Amém.</strong><br>
+</p>
+<p><strong>Ó meu Jesus, perdoai-nos os nossos pecados,
+livrai-nos do fogo do inferno,
+levai as almas todas para o céu,
+socorrei principalmente as que mais precisarem da vossa misericórdia.</strong><br>
+</p>
+</div>
+ <button class="next" onclick="nextSlide(this)">❯</button>
+  </details>
+  </p>
+</div>
+</div>
+</section>
+</details>
+</section>
+
+<!-- ORAÇÕES FINAIS -->
+<section class="toggle">
+<h2 onclick="toggle(this)">Orações Finais</h2>
+<div class="content">
+<p><strong>Latim:</strong> Salve, Regína,
+Mater misericórdiæ,
+vita, dulcédo,
+et spes nostra, salve.
+Ad te clamámus,
+éxsules fílii Hevæ,
+Ad te suspirámus,
+geméntes et flentes,
+in hac lacrimárum valle.
+Eia, ergo, advocáta nostra,
+illos tuos misericórdes óculos ad nos convérte.
+Et Iesum, benedíctum fructum ventris tui,
+nobis post hoc exílium osténde.
+O clemens, O pia, O dulcis Virgo Maria.
+Ora pro nobis sancta Dei Génetrix.
+Ut digni efficiámur promissiónibus Christi.
+Amen.</p>
+<p><strong>Português:</strong> Salve, Rainha, 
+    Mãe de Misericórdia, 
+    vida, doçura e esperança nossa, Salve. 
+    A Vós bradamos, os degredados filhos de Eva. 
+    A Vós suspiramos, gemendo e chorando neste vale de lágrimas. 
+    Eia, pois, Advogada nossa, 
+    esses Vossos olhos misericordiosos a nós volvei; 
+    e depois deste desterro nos mostrai Jesus, 
+    bendito Fruto do Vosso ventre. 
+    Ó clemente, ó piedosa, ó doce sempre Virgem Maria.
+V. Rogai por nós, Santa Mãe de Deus,
+R. Para que sejamos dignos das promessas de Cristo. Amem</p>
+</div>
+</section>
+
+</main>
+
+<footer>
+Ad maiorem Dei gloriam
+</footer>
+
+<script>
+function toggle(el) {
+  const content = el.nextElementSibling;
+  content.style.display = content.style.display === "block" ? "none" : "block";
+}
+
+function nextSlide(btn) {
+  const slides = btn.parentElement.querySelectorAll(".slide");
+  let i = [...slides].findIndex(s => s.classList.contains("active"));
+  slides[i].classList.remove("active");
+  slides[(i + 1) % slides.length].classList.add("active");
+}
+
+function prevSlide(btn) {
+  const slides = btn.parentElement.querySelectorAll(".slide");
+  let i = [...slides].findIndex(s => s.classList.contains("active"));
+  slides[i].classList.remove("active");
+  slides[(i - 1 + slides.length) % slides.length].classList.add("active");
+}
+</script>
+
+</body>
+</html>
