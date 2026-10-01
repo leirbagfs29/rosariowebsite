@@ -21,6 +21,12 @@
   ],
   "artigos": [
     {
+      "arquivo": "teste1.md",
+      "titulo": "Teste1",
+      "data": "2026-10-01",
+      "categoria": "Aparições Marianas"
+    },
+    {
       "arquivo": "nossasenhorafatima.md",
       "titulo": "Aparição de Nossa Senhora de Fátima",
       "data": "2026-01-15",
