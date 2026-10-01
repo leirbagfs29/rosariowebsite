@@ -48,6 +48,9 @@ function loadArticles() {
       errors.push(`${where}: o nome do arquivo deve ter só letras sem acento, números e hífen`);
     }
     checkImage(data.capa, where);
+    if (data.cor && !md.COLORS[data.cor]) {
+      warnings.push(`${where}: cor "${data.cor}" desconhecida (use: ${Object.keys(md.COLORS).join(', ')})`);
+    }
     for (const m of body.matchAll(/(?:!\[[^\]]*\]\(|^:::\s*imagem-\S+\s+)(\/[^)\s|]+)/gm)) checkImage(m[1], where);
 
     list.push({
@@ -60,6 +63,8 @@ function loadArticles() {
       cover: data.capa || '',
       source: data.fonte || '',
       external: data.link || '',
+      author: data.autor || '',
+      data,
       body,
       minutes: md.readingMinutes(body)
     });
@@ -164,6 +169,8 @@ function articlePage(a, all) {
   const source = a.source
     ? `\n      <p class="article-source">Fonte: ${md.inline(a.source)}</p>` : '';
   const date = a.date ? `<time datetime="${a.date}">${md.formatDate(a.date)}</time> · ` : '';
+  const author = a.author ? `Por ${esc(a.author)} · ` : '';
+  const parts = md.articleParts(a.data, a.body);
   const jsonLd = JSON.stringify({
     '@context': 'https://schema.org',
     '@type': 'Article',
@@ -172,6 +179,7 @@ function articlePage(a, all) {
     image: SITE_URL + a.cover,
     datePublished: a.date || undefined,
     inLanguage: 'pt-BR',
+    author: a.author ? { '@type': 'Person', name: a.author } : undefined,
     mainEntityOfPage: url
   });
 
@@ -182,15 +190,15 @@ function articlePage(a, all) {
 <main id="conteudo" class="article-container">
   <a class="back-link" href="../paginaartigos.html">❮ Todos os artigos</a>
 
-  <article>
+  <article${parts.themeClass ? ` class="${parts.themeClass}"` : ''}>
     <div class="article-header">
       <a class="card-tag article-category" href="../paginaartigos.html?categoria=${a.categorySlug}">${esc(a.category)}</a>
       <h1>${esc(a.title)}</h1>
-      <p class="article-meta">${date}${a.minutes} min de leitura</p>${source}
+      <p class="article-meta">${author}${date}${a.minutes} min de leitura</p>${source}
     </div>
-
-    <div class="article-content">
-${md.render(a.body)}
+${parts.hero ? `\n    <img class="article-hero" src="${esc(parts.hero)}" alt="">\n` : ''}${parts.toc ? `\n${parts.toc}\n` : ''}
+    <div class="article-content${parts.contentClass ? ' ' + parts.contentClass : ''}">
+${parts.html}
     </div>
 
     <div class="article-footer">
@@ -324,7 +332,8 @@ function editorData(all) {
   return JSON.stringify({
     categorias,
     imagens: imgs,
-    artigos: all.map(a => ({ arquivo: a.slug + '.md', titulo: a.title, data: a.date, categoria: a.category }))
+    artigos: all.filter(a => !a.external)
+      .map(a => ({ arquivo: a.slug + '.md', titulo: a.title, data: a.date, categoria: a.category }))
   }, null, 2) + '\n';
 }
 

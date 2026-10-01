@@ -21,7 +21,7 @@ No artigo, a imagem é chamada como `/images2/primeiros-sabados.jpg`.
 
 ### Editar ou apagar
 
-Os artigos ficam em [`conteudo/artigos/`](conteudo/artigos), um arquivo `.md` para cada.
+No editor, use **Editar artigo publicado…** no topo da página. Ou, direto no GitHub: os artigos ficam em [`conteudo/artigos/`](conteudo/artigos), um arquivo `.md` para cada.
 Abra o arquivo no GitHub, clique no lápis ✏️ para editar (ou *⋯ → Delete file* para apagar) e salve.
 O site se atualiza sozinho.
 
@@ -34,22 +34,77 @@ resumo: Uma frase que aparece no card e no WhatsApp.
 data: 2026-10-01
 categoria: Devoções
 capa: /images2/foto.jpg
-fonte: https://... (opcional)
-rascunho: sim   (opcional — o artigo não é publicado)
+autor: Seu nome
+fonte: https://...
+cor: azul
+capitular: sim
+sumario: sim
+capa_topo: sim
 ---
+```
 
-## Subtítulo
+Obrigatórios: `titulo`, `resumo`, `categoria`, `capa` (e `data` para ordenar). Os demais são opcionais:
 
-Parágrafo com **negrito**, *itálico* e [link](https://exemplo.com).
+- `autor`, `fonte` — aparecem abaixo do título.
+- `cor` — `vermelho` (padrão), `azul`, `roxo`, `verde`, `dourado` ou `rosa`.
+- `capitular: sim` — primeira letra grande e ornamentada.
+- `sumario: sim` — lista dos subtítulos no início do artigo.
+- `capa_topo: sim` — mostra a capa no topo do artigo.
+- `rascunho: sim` — o arquivo fica salvo, mas o artigo não é publicado.
 
-> Citação
+### Elementos do texto
 
-- item de lista
+| Elemento | Como escrever |
+|---|---|
+| Subtítulo | `## Subtítulo` ou `### Subtítulo menor` |
+| Negrito / itálico / marcado | `**negrito**`, `*itálico*`, `==marcado==` |
+| Link / botão | `[texto](https://...)` / `[[Texto do botão]](/index.html)` |
+| Citação simples, listas | `> citação`, `- item`, `1. item` |
+| Separador com cruz | `---` |
+| Imagem (com tamanho) | `![Legenda](/images2/foto.jpg){media}` — `pequena`, `media`, `grande` |
+| Vídeo do YouTube | `::: video https://youtube.com/... \| Legenda` (uma linha) |
+| Tabela | `\| A \| B \|` + `\|---\|---\|` + linhas |
 
-![Descrição](/images2/foto.jpg)
+Blocos — abrem com `::: tipo` e fecham com `:::` (imagens: `imagem-direita`, `imagem-esquerda` ou `imagem-topo`):
 
-::: imagem-direita /images2/foto.jpg | Descrição da imagem
-Texto ao lado da imagem (também: imagem-esquerda, imagem-topo).
+```markdown
+::: imagem-direita /images2/foto.jpg | Descrição
+Texto ao lado da imagem.
+:::
+
+::: oracao Ave Maria
+Cada linha da oração fica numa linha.
+:::
+
+::: citacao São Padre Pio
+O Rosário é a arma para estes tempos.
+:::
+
+::: biblia Lc 1,28
+Ave, cheia de graça, o Senhor é contigo.
+:::
+
+::: destaque Você sabia?
+Texto da caixa dourada.
+:::
+
+::: aviso Importante
+Texto da caixa de aviso.
+:::
+
+::: colunas
+Primeira coluna.
+|||
+Segunda coluna.
+:::
+
+::: galeria
+![Legenda](/images2/1.jpg)
+![Legenda](/images2/2.jpg)
+:::
+
+::: centro
+Texto centralizado.
 :::
 ```
 

@@ -21,12 +21,6 @@
   ],
   "artigos": [
     {
-      "arquivo": "teste1.md",
-      "titulo": "Teste1",
-      "data": "2026-10-01",
-      "categoria": "Aparições Marianas"
-    },
-    {
       "arquivo": "nossasenhorafatima.md",
       "titulo": "Aparição de Nossa Senhora de Fátima",
       "data": "2026-01-15",
@@ -43,12 +37,6 @@
       "titulo": "A Importância do Santo Rosário",
       "data": "2026-01-12",
       "categoria": "Espiritualidade"
-    },
-    {
-      "arquivo": "como-rezar-o-terco.md",
-      "titulo": "Como Rezar o Terço",
-      "data": "",
-      "categoria": "Guias"
     }
   ]
 }
