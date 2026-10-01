@@ -1,0 +1,57 @@
+# Gera as páginas dos artigos sempre que algo em conteudo/ mudar.
+# Assim você pode escrever/editar artigos direto pelo site do GitHub.
+name: Gerar artigos
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'conteudo/**'
+      - 'images2/**'
+      - 'build.js'
+      - 'js/markdown.js'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  pages: write
+
+concurrency:
+  group: gerar-artigos
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Gerar páginas
+        run: node build.js
+
+      - name: Salvar páginas geradas
+        id: commit
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -A
+          if git diff --cached --quiet; then
+            echo "Nada mudou."
+            echo "changed=false" >> "$GITHUB_OUTPUT"
+          else
+            git commit -m "Gerar páginas dos artigos"
+            git push
+            echo "changed=true" >> "$GITHUB_OUTPUT"
+          fi
+
+      # Commits feitos pela automação não disparam o GitHub Pages sozinhos,
+      # então pedimos a publicação explicitamente.
+      - name: Publicar no GitHub Pages
+        if: steps.commit.outputs.changed == 'true'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: gh api -X POST "repos/${{ github.repository }}/pages/builds" || echo "Não foi possível pedir a publicação; ela acontecerá no próximo envio."

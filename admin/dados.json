@@ -1,0 +1,48 @@
+{
+  "categorias": [
+    "Aparições Marianas",
+    "Espiritualidade",
+    "Guias",
+    "Milagres Eucarísticos"
+  ],
+  "imagens": [
+    "/images2/1.jpg",
+    "/images2/2.jpg",
+    "/images2/3.png",
+    "/images2/4.png",
+    "/images2/5.png",
+    "/images2/6.png",
+    "/images2/7.png",
+    "/images2/8.png",
+    "/images2/9.png",
+    "/images2/10.png",
+    "/images2/11.png",
+    "/images2/12.png"
+  ],
+  "artigos": [
+    {
+      "arquivo": "nossasenhorafatima.md",
+      "titulo": "Aparição de Nossa Senhora de Fátima",
+      "data": "2026-01-15",
+      "categoria": "Aparições Marianas"
+    },
+    {
+      "arquivo": "milagrebuenoaires.md",
+      "titulo": "Milagre Eucarístico de Buenos Aires (1996)",
+      "data": "2026-01-15",
+      "categoria": "Milagres Eucarísticos"
+    },
+    {
+      "arquivo": "ImportanciaRosario.md",
+      "titulo": "A Importância do Santo Rosário",
+      "data": "2026-01-12",
+      "categoria": "Espiritualidade"
+    },
+    {
+      "arquivo": "como-rezar-o-terco.md",
+      "titulo": "Como Rezar o Terço",
+      "data": "",
+      "categoria": "Guias"
+    }
+  ]
+}
