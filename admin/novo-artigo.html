@@ -10,934 +10,169 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&family=EB+Garamond:ital,wght@0,400;0,600;1,400&display=swap">
 <link rel="stylesheet" href="../css/style.css">
-<style>
-  /* Estilos só do editor */
-  .editor-page { max-width: 1400px; margin: 0 auto; padding: 24px 16px 60px; }
-  .editor-intro { text-align: center; margin-bottom: 20px; }
-  .editor-intro h1 { font-family: var(--font-title); font-size: 26px; letter-spacing: 3px; text-transform: uppercase; margin: 0; }
-  .editor-intro p { font-style: italic; color: var(--ink-muted); margin: 4px 0 0; }
-
-  .mode-bar {
-    display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 10px 16px;
-    background: var(--bg-card); border: 1px solid var(--border-light); padding: 10px 16px; margin-bottom: 20px;
-  }
-  .mode-bar b { font-family: var(--font-title); font-size: 13px; letter-spacing: 1.5px; text-transform: uppercase; color: var(--crimson); }
-  .mode-bar .mode-actions { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; }
-  .mode-bar select { min-height: 38px; font-family: var(--font-body); font-size: 16px; background: #fffdf7; border: 1px solid var(--border); padding: 4px 8px; max-width: 320px; }
-
-  .editor-grid { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 28px; align-items: start; }
-  .panel { background: var(--bg); border: 1px solid var(--border-light); padding: 20px; }
-  .panel-title { font-family: var(--font-title); font-size: 13px; letter-spacing: 2px; text-transform: uppercase; color: var(--crimson); margin: 22px 0 14px; padding-top: 18px; border-top: 1px solid var(--border-light); }
-  .panel-title:first-child { margin-top: 0; padding-top: 0; border-top: 0; }
-
-  .field { display: block; margin-bottom: 16px; }
-  .field > span, .field-label { display: block; font-family: var(--font-title); font-size: 12px; font-weight: 600; letter-spacing: 1.5px; text-transform: uppercase; color: var(--ink-mid); margin-bottom: 4px; }
-  .field small, .hint { display: block; font-size: 14px; color: var(--ink-muted); font-style: italic; margin-top: 3px; }
-  .field input, .field select, .field textarea {
-    width: 100%; padding: 9px 11px; font-family: var(--font-body); font-size: 17px; color: var(--ink);
-    background: #fffdf7; border: 1px solid var(--border); border-radius: 0;
-  }
-  .field input[readonly] { background: var(--bg-card); color: var(--ink-muted); }
-  .field input:focus, .field select:focus, .field textarea:focus { outline: 2px solid var(--gold); outline-offset: 0; }
-  .field textarea { min-height: 520px; line-height: 1.6; resize: vertical; font-size: 16px; tab-size: 2; }
-  .field-row { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
-  .with-button { display: flex; gap: 8px; }
-  .with-button input { flex: 1; }
-  .is-invalid { outline: 2px solid var(--crimson) !important; }
-
-  /* Aparência */
-  .swatches { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 16px; }
-  .swatch { position: relative; cursor: pointer; }
-  .swatch input { position: absolute; opacity: 0; }
-  .swatch span {
-    display: flex; align-items: center; gap: 8px; padding: 6px 12px 6px 8px; font-size: 15px;
-    border: 1px solid var(--border-light); background: #fffdf7;
-  }
-  .swatch span::before { content: ''; width: 18px; height: 18px; border-radius: 50%; background: var(--c); border: 1px solid rgba(0,0,0,.15); }
-  .swatch input:checked + span { border-color: var(--ink); box-shadow: inset 0 0 0 1px var(--ink); font-weight: 600; }
-  .swatch input:focus-visible + span { outline: 2px solid var(--gold); }
-  .checks { display: grid; gap: 8px; }
-  .check { display: flex; gap: 10px; align-items: flex-start; cursor: pointer; font-size: 17px; }
-  .check input { width: 18px; height: 18px; margin-top: 4px; accent-color: var(--crimson); }
-  .check small { display: block; font-size: 14px; font-style: italic; color: var(--ink-muted); }
-
-  /* Barra de formatação */
-  .md-toolbar { display: flex; flex-wrap: wrap; gap: 4px; margin-bottom: 6px; align-items: center; }
-  .md-toolbar .sep { width: 1px; height: 26px; background: var(--border-light); margin: 0 4px; }
-  .md-toolbar button, .small-btn {
-    min-height: 36px; min-width: 36px; padding: 4px 10px; font-family: var(--font-body); font-size: 15px; cursor: pointer;
-    background: var(--bg-card); border: 1px solid var(--border-light); color: var(--ink-mid);
-  }
-  .md-toolbar button:hover, .small-btn:hover { border-color: var(--crimson); color: var(--crimson); }
-  .md-toolbar .insert-btn { background: var(--crimson); border-color: var(--crimson); color: var(--bg); font-family: var(--font-title); font-size: 12px; font-weight: 600; letter-spacing: 1px; text-transform: uppercase; margin-left: auto; }
-  .md-toolbar .insert-btn:hover { background: var(--crimson-deep); color: var(--bg); }
-  .md-toolbar mark { background: linear-gradient(transparent 55%, rgba(201, 169, 74, 0.55) 55%); color: inherit; }
-  .textarea-foot { display: flex; justify-content: space-between; gap: 10px; flex-wrap: wrap; }
-
-  .preview-panel { position: sticky; top: 12px; max-height: calc(100vh - 24px); overflow: auto; }
-  .preview-panel .article-container { padding: 0; max-width: none; }
-
-  .actions { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 8px; }
-  .status { margin: 12px 0 0; font-style: italic; color: var(--ink-muted); min-height: 1.5em; }
-  .status.is-error { color: var(--crimson); font-style: normal; }
-  .status.is-steps { font-style: normal; color: var(--ink); background: var(--bg-card); border-left: 3px solid var(--gold); padding: 10px 14px; }
-
-  /* Ajuda */
-  .help { margin-top: 28px; }
-  .help details { border: 1px solid var(--border-light); background: var(--bg); margin-bottom: 8px; }
-  .help summary { cursor: pointer; padding: 12px 16px; font-family: var(--font-title); font-size: 14px; letter-spacing: 1px; }
-  .help .help-body { padding: 0 18px 14px; font-size: 17px; }
-  .help pre { background: var(--bg-card); padding: 12px; overflow-x: auto; font-size: 14px; white-space: pre-wrap; }
-  .help code { background: var(--bg-card); padding: 0 4px; }
-
-  /* Janelas */
-  dialog { border: 1px solid var(--border); background: var(--bg); padding: 20px; max-width: 820px; width: calc(100% - 32px); max-height: calc(100vh - 32px); }
-  dialog::backdrop { background: rgba(27, 19, 6, 0.5); }
-  .dialog-head { display: flex; justify-content: space-between; align-items: center; gap: 12px; margin-bottom: 12px; }
-  .dialog-head .panel-title { margin: 0; padding: 0; border: 0; }
-  .dialog-foot { display: flex; flex-wrap: wrap; gap: 10px; justify-content: flex-end; margin-top: 14px; }
-
-  .element-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(170px, 1fr)); gap: 10px; }
-  .element-grid button {
-    text-align: left; padding: 12px; cursor: pointer; background: #fffdf7; border: 1px solid var(--border-light);
-    font-family: var(--font-body); color: var(--ink); display: grid; gap: 2px;
-  }
-  .element-grid button:hover { border-color: var(--crimson); background: var(--bg-card); }
-  .element-grid .el-icon { font-size: 22px; line-height: 1; color: var(--crimson); }
-  .element-grid b { font-size: 16px; }
-  .element-grid small { font-size: 14px; color: var(--ink-muted); line-height: 1.35; }
-
-  .image-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(120px, 1fr)); gap: 10px; max-height: 50vh; overflow: auto; padding: 2px; }
-  .image-grid button { position: relative; padding: 4px; background: var(--bg-card); border: 1px solid var(--border-light); cursor: pointer; }
-  .image-grid button:hover { border-color: var(--crimson); }
-  .image-grid button[aria-pressed="true"] { outline: 3px solid var(--crimson); outline-offset: -1px; }
-  .image-grid button[aria-pressed="true"]::after {
-    content: '✓'; position: absolute; top: 8px; right: 8px; width: 24px; height: 24px; display: grid; place-items: center;
-    background: var(--crimson); color: var(--bg); border-radius: 50%; font-size: 14px;
-  }
-  .image-grid img { width: 100%; height: 100px; object-fit: cover; display: block; }
-  .image-grid small { display: block; font-size: 13px; margin-top: 2px; }
-  .image-path { display: flex; gap: 8px; margin-top: 12px; }
-  .image-path input { flex: 1; padding: 8px 10px; font-family: var(--font-body); font-size: 16px; border: 1px solid var(--border); background: #fffdf7; }
-
-  .mobile-tabs { display: none; }
-  @media (max-width: 900px) {
-    .editor-grid { grid-template-columns: 1fr; }
-    .preview-panel { position: static; max-height: none; }
-    .mobile-tabs { display: flex; gap: 8px; margin-bottom: 14px; position: sticky; top: 0; z-index: 2; background: var(--bg); padding: 6px 0; }
-    .mobile-tabs .chip { flex: 1; }
-    .editor-grid[data-tab="escrever"] .preview-panel { display: none; }
-    .editor-grid[data-tab="ver"] .write-panel { display: none; }
-    .field-row { grid-template-columns: 1fr; }
-    .md-toolbar .insert-btn { margin-left: 0; width: 100%; }
-    .element-grid { grid-template-columns: 1fr 1fr; gap: 8px; }
-    .element-grid button { padding: 10px; }
-    .element-grid small { font-size: 13px; }
-    dialog { padding: 14px; }
-  }
-</style>
+<link rel="stylesheet" href="editor.css">
 </head>
 
 <body>
-<header>
-  <a class="brand" href="../index.html">Rosário Meditado</a>
-  <p class="tagline">Área de escrita · esta página não aparece no site</p>
-</header>
 
-<main class="editor-page">
-  <div class="editor-intro">
-    <h1>Escrever artigo</h1>
-    <p>Preencha os campos, veja como fica e publique com um clique.</p>
+<!-- ── Barra superior ── -->
+<div class="ed-top">
+  <a class="ed-brand" href="../index.html" title="Voltar ao site">Rosário Meditado</a>
+  <span class="ed-mode-label" id="ed-mode-label">Novo artigo</span>
+  <span class="ed-top-spacer"></span>
+  <span class="ed-saved" id="ed-saved"></span>
+  <select id="ed-open" aria-label="Abrir artigo publicado"><option value="">Editar publicado…</option></select>
+  <button type="button" class="ed-btn" id="ed-new">+ Novo</button>
+  <div class="ed-seg" id="ed-modes" role="group" aria-label="Modo">
+    <button type="button" data-mode="edit" aria-pressed="true">Editar</button>
+    <button type="button" data-mode="preview" aria-pressed="false">Visualizar</button>
+    <button type="button" data-mode="markdown" aria-pressed="false" title="Texto puro (avançado)">Markdown</button>
   </div>
+  <button type="button" class="ed-btn" id="ed-help-open" title="Atalhos e ajuda">?</button>
+  <button type="button" class="ed-btn" id="ed-download" title="Baixar o arquivo .md">⤓</button>
+  <button type="button" class="ed-btn" id="ed-more" title="Mais opções" aria-label="Mais opções">⋯</button>
+  <button type="button" class="ed-btn ed-btn-primary" id="ed-publish">Publicar</button>
+</div>
 
-  <div class="mode-bar">
-    <b data-mode-label>Novo artigo</b>
-    <div class="mode-actions">
-      <label>
-        <span class="visually-hidden">Abrir artigo publicado</span>
-        <select id="abrir-artigo"><option value="">Editar artigo publicado…</option></select>
-      </label>
-      <button type="button" class="small-btn" data-action="clear">+ Novo artigo</button>
+<main class="ed-page">
+
+  <div id="ed-doc">
+    <!-- Capa -->
+    <div class="ed-cover" id="ed-cover">
+      <div id="ed-cover-img" style="height:100%"></div>
+      <div class="ed-cover-actions">
+        <button type="button" class="ed-btn" id="ed-cover-change">Escolher capa</button>
+      </div>
     </div>
-  </div>
 
-  <div class="mobile-tabs">
-    <button type="button" class="chip" data-tab="escrever" aria-pressed="true">Escrever</button>
-    <button type="button" class="chip" data-tab="ver" aria-pressed="false">Pré-visualizar</button>
-  </div>
+    <div class="ed-doc">
+      <h1 class="ed-title" id="ed-title" contenteditable="true" spellcheck="true" data-ph="Sem título"></h1>
 
-  <div class="editor-grid" data-tab="escrever">
-
-    <!-- ── FORMULÁRIO ── -->
-    <form class="panel write-panel" id="form" novalidate>
-      <h2 class="panel-title">1. Informações</h2>
-
-      <label class="field">
-        <span>Título</span>
-        <input name="titulo" required placeholder="Ex.: A devoção dos primeiros sábados">
-      </label>
-
-      <label class="field">
-        <span>Resumo</span>
-        <input name="resumo" required maxlength="200" placeholder="Uma frase que aparece no card e no WhatsApp">
-        <small data-counter="resumo">Ideal: até 160 caracteres.</small>
-      </label>
-
-      <div class="field-row">
-        <label class="field">
-          <span>Categoria</span>
-          <select name="categoria-lista"></select>
-          <input name="categoria-nova" placeholder="Nome da nova categoria" hidden>
+      <!-- Propriedades -->
+      <div class="ed-props">
+        <label class="ed-prop">
+          <span class="ed-prop-label"><span>📁</span>Categoria</span>
+          <input data-prop="categoria" list="ed-categorias" placeholder="Escolha ou crie uma categoria">
         </label>
-        <label class="field">
-          <span>Data de publicação</span>
-          <input type="date" name="data" required>
+        <datalist id="ed-categorias"></datalist>
+        <label class="ed-prop">
+          <span class="ed-prop-label"><span>📅</span>Data</span>
+          <input type="date" data-prop="data">
         </label>
-      </div>
-
-      <div class="field-row">
-        <label class="field">
-          <span>Autor (opcional)</span>
-          <input name="autor" placeholder="Seu nome">
+        <label class="ed-prop">
+          <span class="ed-prop-label"><span>📝</span>Resumo</span>
+          <span>
+            <textarea data-prop="resumo" rows="2" maxlength="220" placeholder="Uma frase que aparece no card e no WhatsApp"></textarea>
+            <small id="ed-resumo-count"></small>
+          </span>
         </label>
-        <label class="field">
-          <span>Fonte (opcional)</span>
-          <input name="fonte" placeholder="https://… ou livro/autor">
+        <label class="ed-prop">
+          <span class="ed-prop-label"><span>✍</span>Autor</span>
+          <input data-prop="autor" placeholder="Opcional">
         </label>
-      </div>
-
-      <label class="field">
-        <span>Imagem de capa</span>
-        <span class="with-button">
-          <input name="capa" required placeholder="/images2/foto.jpg">
-          <button type="button" class="small-btn" data-pick="capa">Escolher…</button>
-        </span>
-        <small>Imagem nova? <a href="https://github.com/leirbagfs29/rosariowebsite/upload/main/images2" target="_blank" rel="noopener">Envie para a pasta images2 no GitHub</a> e digite o nome (ex.: <code>/images2/minha-foto.jpg</code>).</small>
-      </label>
-
-      <h2 class="panel-title">2. Aparência</h2>
-
-      <span class="field-label">Cor do artigo</span>
-      <div class="swatches" role="radiogroup" aria-label="Cor do artigo">
-        <label class="swatch" style="--c:#701919"><input type="radio" name="cor" value="vermelho" checked><span>Vermelho</span></label>
-        <label class="swatch" style="--c:#24476f"><input type="radio" name="cor" value="azul"><span>Azul mariano</span></label>
-        <label class="swatch" style="--c:#5b2a6e"><input type="radio" name="cor" value="roxo"><span>Roxo</span></label>
-        <label class="swatch" style="--c:#2f5e3a"><input type="radio" name="cor" value="verde"><span>Verde</span></label>
-        <label class="swatch" style="--c:#8a6510"><input type="radio" name="cor" value="dourado"><span>Dourado</span></label>
-        <label class="swatch" style="--c:#a3466b"><input type="radio" name="cor" value="rosa"><span>Rosa</span></label>
-      </div>
-      <p class="hint" style="margin:-8px 0 16px">Sugestão litúrgica: roxo para Advento e Quaresma, branco/dourado para festas, vermelho para mártires e Pentecostes, azul para temas marianos.</p>
-
-      <div class="checks">
-        <label class="check"><input type="checkbox" name="capitular"><span>Letra capitular<small>Primeira letra grande e ornamentada, como nos manuscritos.</small></span></label>
-        <label class="check"><input type="checkbox" name="sumario"><span>Sumário automático<small>Lista os subtítulos no início do artigo (precisa de 2 ou mais).</small></span></label>
-        <label class="check"><input type="checkbox" name="capa_topo"><span>Mostrar a capa no topo do artigo<small>Além de aparecer no card da lista.</small></span></label>
-      </div>
-
-      <h2 class="panel-title">3. Texto</h2>
-
-      <div class="md-toolbar" aria-label="Formatação">
-        <button type="button" data-md="h2" title="Subtítulo">Subtítulo</button>
-        <button type="button" data-md="h3" title="Subtítulo menor">Sub. menor</button>
-        <span class="sep"></span>
-        <button type="button" data-md="bold" title="Negrito (Ctrl+B)"><strong>N</strong></button>
-        <button type="button" data-md="italic" title="Itálico (Ctrl+I)"><em>I</em></button>
-        <button type="button" data-md="mark" title="Marcar texto"><mark>Marcar</mark></button>
-        <button type="button" data-md="link" title="Link (Ctrl+K)">Link</button>
-        <span class="sep"></span>
-        <button type="button" data-md="list" title="Lista">• Lista</button>
-        <button type="button" data-md="olist" title="Lista numerada">1. Lista</button>
-        <button type="button" data-md="quote" title="Citação simples">“ ”</button>
-        <button type="button" data-md="hr" title="Separador com cruz">✝ Separador</button>
-        <button type="button" class="insert-btn" data-open-elements>＋ Inserir elemento</button>
-      </div>
-      <label class="field">
-        <span class="visually-hidden">Texto do artigo</span>
-        <textarea name="corpo" id="corpo" spellcheck="true" placeholder="Escreva aqui. Deixe uma linha em branco entre os parágrafos.&#10;&#10;Use “＋ Inserir elemento” para orações, citações de santos, versículos, imagens, vídeos e mais."></textarea>
-        <span class="textarea-foot">
-          <small>Rascunho salvo automaticamente neste navegador. Ctrl+Z desfaz.</small>
-          <small data-words></small>
-        </span>
-      </label>
-
-      <h2 class="panel-title">4. Publicar</h2>
-
-      <label class="field">
-        <span>Nome do arquivo</span>
-        <input name="arquivo" required pattern="[A-Za-z0-9-]+" placeholder="gerado a partir do título">
-        <small>Vira o endereço: rosariomeditado.com/artigos/<b data-slug-preview>…</b>.html</small>
-      </label>
-
-      <label class="check" style="margin-bottom:14px">
-        <input type="checkbox" name="rascunho">
-        <span>Salvar como rascunho<small>O arquivo vai para o GitHub, mas o artigo ainda não aparece no site.</small></span>
-      </label>
-
-      <div class="actions">
-        <button type="button" class="btn" data-action="github">Publicar no GitHub</button>
-        <button type="button" class="btn btn-ghost" data-action="download">Baixar .md</button>
-        <button type="button" class="btn btn-ghost" data-action="copy">Copiar texto</button>
-      </div>
-      <p class="status" aria-live="polite"></p>
-    </form>
-
-    <!-- ── PRÉ-VISUALIZAÇÃO ── -->
-    <section class="panel preview-panel" aria-label="Pré-visualização">
-      <h2 class="panel-title">Pré-visualização</h2>
-      <div class="article-container">
-        <article data-p="article">
-          <div class="article-header">
-            <span class="card-tag" data-p="categoria"></span>
-            <h1 data-p="titulo">Título do artigo</h1>
-            <p class="article-meta" data-p="meta"></p>
-            <p class="article-source" data-p="fonte" hidden></p>
+        <label class="ed-prop">
+          <span class="ed-prop-label"><span>🔗</span>Fonte</span>
+          <input data-prop="fonte" placeholder="Opcional — https://… ou livro/autor">
+        </label>
+        <label class="ed-prop">
+          <span class="ed-prop-label"><span>🖼</span>Capa</span>
+          <input data-prop="capa" placeholder="/images2/foto.jpg">
+        </label>
+        <div class="ed-prop">
+          <span class="ed-prop-label"><span>🎨</span>Cor</span>
+          <div class="ed-swatches" id="ed-swatches" role="group" aria-label="Cor do artigo">
+            <button type="button" data-cor="vermelho" style="--c:#701919" title="Vermelho — mártires, Pentecostes"></button>
+            <button type="button" data-cor="azul" style="--c:#24476f" title="Azul mariano"></button>
+            <button type="button" data-cor="roxo" style="--c:#5b2a6e" title="Roxo — Advento e Quaresma"></button>
+            <button type="button" data-cor="verde" style="--c:#2f5e3a" title="Verde — Tempo Comum"></button>
+            <button type="button" data-cor="dourado" style="--c:#8a6510" title="Dourado — solenidades e festas"></button>
+            <button type="button" data-cor="rosa" style="--c:#a3466b" title="Rosa — Gaudete e Laetare"></button>
           </div>
-          <img class="article-hero" data-p="hero" alt="" hidden>
-          <div data-p="toc"></div>
-          <div class="article-content" data-p="corpo"></div>
-        </article>
+        </div>
+        <div class="ed-prop">
+          <span class="ed-prop-label"><span>⚙</span>Opções</span>
+          <div class="ed-chips" id="ed-options">
+            <button type="button" data-opt="capitular" title="Primeira letra grande, como nos manuscritos">Letra capitular</button>
+            <button type="button" data-opt="sumario" title="Lista os subtítulos no início do artigo">Sumário</button>
+            <button type="button" data-opt="capa_topo" title="Mostra a capa no topo do artigo">Capa no topo</button>
+            <button type="button" data-opt="rascunho" title="Salva no GitHub sem publicar no site">Rascunho</button>
+          </div>
+        </div>
+        <label class="ed-prop">
+          <span class="ed-prop-label"><span>🌐</span>Endereço</span>
+          <span>
+            <input id="ed-arquivo" placeholder="gerado a partir do título">
+            <small id="ed-url"></small>
+          </span>
+        </label>
       </div>
-    </section>
+
+      <!-- Conteúdo -->
+      <div id="ed-article">
+        <div class="article-content ed-blocks" id="ed-blocks"></div>
+      </div>
+      <button type="button" class="ed-add-below" id="ed-add-below" aria-label="Continuar escrevendo"></button>
+    </div>
   </div>
 
-  <!-- ── AJUDA ── -->
-  <section class="help">
-    <h2 class="section-label">Ajuda</h2>
-
-    <details open>
-      <summary>Como publicar (passo a passo)</summary>
-      <div class="help-body">
-        <ol>
-          <li>Escreva o artigo e confira a pré-visualização.</li>
-          <li>Clique em <b>Publicar no GitHub</b>. Abre a página do GitHub com o arquivo já preenchido (é preciso estar logado).</li>
-          <li>Clique no botão verde <b>Commit changes</b>.</li>
-          <li>Em 1–2 minutos o artigo aparece em <a href="../paginaartigos.html">Artigos</a>.</li>
-        </ol>
-        <p><b>Para editar um artigo publicado:</b> escolha-o em “Editar artigo publicado…” no topo, faça as mudanças e clique em <b>Salvar alterações no GitHub</b>. O texto é copiado; no GitHub, clique dentro da caixa, aperte <b>Ctrl+A</b>, depois <b>Ctrl+V</b> e <b>Commit changes</b>.</p>
-      </div>
-    </details>
-
-    <details>
-      <summary>Todos os elementos (para escrever à mão)</summary>
-      <div class="help-body">
-<pre>## Subtítulo          ### Subtítulo menor
-**negrito**   *itálico*   ==texto marcado==   [link](https://...)
-[[Texto do botão]](/index.html)
-> citação simples       - lista       1. lista numerada
----                     (separador com cruz)
-
-![Descrição](/images2/foto.jpg){media}     tamanhos: pequena, media, grande
-
-::: imagem-direita /images2/foto.jpg | Descrição
-Texto ao lado da imagem.        (também imagem-esquerda e imagem-topo)
-:::
-
-::: oracao Ave Maria
-Cada linha da oração
-fica numa linha.
-:::
-
-::: citacao São Padre Pio
-O Rosário é a arma para estes tempos.
-:::
-
-::: biblia Lc 1,28
-Ave, cheia de graça, o Senhor é contigo.
-:::
-
-::: destaque Você sabia?
-Texto da caixa dourada.
-:::
-
-::: aviso Importante
-Texto da caixa de aviso.
-:::
-
-::: colunas
-Primeira coluna.
-|||
-Segunda coluna.
-:::
-
-::: galeria
-![Legenda](/images2/1.jpg)
-![Legenda](/images2/2.jpg)
-:::
-
-::: centro
-Texto centralizado.
-:::
-
-::: video https://www.youtube.com/watch?v=... | Legenda
-
-| Coluna | Coluna |
-|---|---|
-| texto | texto |</pre>
-      </div>
-    </details>
-  </section>
-
-  <!-- Janela: elementos -->
-  <dialog id="elementos">
-    <div class="dialog-head">
-      <h2 class="panel-title">Inserir elemento</h2>
-      <button type="button" class="small-btn" data-close>Fechar</button>
-    </div>
-    <div class="element-grid"></div>
-  </dialog>
-
-  <!-- Janela: imagens -->
-  <dialog id="seletor-imagem">
-    <div class="dialog-head">
-      <h2 class="panel-title" data-picker-title>Escolha uma imagem</h2>
-      <button type="button" class="small-btn" data-close>Fechar</button>
-    </div>
-    <div class="image-grid"></div>
-    <div class="image-path">
-      <input id="caminho-imagem" placeholder="Ou digite o caminho: /images2/nova-foto.jpg">
-      <button type="button" class="small-btn" data-use-path>Usar</button>
-    </div>
-    <div class="dialog-foot" data-multi-foot hidden>
-      <button type="button" class="btn" data-insert-multi>Inserir imagens</button>
-    </div>
-  </dialog>
+  <div class="ed-preview" id="ed-preview" hidden></div>
+  <textarea class="ed-markdown" id="ed-markdown" spellcheck="false" hidden></textarea>
 </main>
 
+<!-- Menus flutuantes -->
+<div class="ed-pop ed-menu" id="ed-menu" hidden></div>
+<div class="ed-pop" id="ed-emoji" hidden></div>
+<div class="ed-inline" id="ed-inline" hidden>
+  <button type="button" data-cmd="bold" title="Negrito (Ctrl+B)"><b>N</b></button>
+  <button type="button" data-cmd="italic" title="Itálico (Ctrl+I)"><i>I</i></button>
+  <button type="button" data-cmd="mark" title="Marcar (Ctrl+E)">Marcar</button>
+  <button type="button" data-cmd="link" title="Link (Ctrl+K)">Link</button>
+  <button type="button" data-cmd="clear" title="Remover formatação">✕</button>
+</div>
+<div class="ed-toast" id="ed-toast" hidden role="status"></div>
+
+<!-- Escolher imagem -->
+<dialog class="ed-dialog" id="ed-picker">
+  <div class="ed-dialog-head">
+    <h2 data-picker-title>Escolha uma imagem</h2>
+    <button type="button" class="ed-btn" data-close>Fechar</button>
+  </div>
+  <div class="image-grid"></div>
+  <div class="image-path">
+    <input id="ed-image-path" placeholder="Ou digite o caminho: /images2/nova-foto.jpg">
+    <button type="button" class="ed-btn" data-use-path>Usar</button>
+  </div>
+  <div class="ed-dialog-foot">
+    <small>Imagem nova? <a href="https://github.com/leirbagfs29/rosariowebsite/upload/main/images2" target="_blank" rel="noopener">Envie para a pasta images2 no GitHub</a> e digite o nome acima.</small>
+    <button type="button" class="ed-btn ed-btn-primary" data-insert data-multi hidden>Inserir</button>
+  </div>
+</dialog>
+
+<!-- Ajuda -->
+<dialog class="ed-dialog" id="ed-help">
+  <div class="ed-dialog-head">
+    <h2>Como usar o editor</h2>
+    <button type="button" class="ed-btn" data-close>Fechar</button>
+  </div>
+  <div class="ed-help-grid">
+    <code>/</code><span>Abre o menu de elementos (oração, imagem, caixa, vídeo…). Continue digitando para filtrar: <code>/ora</code></span>
+    <code>+</code><span>Passe o mouse à esquerda de um bloco e clique no <b>+</b> para inserir abaixo dele.</span>
+    <code>⋮⋮</code><span>Arraste para mudar a ordem dos blocos. Clique para transformar, duplicar ou excluir.</span>
+    <code>##␣</code><span>No início de uma linha vira subtítulo (<code>###␣</code> subtítulo menor).</span>
+    <code>-␣</code><span>Lista com marcadores · <code>1.␣</code> lista numerada · <code>&gt;␣</code> citação</span>
+    <code>---</code><span>Separador com cruz.</span>
+    <kbd>Ctrl+B / I / E / K</kbd><span>Negrito · itálico · marcar · link (ou selecione o texto e use a barra).</span>
+    <kbd>Ctrl+Z / Ctrl+Y</kbd><span>Desfazer · refazer</span>
+    <kbd>Ctrl+D</kbd><span>Duplicar bloco</span>
+    <kbd>Esc</kbd><span>Seleciona o bloco inteiro (depois <kbd>Delete</kbd> exclui, <kbd>Alt+↑↓</kbd> move).</span>
+    <kbd>Enter ×2</kbd><span>Dentro de caixas e orações, duas vezes Enter sai do bloco.</span>
+    <span>🖼</span><span>Clique na imagem para escolher a <b>posição</b> (esquerda, centro, direita — o texto contorna) e o <b>tamanho</b>.</span>
+    <span>📋</span><span>Colar um texto com vários parágrafos cria os blocos automaticamente.</span>
+  </div>
+  <p style="margin-top:18px"><b>Publicar:</b> clique em <b>Publicar</b> → abre o GitHub com o arquivo pronto → botão verde <b>Commit changes</b>. Em 1–2 minutos o artigo está no site.</p>
+</dialog>
+
 <script src="../js/markdown.js"></script>
-<script>
-(function () {
-  'use strict';
-
-  var REPO = 'leirbagfs29/rosariowebsite';
-  var BRANCH = 'main';
-  var DIR = 'conteudo/artigos';
-  var DRAFT_KEY = 'rosario-rascunho-artigo';
-  var M = window.RosarioMarkdown;
-
-  var form = document.getElementById('form');
-  var body = document.getElementById('corpo');
-  var status = document.querySelector('.status');
-  var picker = document.getElementById('seletor-imagem');
-  var elementsDialog = document.getElementById('elementos');
-  var openSelect = document.getElementById('abrir-artigo');
-  var f = function (name) { return form.elements[name]; };
-  var data = { categorias: [], imagens: [], artigos: [] };
-  var slugTouched = false;
-  var editing = '';   // nome do arquivo quando estamos editando um artigo publicado
-  var pick = null;    // { multi, onDone }
-  var picked = [];
-
-  /* ── Dados do site ── */
-  fetch('dados.json').then(function (r) { return r.json(); }).then(function (d) {
-    data = d;
-    fillCategories();
-    fillOpenSelect();
-    restoreDraft();
-  }).catch(function () {
-    fillCategories();
-    restoreDraft();
-  });
-
-  function fillCategories() {
-    var sel = f('categoria-lista');
-    sel.innerHTML = data.categorias.map(function (c) {
-      return '<option>' + M.escapeHtml(c) + '</option>';
-    }).join('') + '<option value="__nova">+ Nova categoria…</option>';
-  }
-
-  function fillOpenSelect() {
-    openSelect.innerHTML = '<option value="">Editar artigo publicado…</option>' + data.artigos.map(function (a) {
-      return '<option value="' + M.escapeHtml(a.arquivo) + '">' + M.escapeHtml(a.titulo) + '</option>';
-    }).join('');
-  }
-
-  f('categoria-lista').addEventListener('change', function () {
-    var isNew = this.value === '__nova';
-    f('categoria-nova').hidden = !isNew;
-    if (isNew) f('categoria-nova').focus();
-  });
-
-  function category() {
-    return f('categoria-lista').value === '__nova' ? f('categoria-nova').value.trim() : f('categoria-lista').value;
-  }
-
-  function setCategory(name) {
-    var sel = f('categoria-lista');
-    var opt = Array.prototype.find.call(sel.options, function (o) { return o.value === name; });
-    if (opt) { sel.value = name; f('categoria-nova').hidden = true; }
-    else { sel.value = '__nova'; f('categoria-nova').hidden = false; f('categoria-nova').value = name || ''; }
-  }
-
-  /* ── Nome do arquivo ── */
-  f('titulo').addEventListener('input', function () {
-    if (!slugTouched && !editing) f('arquivo').value = M.slugify(this.value).slice(0, 60);
-  });
-  f('arquivo').addEventListener('input', function () {
-    slugTouched = this.value !== '';
-    this.value = this.value.replace(/[^A-Za-z0-9-]/g, '-');
-  });
-
-  /* ── Montar o arquivo .md ── */
-  function clean(v) { return String(v || '').replace(/\r?\n/g, ' ').trim(); }
-
-  function frontData() {
-    return {
-      titulo: clean(f('titulo').value),
-      resumo: clean(f('resumo').value),
-      data: f('data').value,
-      categoria: clean(category()),
-      capa: clean(f('capa').value),
-      autor: clean(f('autor').value),
-      fonte: clean(f('fonte').value),
-      cor: form.querySelector('[name="cor"]:checked').value,
-      capitular: f('capitular').checked,
-      sumario: f('sumario').checked,
-      capa_topo: f('capa_topo').checked,
-      rascunho: f('rascunho').checked
-    };
-  }
-
-  function buildMarkdown() {
-    var d = frontData();
-    var lines = ['---'];
-    ['titulo', 'resumo', 'data', 'categoria', 'capa', 'autor', 'fonte'].forEach(function (k) {
-      if (d[k]) lines.push(k + ': ' + d[k]);
-    });
-    if (d.cor !== 'vermelho') lines.push('cor: ' + d.cor);
-    ['capitular', 'sumario', 'capa_topo', 'rascunho'].forEach(function (k) {
-      if (d[k]) lines.push(k + ': sim');
-    });
-    lines.push('---', '', body.value.trim(), '');
-    return lines.join('\n');
-  }
-
-  /* ── Pré-visualização ── */
-  var P = {};
-  document.querySelectorAll('[data-p]').forEach(function (el) { P[el.dataset.p] = el; });
-
-  function fixPaths(html) { return html.replace(/src="\//g, 'src="../'); }
-
-  function update() {
-    var d = frontData();
-    var parts = M.articleParts(d, body.value || '*O texto aparecerá aqui.*');
-    P.article.className = parts.themeClass;
-    P.titulo.textContent = d.titulo || 'Título do artigo';
-    P.categoria.textContent = d.categoria;
-    P.meta.textContent = (d.autor ? 'Por ' + d.autor + ' · ' : '') +
-      (d.data ? M.formatDate(d.data) + ' · ' : '') + M.readingMinutes(body.value) + ' min de leitura';
-    P.fonte.hidden = !d.fonte;
-    P.fonte.innerHTML = d.fonte ? 'Fonte: ' + M.inline(d.fonte) : '';
-    P.hero.hidden = !parts.hero;
-    if (parts.hero) P.hero.src = parts.hero.replace(/^\//, '../');
-    P.toc.innerHTML = parts.toc;
-    P.corpo.className = 'article-content' + (parts.contentClass ? ' ' + parts.contentClass : '');
-    P.corpo.innerHTML = fixPaths(parts.html);
-
-    document.querySelector('[data-slug-preview]').textContent = f('arquivo').value || '…';
-    var len = f('resumo').value.length;
-    document.querySelector('[data-counter="resumo"]').textContent =
-      len + ' caracteres' + (len > 160 ? ' — um pouco longo para o WhatsApp' : ' (ideal: até 160)');
-    var words = body.value.split(/\s+/).filter(Boolean).length;
-    document.querySelector('[data-words]').textContent = words + ' palavras';
-    document.querySelector('[data-mode-label]').textContent = editing ? 'Editando: ' + editing : 'Novo artigo';
-    document.querySelector('[data-action="github"]').textContent = editing ? 'Salvar alterações no GitHub' : 'Publicar no GitHub';
-    f('arquivo').readOnly = !!editing;
-    saveDraft();
-  }
-
-  var timer;
-  form.addEventListener('input', function () { clearTimeout(timer); timer = setTimeout(update, 120); });
-  form.addEventListener('change', update);
-
-  /* ── Rascunho automático ── */
-  var FIELDS = ['titulo', 'resumo', 'categoria-lista', 'categoria-nova', 'data', 'capa', 'autor', 'fonte', 'corpo', 'arquivo'];
-  var CHECKS = ['capitular', 'sumario', 'capa_topo', 'rascunho'];
-
-  function saveDraft() {
-    var d = { editing: editing, slugTouched: slugTouched, cor: form.querySelector('[name="cor"]:checked').value };
-    FIELDS.forEach(function (n) { d[n] = f(n).value; });
-    CHECKS.forEach(function (n) { d[n] = f(n).checked; });
-    try { localStorage.setItem(DRAFT_KEY, JSON.stringify(d)); } catch (e) {}
-  }
-
-  function setColor(c) {
-    var r = form.querySelector('[name="cor"][value="' + (M.COLORS[c] ? c : 'vermelho') + '"]');
-    if (r) r.checked = true;
-  }
-
-  function restoreDraft() {
-    var d = null;
-    try { d = JSON.parse(localStorage.getItem(DRAFT_KEY)); } catch (e) {}
-    if (d) {
-      FIELDS.forEach(function (n) { if (d[n] != null) f(n).value = d[n]; });
-      CHECKS.forEach(function (n) { f(n).checked = !!d[n]; });
-      setColor(d.cor);
-      if (!f('categoria-lista').value) f('categoria-lista').selectedIndex = 0;
-      f('categoria-nova').hidden = f('categoria-lista').value !== '__nova';
-      slugTouched = !!d.slugTouched;
-      editing = d.editing || '';
-    }
-    if (!f('data').value) f('data').value = new Date().toLocaleDateString('sv-SE');
-    update();
-  }
-
-  function hasContent() { return !!(f('titulo').value || body.value.trim()); }
-
-  function resetForm() {
-    form.reset();
-    editing = '';
-    slugTouched = false;
-    f('categoria-nova').hidden = true;
-    f('data').value = new Date().toLocaleDateString('sv-SE');
-    form.querySelectorAll('.is-invalid').forEach(function (el) { el.classList.remove('is-invalid'); });
-    setStatus('');
-  }
-
-  /* ── Abrir artigo publicado ── */
-  openSelect.addEventListener('change', function () {
-    var file = openSelect.value;
-    openSelect.value = '';
-    if (!file) return;
-    if (hasContent() && !confirm('Abrir este artigo substitui o que está no editor agora. Continuar?')) return;
-    setStatus('Carregando…');
-    var raw = 'https://raw.githubusercontent.com/' + REPO + '/' + BRANCH + '/' + DIR + '/' + file + '?t=' + Date.now();
-    fetch(raw).then(function (r) { if (!r.ok) throw 0; return r.text(); })
-      .catch(function () { return fetch('../' + DIR + '/' + file).then(function (r) { if (!r.ok) throw 0; return r.text(); }); })
-      .then(function (text) {
-        var parsed = M.parseFrontMatter(text);
-        var d = parsed.data;
-        resetForm();
-        editing = file;
-        f('titulo').value = d.titulo || '';
-        f('resumo').value = d.resumo || '';
-        f('data').value = d.data || '';
-        setCategory(d.categoria || '');
-        f('capa').value = d.capa || '';
-        f('autor').value = d.autor || '';
-        f('fonte').value = d.fonte || '';
-        setColor(d.cor);
-        CHECKS.forEach(function (n) { f(n).checked = d[n] === true; });
-        f('arquivo').value = file.replace(/\.md$/, '');
-        body.value = parsed.body.replace(/^\n+/, '').replace(/\s+$/, '');
-        update();
-        setStatus('Artigo carregado. Faça as mudanças e clique em “Salvar alterações no GitHub”.');
-      })
-      .catch(function () { setStatus('Não foi possível carregar o artigo.', true); });
-  });
-
-  /* ── Edição do texto (mantém o Ctrl+Z funcionando) ── */
-  function replaceRange(text, start, end) {
-    body.focus();
-    body.setSelectionRange(start, end);
-    if (!document.execCommand('insertText', false, text)) body.setRangeText(text, start, end, 'end');
-  }
-
-  // Insere um trecho; o que estiver entre ‹ › fica selecionado para você digitar por cima
-  function insertSnippet(text, asBlock) {
-    var s = body.selectionStart, e = body.selectionEnd;
-    if (asBlock) {
-      var pre = body.value.slice(0, s);
-      var post = body.value.slice(e);
-      var gapBefore = !pre || /\n\n$/.test(pre) ? '' : (/\n$/.test(pre) ? '\n' : '\n\n');
-      var gapAfter = /^\n\n/.test(post) ? '' : (/^\n/.test(post) ? '\n' : '\n\n');
-      text = gapBefore + text + gapAfter;
-    }
-    var a = text.indexOf('‹'), b = text.indexOf('›');
-    var clean = text.replace('‹', '').replace('›', '');
-    replaceRange(clean, s, e);
-    if (a !== -1 && b !== -1) body.setSelectionRange(s + a, s + b - 1);
-    update();
-  }
-
-  function selected(placeholder) {
-    return body.value.slice(body.selectionStart, body.selectionEnd) || placeholder;
-  }
-
-  function wrap(before, after, placeholder) {
-    var sel = body.value.slice(body.selectionStart, body.selectionEnd);
-    insertSnippet(before + '‹' + (sel || placeholder) + '›' + after, false);
-  }
-
-  // Age sobre as linhas inteiras onde está o cursor/seleção
-  function prefixLines(prefix, placeholder, numbered) {
-    var v = body.value;
-    var start = v.lastIndexOf('\n', body.selectionStart - 1) + 1;
-    var end = v.indexOf('\n', body.selectionEnd);
-    if (end === -1) end = v.length;
-    var sel = v.slice(start, end);
-    var hasText = sel.trim() !== '';
-    var lines = (hasText ? sel : placeholder).split('\n');
-    var text = lines.map(function (l, i) {
-      l = l.replace(/^(#{1,4}\s+|>\s?|[-*]\s+|\d+[.)]\s+)/, ''); // troca a marcação anterior
-      return (numbered ? (i + 1) + '. ' : prefix) + l;
-    }).join('\n');
-    body.setSelectionRange(start, end);
-    insertSnippet(hasText ? text : text.replace(placeholder, '‹' + placeholder + '›'), true);
-  }
-
-  var FORMAT = {
-    h2: function () { prefixLines('## ', 'Subtítulo'); },
-    h3: function () { prefixLines('### ', 'Subtítulo menor'); },
-    bold: function () { wrap('**', '**', 'texto em negrito'); },
-    italic: function () { wrap('*', '*', 'texto em itálico'); },
-    mark: function () { wrap('==', '==', 'texto marcado'); },
-    link: function () {
-      var url = prompt('Endereço do link (https://...)');
-      if (url) wrap('[', '](' + url.trim() + ')', 'texto do link');
-    },
-    list: function () { prefixLines('- ', 'Item da lista'); },
-    olist: function () { prefixLines('', 'Item da lista', true); },
-    quote: function () { prefixLines('> ', 'Citação'); },
-    hr: function () { insertSnippet('---', true); }
-  };
-
-  document.querySelectorAll('[data-md]').forEach(function (b) {
-    b.addEventListener('click', function () { FORMAT[b.dataset.md](); });
-  });
-
-  body.addEventListener('keydown', function (e) {
-    if (!(e.ctrlKey || e.metaKey)) return;
-    var k = e.key.toLowerCase();
-    if (k === 'b') { e.preventDefault(); FORMAT.bold(); }
-    if (k === 'i') { e.preventDefault(); FORMAT.italic(); }
-    if (k === 'k') { e.preventDefault(); FORMAT.link(); }
-  });
-
-  /* ── Elementos ── */
-  function block(type, args, inner) {
-    insertSnippet('::: ' + type + (args ? ' ' + args : '') + '\n' + inner + '\n:::', true);
-  }
-
-  var ELEMENTS = [
-    { icon: '🙏', name: 'Oração', desc: 'Caixa com título; cada linha fica numa linha.',
-      run: function () { block('oracao', 'Título da oração', selected('‹Texto da oração.›\nSegunda linha da oração.')); } },
-    { icon: '✝', name: 'Citação de santo', desc: 'Frase em destaque com o nome do autor.',
-      run: function () { block('citacao', 'Nome do santo', selected('‹Frase do santo.›')); } },
-    { icon: '📖', name: 'Versículo bíblico', desc: 'Texto da Escritura com a referência.',
-      run: function () { block('biblia', 'Lc 1,28', selected('‹Ave, cheia de graça, o Senhor é contigo.›')); } },
-    { icon: '✦', name: 'Caixa de destaque', desc: 'Curiosidade ou ponto importante (dourada).',
-      run: function () { block('destaque', 'Você sabia?', selected('‹Texto em destaque.›')); } },
-    { icon: '!', name: 'Aviso', desc: 'Atenção ou observação importante.',
-      run: function () { block('aviso', 'Importante', selected('‹Texto do aviso.›')); } },
-    { icon: '🖼', name: 'Imagem', desc: 'Imagem sozinha, com legenda e tamanho.',
-      run: function () { openPicker(false, function (src) { insertSnippet('![‹Descreva a imagem›](' + src + '){media}', true); }); } },
-    { icon: '◧', name: 'Imagem à direita', desc: 'Texto à esquerda, imagem à direita.',
-      run: function () { imageBlock('imagem-direita'); } },
-    { icon: '◨', name: 'Imagem à esquerda', desc: 'Imagem à esquerda, texto à direita.',
-      run: function () { imageBlock('imagem-esquerda'); } },
-    { icon: '⬒', name: 'Imagem acima do texto', desc: 'Imagem grande e o texto embaixo.',
-      run: function () { imageBlock('imagem-topo'); } },
-    { icon: '▦', name: 'Galeria', desc: 'Várias imagens lado a lado.',
-      run: function () {
-        openPicker(true, function (list) {
-          insertSnippet('::: galeria\n' + list.map(function (src, i) {
-            return '![' + (i === 0 ? '‹Legenda›' : 'Legenda') + '](' + src + ')';
-          }).join('\n') + '\n:::', true);
-        });
-      } },
-    { icon: '▶', name: 'Vídeo do YouTube', desc: 'Cole o link do vídeo.',
-      run: function () {
-        var url = prompt('Cole o link do vídeo do YouTube:');
-        if (url) insertSnippet('::: video ' + url.trim() + ' | ‹Legenda do vídeo›', true);
-      } },
-    { icon: '▥', name: 'Duas colunas', desc: 'Texto dividido em duas colunas.',
-      run: function () { insertSnippet('::: colunas\n‹Texto da primeira coluna.›\n|||\nTexto da segunda coluna.\n:::', true); } },
-    { icon: '≡', name: 'Texto centralizado', desc: 'Para poemas, jaculatórias, dedicatórias.',
-      run: function () { block('centro', '', selected('‹Texto centralizado.›')); } },
-    { icon: '▤', name: 'Tabela', desc: 'Linhas e colunas simples.',
-      run: function () { insertSnippet('| ‹Coluna 1› | Coluna 2 |\n|---|---|\n| texto | texto |\n| texto | texto |', true); } },
-    { icon: '➜', name: 'Botão', desc: 'Chamada para outra página.',
-      run: function () { insertSnippet('[[‹Rezar o Rosário›]](/index.html)', true); } }
-  ];
-
-  function imageBlock(type) {
-    openPicker(false, function (src) {
-      var inner = selected('‹Escreva aqui o texto que fica ao lado da imagem.›');
-      insertSnippet('::: ' + type + ' ' + src + ' | Descrição da imagem\n' + inner + '\n:::', true);
-    });
-  }
-
-  var grid = elementsDialog.querySelector('.element-grid');
-  grid.innerHTML = ELEMENTS.map(function (el, i) {
-    return '<button type="button" data-el="' + i + '"><span class="el-icon" aria-hidden="true">' + el.icon +
-      '</span><b>' + el.name + '</b><small>' + el.desc + '</small></button>';
-  }).join('');
-
-  var savedSel = [0, 0];
-  document.querySelector('[data-open-elements]').addEventListener('click', function () {
-    savedSel = [body.selectionStart, body.selectionEnd];
-    elementsDialog.showModal();
-  });
-  grid.addEventListener('click', function (e) {
-    var btn = e.target.closest('[data-el]');
-    if (!btn) return;
-    elementsDialog.close();
-    body.focus();
-    body.setSelectionRange(savedSel[0], savedSel[1]);
-    ELEMENTS[+btn.dataset.el].run();
-  });
-
-  /* ── Seletor de imagens ── */
-  function openPicker(multi, onDone, forField) {
-    pick = { multi: multi, onDone: onDone, forField: !!forField, sel: [body.selectionStart, body.selectionEnd] };
-    picked = [];
-    picker.querySelector('[data-picker-title]').textContent = multi ? 'Escolha as imagens da galeria' : 'Escolha uma imagem';
-    picker.querySelector('[data-multi-foot]').hidden = !multi;
-    document.getElementById('caminho-imagem').value = '';
-    picker.querySelector('.image-grid').innerHTML = data.imagens.length ? data.imagens.map(function (src) {
-      return '<button type="button" data-src="' + src + '" aria-pressed="false"><img src="..' + src +
-        '" alt="" loading="lazy"><small>' + src.split('/').pop() + '</small></button>';
-    }).join('') : '<p>Nenhuma imagem encontrada.</p>';
-    updateMultiButton();
-    picker.showModal();
-  }
-
-  function updateMultiButton() {
-    var b = picker.querySelector('[data-insert-multi]');
-    b.textContent = picked.length ? 'Inserir ' + picked.length + ' imagem(ns)' : 'Selecione as imagens';
-    b.disabled = !picked.length;
-  }
-
-  function finishPick(value) {
-    picker.close();
-    var p = pick;
-    pick = null;
-    if (!p) return;
-    if (!p.forField) {
-      body.focus();
-      body.setSelectionRange(p.sel[0], p.sel[1]);
-    }
-    p.onDone(value);
-  }
-
-  picker.addEventListener('click', function (e) {
-    if (e.target.matches('[data-close]')) { picker.close(); pick = null; return; }
-    var btn = e.target.closest('[data-src]');
-    if (btn && pick) {
-      var src = btn.dataset.src;
-      if (!pick.multi) return finishPick(src);
-      var i = picked.indexOf(src);
-      if (i === -1) picked.push(src); else picked.splice(i, 1);
-      btn.setAttribute('aria-pressed', String(i === -1));
-      updateMultiButton();
-      return;
-    }
-    if (e.target.matches('[data-insert-multi]') && picked.length) finishPick(picked.slice());
-    if (e.target.matches('[data-use-path]')) {
-      var path = document.getElementById('caminho-imagem').value.trim();
-      if (!path) return;
-      if (path.charAt(0) !== '/' && !/^https?:/.test(path)) path = '/images2/' + path;
-      if (pick && pick.multi) { picked.push(path); updateMultiButton(); document.getElementById('caminho-imagem').value = ''; }
-      else finishPick(path);
-    }
-  });
-
-  document.querySelectorAll('[data-pick="capa"]').forEach(function (b) {
-    b.addEventListener('click', function () {
-      openPicker(false, function (src) { f('capa').value = src; update(); }, true);
-    });
-  });
-
-  elementsDialog.querySelector('[data-close]').addEventListener('click', function () { elementsDialog.close(); });
-
-  /* ── Validação ── */
-  function validate() {
-    var missing = [];
-    [['titulo', 'título'], ['resumo', 'resumo'], ['data', 'data'], ['capa', 'imagem de capa'], ['arquivo', 'nome do arquivo']]
-      .forEach(function (p) {
-        var bad = !clean(f(p[0]).value);
-        f(p[0]).classList.toggle('is-invalid', bad);
-        if (bad) missing.push(p[1]);
-      });
-    if (!category()) missing.push('categoria');
-    if (!body.value.trim()) missing.push('texto');
-    if (missing.length) {
-      setStatus('Falta preencher: ' + missing.join(', ') + '.', true);
-      return false;
-    }
-    if (!editing) {
-      var exists = data.artigos.some(function (a) { return a.arquivo === f('arquivo').value + '.md'; });
-      if (exists && !confirm('Já existe um artigo com o nome "' + f('arquivo').value + '". Deseja substituí-lo?')) return false;
-    }
-    return true;
-  }
-
-  function setStatus(msg, kind) {
-    status.innerHTML = msg;
-    status.classList.toggle('is-error', kind === true);
-    status.classList.toggle('is-steps', kind === 'steps');
-  }
-
-  /* ── Publicar ── */
-  var MAX_URL = 7000;
-
-  function copy(text) {
-    return navigator.clipboard ? navigator.clipboard.writeText(text) : Promise.reject();
-  }
-
-  document.querySelector('[data-action="github"]').addEventListener('click', function () {
-    if (!validate()) return;
-    var md = buildMarkdown();
-
-    if (editing) {
-      var editUrl = 'https://github.com/' + REPO + '/edit/' + BRANCH + '/' + DIR + '/' + editing;
-      copy(md).then(function () {
-        window.open(editUrl, '_blank', 'noopener');
-        setStatus('<b>Texto copiado!</b> Na aba do GitHub: clique dentro da caixa de texto → <b>Ctrl+A</b> → <b>Ctrl+V</b> → botão verde <b>Commit changes</b>.', 'steps');
-      }, function () {
-        setStatus('Não foi possível copiar. Use “Copiar texto” e cole no GitHub manualmente.', true);
-      });
-      return;
-    }
-
-    var file = f('arquivo').value + '.md';
-    var base = 'https://github.com/' + REPO + '/new/' + BRANCH + '/' + DIR + '?filename=' + encodeURIComponent(file);
-    var full = base + '&value=' + encodeURIComponent(md);
-    if (full.length <= MAX_URL) {
-      window.open(full, '_blank', 'noopener');
-      setStatus('Abrimos o GitHub em outra aba. Confira e clique no botão verde <b>Commit changes</b>.', 'steps');
-    } else {
-      copy(md).then(function () {
-        window.open(base, '_blank', 'noopener');
-        setStatus('<b>O artigo é longo, então o texto foi copiado.</b> Na aba do GitHub, clique na caixa de texto → <b>Ctrl+V</b> → <b>Commit changes</b>.', 'steps');
-      }, function () {
-        setStatus('Não foi possível copiar. Use “Baixar .md” e envie o arquivo para a pasta ' + DIR + ' no GitHub.', true);
-      });
-    }
-  });
-
-  document.querySelector('[data-action="download"]').addEventListener('click', function () {
-    if (!validate()) return;
-    var blob = new Blob([buildMarkdown()], { type: 'text/markdown;charset=utf-8' });
-    var a = document.createElement('a');
-    a.href = URL.createObjectURL(blob);
-    a.download = f('arquivo').value + '.md';
-    a.click();
-    URL.revokeObjectURL(a.href);
-    setStatus('Arquivo baixado. Envie-o para a pasta ' + DIR + ' (no GitHub: Add file → Upload files).');
-  });
-
-  document.querySelector('[data-action="copy"]').addEventListener('click', function () {
-    copy(buildMarkdown()).then(function () { setStatus('Texto copiado.'); });
-  });
-
-  document.querySelector('[data-action="clear"]').addEventListener('click', function () {
-    if (hasContent() && !confirm('Apagar o que está no editor e começar um novo artigo?')) return;
-    try { localStorage.removeItem(DRAFT_KEY); } catch (e) {}
-    resetForm();
-    update();
-  });
-
-  /* ── Abas no celular ── */
-  document.querySelectorAll('.mobile-tabs .chip').forEach(function (tab) {
-    tab.addEventListener('click', function () {
-      document.querySelector('.editor-grid').dataset.tab = tab.dataset.tab;
-      document.querySelectorAll('.mobile-tabs .chip').forEach(function (t) {
-        t.setAttribute('aria-pressed', String(t === tab));
-      });
-    });
-  });
-})();
-</script>
+<script src="editor.js"></script>
 </body>
 </html>

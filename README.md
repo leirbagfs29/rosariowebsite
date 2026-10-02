@@ -7,11 +7,17 @@ Site do Santo Rosário meditado com imagens — [rosariomeditado.com](https://ro
 ### Jeito fácil (pelo navegador)
 
 1. Abra **rosariomeditado.com/admin/novo-artigo.html**.
-2. Preencha título, resumo, categoria, data, imagem de capa e o texto. A pré-visualização mostra como vai ficar.
-3. Clique em **Publicar no GitHub** → na página que abrir, clique em **Commit changes**.
-4. Em 1–2 minutos o artigo aparece no site.
+2. Escreva direto na página, como no Notion — o que você vê é como o artigo vai ficar:
+   - digite **`/`** para inserir elementos (oração, imagem, caixa, vídeo…), ou use o **＋** à esquerda de um bloco;
+   - arraste o **⋮⋮** para reordenar (clique nele para transformar, duplicar ou excluir);
+   - atalhos: `## ` subtítulo, `- ` lista, `1. ` lista numerada, `> ` citação, `---` separador;
+   - selecione um texto para negrito, itálico, marcar ou link;
+   - clique numa imagem para escolher a **posição** (esquerda, centro, direita) e o **tamanho**.
+3. Preencha as propriedades abaixo do título (categoria, data, resumo, capa…).
+4. Clique em **Publicar** → na página do GitHub que abrir, clique em **Commit changes**.
+5. Em 1–2 minutos o artigo aparece no site.
 
-O rascunho fica salvo no navegador enquanto você escreve.
+O rascunho fica salvo no navegador enquanto você escreve. O botão **?** do editor mostra todos os atalhos.
 
 ### Imagens
 
@@ -61,7 +67,7 @@ Obrigatórios: `titulo`, `resumo`, `categoria`, `capa` (e `data` para ordenar). 
 | Link / botão | `[texto](https://...)` / `[[Texto do botão]](/index.html)` |
 | Citação simples, listas | `> citação`, `- item`, `1. item` |
 | Separador com cruz | `---` |
-| Imagem (com tamanho) | `![Legenda](/images2/foto.jpg){media}` — `pequena`, `media`, `grande` |
+| Imagem | `![Legenda](/images2/foto.jpg){media direita}` — tamanho: `pequena`, `media`, `grande`, `total`; posição: `esquerda`, `centro`, `direita` (o texto contorna) |
 | Vídeo do YouTube | `::: video https://youtube.com/... \| Legenda` (uma linha) |
 | Tabela | `\| A \| B \|` + `\|---\|---\|` + linhas |
 
@@ -105,6 +111,14 @@ Segunda coluna.
 
 ::: centro
 Texto centralizado.
+:::
+
+::: caixa 💡 azul
+Caixa com emoji e cor (dourado, vermelho, azul, verde, roxo, rosa, cinza).
+:::
+
+::: recolher Título que fica sempre visível
+Conteúdo que aparece ao clicar.
 :::
 ```
 

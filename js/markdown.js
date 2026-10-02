@@ -101,7 +101,29 @@
   /* ── Blocos ::: ── */
   var IMAGE_LAYOUTS = { 'imagem-direita': 'right', 'imagem-esquerda': 'left', 'imagem-topo': 'top' };
   var BLOCKS = ['imagem-direita', 'imagem-esquerda', 'imagem-topo', 'oracao', 'citacao', 'biblia',
-                'destaque', 'aviso', 'centro', 'colunas', 'galeria'];
+                'destaque', 'aviso', 'centro', 'colunas', 'galeria', 'caixa', 'recolher'];
+  var CALLOUT_COLORS = ['dourado', 'vermelho', 'azul', 'verde', 'roxo', 'rosa', 'cinza'];
+
+  /* "::: caixa 💡 azul"  →  { icon: '💡', color: 'azul' } */
+  function calloutArgs(args) {
+    var color = 'dourado', icon = [];
+    String(args || '').split(/\s+/).filter(Boolean).forEach(function (w) {
+      if (CALLOUT_COLORS.indexOf(w) !== -1) color = w; else icon.push(w);
+    });
+    return { icon: icon.join(' '), color: color };
+  }
+
+  /* "{media direita}"  →  { size: 'media', align: 'direita' } */
+  var SIZES = ['pequena', 'media', 'grande', 'total'];
+  var ALIGNS = ['esquerda', 'centro', 'direita'];
+  function imageOptions(spec) {
+    var o = { size: '', align: '' };
+    String(spec || '').replace('média', 'media').split(/\s+/).forEach(function (w) {
+      if (SIZES.indexOf(w) !== -1) o.size = w;
+      if (ALIGNS.indexOf(w) !== -1) o.align = w;
+    });
+    return o;
+  }
 
   function renderBlock(type, args, inner, opts) {
     if (IMAGE_LAYOUTS[type]) {
@@ -118,7 +140,7 @@
           (args ? '  <p class="prayer-box-title">' + inline(args) + '</p>\n' : '') +
           render(inner, { ids: opts.ids, breaks: true }) + '\n</div>';
       case 'citacao':
-        return '<figure class="saint-quote">\n  <blockquote>\n' + render(inner, opts) + '\n  </blockquote>' +
+        return '<figure class="saint-quote">\n  <blockquote>\n' + render(inner, { ids: opts.ids, breaks: true }) + '\n  </blockquote>' +
           (args ? '\n  <figcaption>' + inline(args) + '</figcaption>' : '') + '\n</figure>';
       case 'biblia':
         return '<figure class="bible-verse">\n  <blockquote>\n' + render(inner, { ids: opts.ids, breaks: true }) +
@@ -129,7 +151,15 @@
           (args ? '  <p class="callout-title">' + inline(args) + '</p>\n' : '') +
           render(inner, opts) + '\n</aside>';
       case 'centro':
-        return '<div class="text-center">\n' + render(inner, opts) + '\n</div>';
+        return '<div class="text-center">\n' + render(inner, { ids: opts.ids, breaks: true }) + '\n</div>';
+      case 'caixa':
+        var c = calloutArgs(args);
+        return '<aside class="callout callout-' + c.color + (c.icon ? ' has-icon' : '') + '">\n' +
+          (c.icon ? '  <span class="callout-icon" aria-hidden="true">' + escapeHtml(c.icon) + '</span>\n' : '') +
+          '  <div class="callout-body">\n' + render(inner, { ids: opts.ids, breaks: true }) + '\n  </div>\n</aside>';
+      case 'recolher':
+        return '<details class="toggle-block">\n  <summary>' + (inline(args) || 'Ver mais') + '</summary>\n' +
+          '  <div class="toggle-body">\n' + render(inner, { ids: opts.ids, breaks: true }) + '\n  </div>\n</details>';
       case 'colunas':
         var cols = inner.split(/^\s*\|\|\|\s*$/m);
         return '<div class="columns columns-' + Math.min(cols.length, 3) + '">\n' + cols.map(function (c) {
@@ -161,7 +191,7 @@
 
     function isBlank(l) { return /^\s*$/.test(l); }
     function startsBlock(l) {
-      return /^(#{1,4}\s|>\s?|[-*]\s|\d+[.)]\s|:::|\||---\s*$|\*\*\*\s*$|!\[[^\]]*\]\([^)]+\)(\{\w+\})?\s*$|<)/.test(l.trim());
+      return /^(#{1,4}\s|>\s?|[-*]\s|\d+[.)]\s|:::|\||---\s*$|\*\*\*\s*$|!\[[^\]]*\]\([^)]+\)(\{[^}]*\})?\s*$|<)/.test(l.trim());
     }
     function headingId(text) {
       var base = slugify(text.replace(/<[^>]+>/g, '')) || 'secao';
@@ -233,10 +263,12 @@
         continue;
       }
 
-      var img = t.match(/^!\[([^\]]*)\]\(([^)\s]+)\)(?:\{(pequena|media|média|grande)\})?$/);
+      var img = t.match(/^!\[([^\]]*)\]\(([^)\s]+)\)(?:\{([^}]*)\})?$/);
       if (img) {
-        var size = img[3] ? ' size-' + img[3].replace('é', 'e') : '';
-        out.push('<figure class="article-figure' + size + '"><img src="' + escapeHtml(img[2]) + '" alt="' +
+        var io = imageOptions(img[3]);
+        var cls = (io.size ? ' size-' + io.size : '') +
+          (io.align === 'esquerda' ? ' align-left' : io.align === 'direita' ? ' align-right' : '');
+        out.push('<figure class="article-figure' + cls + '"><img src="' + escapeHtml(img[2]) + '" alt="' +
           escapeHtml(img[1]) + '" loading="lazy">' +
           (img[1] ? '<figcaption>' + inline(img[1]) + '</figcaption>' : '') + '</figure>');
         i++;
@@ -366,6 +398,9 @@
     escapeHtml: escapeHtml,
     parseFrontMatter: parseFrontMatter,
     articleParts: articleParts,
+    imageOptions: imageOptions,
+    calloutArgs: calloutArgs,
+    CALLOUT_COLORS: CALLOUT_COLORS,
     COLORS: COLORS,
     slugify: slugify,
     formatDate: formatDate,

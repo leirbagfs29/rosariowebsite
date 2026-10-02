@@ -1134,10 +1134,92 @@ a.article-category:hover { color: var(--crimson); }
 }
 .gallery figcaption { font-size: 14px; font-style: italic; color: var(--ink-muted); text-align: center; margin-top: 4px; }
 
-/* Tamanhos de imagem */
-.article-figure.size-pequena img { max-width: 260px; }
-.article-figure.size-media img   { max-width: 460px; }
-.article-figure.size-grande img  { width: 100%; }
+/* Tamanhos e posição de imagem */
+.article-figure.size-pequena img { width: 35%; }
+.article-figure.size-media img   { width: 55%; }
+.article-figure.size-grande img  { width: 80%; }
+.article-figure.size-total img   { width: 100%; }
+
+.article-figure.align-left,
+.article-figure.align-right { width: 45%; margin-top: 6px; margin-bottom: 14px; }
+.article-figure.align-left  { float: left;  margin-right: 26px; margin-left: 0; }
+.article-figure.align-right { float: right; margin-left: 26px; margin-right: 0; }
+.article-figure.align-left img,
+.article-figure.align-right img { width: 100%; }
+.article-figure.align-left.size-pequena,
+.article-figure.align-right.size-pequena { width: 33%; }
+.article-figure.align-left.size-grande,
+.article-figure.align-right.size-grande { width: 60%; }
+
+/* Texto ao lado de imagem flutuante: caixas encolhem em vez de passar por baixo */
+.article-content .callout,
+.article-content .prayer-box,
+.article-content .saint-quote,
+.article-content .bible-verse,
+.article-content blockquote,
+.article-content .toggle-block,
+.article-content ul,
+.article-content ol { display: flow-root; }
+.article-content h2,
+.article-content hr,
+.article-content .gallery,
+.article-content .video,
+.article-content .columns,
+.article-content .table-wrap,
+.article-content .text-image,
+.article-content .article-figure:not(.align-left):not(.align-right) { clear: both; }
+.article-content::after { content: ''; display: table; clear: both; }
+
+/* Caixa (callout) com emoji e cor */
+.callout.has-icon { display: flex; gap: 14px; align-items: flex-start; }
+.callout-icon { font-size: 24px; line-height: 1.5; flex: 0 0 auto; }
+.callout-body { flex: 1; min-width: 0; }
+.callout-body > :last-child { margin-bottom: 0; }
+.callout-dourado  { --cc: #947218; }
+.callout-vermelho { --cc: #701919; }
+.callout-azul     { --cc: #24476f; }
+.callout-verde    { --cc: #2f5e3a; }
+.callout-roxo     { --cc: #5b2a6e; }
+.callout-rosa     { --cc: #a3466b; }
+.callout-cinza    { --cc: #68553a; }
+.callout[class*="callout-"]:not(.callout-destaque):not(.callout-aviso) {
+  background: rgba(201, 169, 74, 0.14);
+  background: color-mix(in srgb, var(--cc) 9%, transparent);
+  border-color: color-mix(in srgb, var(--cc) 30%, transparent);
+  border-left-color: var(--cc);
+}
+
+/* Bloco recolhível (toggle) */
+.toggle-block {
+  margin: 22px 0;
+  border: 1px solid var(--border-light);
+  background: var(--bg);
+}
+.toggle-block > summary {
+  cursor: pointer;
+  list-style: none;
+  position: relative;
+  padding: 12px 16px 12px 42px;
+  font-weight: 600;
+  font-size: 19px;
+  color: var(--ink);
+}
+.toggle-block > summary::-webkit-details-marker { display: none; }
+.toggle-block > summary::before {
+  content: '';
+  position: absolute;
+  left: 18px;
+  top: 50%;
+  border: 6px solid transparent;
+  border-left: 8px solid var(--crimson);
+  transform: translateY(-50%);
+  transition: transform 0.2s;
+  transform-origin: 25% 50%;
+}
+.toggle-block[open] > summary::before { transform: translateY(-30%) rotate(90deg); }
+.toggle-block > summary:hover { background: var(--bg-card); }
+.toggle-body { padding: 0 18px 14px 42px; }
+.toggle-body > :last-child { margin-bottom: 0; }
 
 /* Vídeo */
 .video { margin: 30px 0; }
@@ -1376,6 +1458,15 @@ a.article-category:hover { color: var(--crimson); }
 
 @media (max-width: 600px) {
   body { font-size: 17px; }
+  /* No celular a imagem fica sozinha na linha (o texto não cabe ao lado) */
+  .article-figure.align-left,
+  .article-figure.align-right,
+  .article-figure.align-left.size-pequena,
+  .article-figure.align-right.size-pequena,
+  .article-figure.align-left.size-grande,
+  .article-figure.align-right.size-grande { float: none; width: auto; margin: 24px 0; }
+  .article-figure.size-pequena img { width: 60%; }
+  .article-figure.size-media img { width: 80%; }
   .brand { font-size: 20px; letter-spacing: 3px; }
   .site-nav a { padding: 10px 8px; font-size: 11px; letter-spacing: 1px; }
   .today { padding: 26px 16px 22px; }
