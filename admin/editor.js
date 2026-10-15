@@ -1637,28 +1637,51 @@
 
   function hasContent() { return !!(state.props.titulo || blocksToMd(state.blocks).trim()); }
 
-  openSelect.addEventListener('change', () => {
-    const file = openSelect.value;
-    openSelect.value = '';
-    if (!file) return;
-    if (hasContent() && !confirm('Abrir este artigo substitui o que está no editor agora. Continuar?')) return;
+  // asCopy = false: edita o artigo original  ·  asCopy = true: usa o artigo como base para um novo
+  function openPublished(file, asCopy) {
+    if (hasContent() && !confirm('Isso substitui o que está no editor agora. Continuar?')) return;
     toast('Carregando…', false, 1500);
     const raw = 'https://raw.githubusercontent.com/' + REPO + '/' + BRANCH + '/' + DIR + '/' + file + '?t=' + Date.now();
     fetch(raw).then(r => { if (!r.ok) throw 0; return r.text(); })
       .catch(() => fetch('../' + DIR + '/' + file).then(r => { if (!r.ok) throw 0; return r.text(); }))
       .then(text => {
         loadFromMarkdown(text);
-        state.editing = file;
-        state.arquivo = file.replace(/\.md$/, '');
-        state.slugTouched = true;
+        if (asCopy) {
+          state.editing = '';
+          state.slugTouched = false;
+          state.props.titulo = 'Cópia de ' + state.props.titulo;
+          state.props.data = new Date().toLocaleDateString('sv-SE');
+          state.props.rascunho = false;
+          state.arquivo = M.slugify(state.props.titulo).slice(0, 60);
+        } else {
+          state.editing = file;
+          state.arquivo = file.replace(/\.md$/, '');
+          state.slugTouched = true;
+        }
         setMode('edit');
         renderProps();
         render();
         history = []; hIndex = -1; pushHistory();
         saveDraft();
-        toast('Artigo carregado. Ao terminar, clique em <b>Salvar no GitHub</b>.');
+        if (asCopy) {
+          window.scrollTo(0, 0);
+          placeCaret(titleEl, 'end');
+          const sel = getSelection();
+          sel.selectAllChildren(titleEl);
+          toast('<b>Cópia criada como artigo novo.</b> O original não será alterado. Troque o título, a capa e o texto, e depois clique em <b>Publicar</b>.', false, 9000);
+        } else {
+          toast('Artigo carregado. Ao terminar, clique em <b>Salvar no GitHub</b>.');
+        }
       })
       .catch(() => toast('Não foi possível carregar o artigo.', true));
+  }
+
+  openSelect.addEventListener('change', () => {
+    const v = openSelect.value;
+    openSelect.value = '';
+    if (!v) return;
+    const copy = v.startsWith('copy:');
+    openPublished(v.replace(/^(copy|edit):/, ''), copy);
   });
 
   $('#ed-new').addEventListener('click', () => {
@@ -1753,7 +1776,9 @@
       { group: 'Artigo', icon: '⤓', label: 'Baixar arquivo .md', run: () => $('#ed-download').click() },
       { group: 'Artigo', icon: '?', label: 'Ajuda e atalhos', run: () => $('#ed-help').showModal() }
     ].concat(site.artigos.map(a => ({
-      group: 'Editar publicado', icon: '✎', label: a.titulo, run: () => { openSelect.value = a.arquivo; openSelect.dispatchEvent(new Event('change')); }
+      group: 'Editar publicado', icon: '✎', label: a.titulo, run: () => openPublished(a.arquivo, false)
+    }))).concat(site.artigos.map(a => ({
+      group: 'Duplicar como base', icon: '⧉', label: a.titulo, run: () => openPublished(a.arquivo, true)
     })));
     openMenu(e.currentTarget.getBoundingClientRect(), items, it => it.run(), false);
   });
@@ -1773,8 +1798,11 @@
   fetch('dados.json').then(r => r.json()).then(d => {
     site = d;
     $('#ed-categorias').innerHTML = site.categorias.map(c => '<option value="' + esc(c) + '">').join('');
-    openSelect.innerHTML = '<option value="">Editar publicado…</option>' +
-      site.artigos.map(a => '<option value="' + esc(a.arquivo) + '">' + esc(a.titulo) + '</option>').join('');
+    const opts = prefix => site.artigos.map(a =>
+      '<option value="' + prefix + esc(a.arquivo) + '">' + esc(a.titulo) + '</option>').join('');
+    openSelect.innerHTML = '<option value="">Abrir artigo publicado…</option>' +
+      '<optgroup label="✎ Editar o original">' + opts('edit:') + '</optgroup>' +
+      '<optgroup label="⧉ Duplicar como base para um novo">' + opts('copy:') + '</optgroup>';
   }).catch(() => {}).then(start);
 
   // Para testes e depuração no console

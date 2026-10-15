@@ -19,6 +19,8 @@ Site do Santo Rosário meditado com imagens — [rosariomeditado.com](https://ro
 
 O rascunho fica salvo no navegador enquanto você escreve. O botão **?** do editor mostra todos os atalhos.
 
+**Usar um artigo como modelo:** em **Abrir artigo publicado… → Duplicar como base**, escolha um artigo. Ele abre como um artigo **novo** (título “Cópia de…”, data de hoje e novo endereço), com toda a estrutura e as opções de aparência. O original não é alterado.
+
 ### Imagens
 
 Envie a imagem para a pasta [`images2`](https://github.com/leirbagfs29/rosariowebsite/upload/main/images2)
@@ -27,7 +29,7 @@ No artigo, a imagem é chamada como `/images2/primeiros-sabados.jpg`.
 
 ### Editar ou apagar
 
-No editor, use **Editar artigo publicado…** no topo da página. Ou, direto no GitHub: os artigos ficam em [`conteudo/artigos/`](conteudo/artigos), um arquivo `.md` para cada.
+No editor, use **Abrir artigo publicado… → Editar o original** no topo da página. Ou, direto no GitHub: os artigos ficam em [`conteudo/artigos/`](conteudo/artigos), um arquivo `.md` para cada.
 Abra o arquivo no GitHub, clique no lápis ✏️ para editar (ou *⋯ → Delete file* para apagar) e salve.
 O site se atualiza sozinho.
 
