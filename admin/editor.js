@@ -96,7 +96,7 @@
       case 'prayer': return { title: '', text: '' };
       case 'saint': return { author: '', text: '' };
       case 'bible': return { ref: '', text: '' };
-      case 'image': return { src: '', caption: '', size: '', align: '' };
+      case 'image': return { src: '', caption: '', size: '', align: '', width: '' };
       case 'gallery': return { items: [] };
       case 'video': return { url: '', caption: '' };
       case 'columns': return { cols: ['', ''] };
@@ -234,7 +234,7 @@
 
       if ((m = t.match(/^!\[([^\]]*)\]\(([^)\s]+)\)(?:\{([^}]*)\})?$/))) {
         const o = M.imageOptions(m[3]);
-        out.push(mk('image', { src: m[2], caption: m[1], size: o.size, align: o.align }));
+        out.push(mk('image', { src: m[2], caption: m[1], size: o.size, align: o.align, width: o.width }));
         i++;
         continue;
       }
@@ -320,7 +320,7 @@
       case 'columns': return d.cols.some(c => c.trim()) ? '::: colunas\n' + d.cols.map(c => c.trim()).join('\n|||\n') + '\n:::' : '';
       case 'image': {
         if (!d.src) return '';
-        const opts = [d.size, d.align === 'centro' ? '' : d.align].filter(Boolean).join(' ');
+        const opts = [d.width ? d.width + '%' : d.size, d.align === 'centro' ? '' : d.align].filter(Boolean).join(' ');
         return '![' + clean1(d.caption).replace(/\]/g, ')') + '](' + d.src + ')' + (opts ? '{' + opts + '}' : '');
       }
       case 'gallery':
@@ -484,22 +484,34 @@
         ]));
         return;
       }
-      const cls = 'article-figure' + (d.size ? ' size-' + d.size : '') +
+      const cls = 'article-figure' + (d.width ? ' has-width' : d.size ? ' size-' + d.size : '') +
         (d.align === 'esquerda' ? ' align-left' : d.align === 'direita' ? ' align-right' : '');
-      const fig = el('figure', { class: cls }, [
-        el('img', { src: d.src, alt: '', draggable: 'false' }),
+      const img = el('img', { src: d.src, alt: '', draggable: 'false',
+        title: 'Arraste para mover · bordas: redimensionar · clique duplo: trocar' });
+      img.addEventListener('dblclick', () => pickImage(b));
+      const swap = el('button', { type: 'button', class: 'ed-swap', contenteditable: 'false', text: '🖼 Trocar imagem' });
+      swap.addEventListener('click', e => { e.stopPropagation(); pickImage(b); });
+      const fig = el('figure', { class: cls, style: d.width ? '--w:' + d.width + '%' : null }, [
+        el('div', { class: 'ed-img-wrap' }, [
+          img, swap,
+          el('span', { class: 'ed-resize ed-resize-left', 'data-side': '-1', title: 'Arraste para redimensionar', contenteditable: 'false' }),
+          el('span', { class: 'ed-resize ed-resize-right', 'data-side': '1', title: 'Arraste para redimensionar', contenteditable: 'false' }),
+          el('span', { class: 'ed-size-badge', contenteditable: 'false' })
+        ]),
         rt('figcaption', b, 'caption', { ph: 'Legenda (opcional)' })
       ]);
       const set = (k, v) => () => { d[k] = v; commit(true); render({ id: b.id, keep: true }); };
+      const setSize = v => () => { d.size = v; d.width = ''; commit(true); render({ id: b.id, keep: true }); };
       fig.append(tools([
         { label: '⇤ Esquerda', title: 'Imagem à esquerda, texto contorna à direita', pressed: d.align === 'esquerda', run: set('align', 'esquerda') },
         { label: 'Centro', pressed: !d.align || d.align === 'centro', run: set('align', '') },
         { label: 'Direita ⇥', title: 'Imagem à direita, texto contorna à esquerda', pressed: d.align === 'direita', run: set('align', 'direita') },
         '|',
-        { label: 'P', title: 'Pequena', pressed: d.size === 'pequena', run: set('size', 'pequena') },
-        { label: 'M', title: 'Média', pressed: d.size === 'media', run: set('size', 'media') },
-        { label: 'G', title: 'Grande', pressed: d.size === 'grande', run: set('size', 'grande') },
-        { label: 'Total', title: 'Largura total', pressed: !d.size || d.size === 'total', run: set('size', '') },
+        { label: 'P', title: 'Pequena', pressed: !d.width && d.size === 'pequena', run: setSize('pequena') },
+        { label: 'M', title: 'Média', pressed: !d.width && d.size === 'media', run: setSize('media') },
+        { label: 'G', title: 'Grande', pressed: !d.width && d.size === 'grande', run: setSize('grande') },
+        { label: d.width ? d.width + '%' : 'Total', title: d.width ? 'Largura definida arrastando a borda — clique para voltar à largura total' : 'Largura total',
+          pressed: !!d.width || !d.size || d.size === 'total', run: setSize('') },
         '|',
         { label: 'Trocar', run: () => pickImage(b) }
       ]));
@@ -512,7 +524,12 @@
       d.items.forEach((it, i) => {
         const rm = el('button', { type: 'button', class: 'ed-remove', title: 'Remover', contenteditable: 'false', text: '×' });
         rm.addEventListener('click', () => { d.items.splice(i, 1); commit(true); render({ id: b.id, keep: true }); });
-        g.append(el('figure', {}, [el('img', { src: it.src, alt: '', draggable: 'false' }), rm, rt('figcaption', b, 'items.' + i + '.caption', { ph: 'Legenda' })]));
+        const swapIt = () => openPicker(false, src => { it.src = src; commit(true); render({ id: b.id, keep: true }); }, it.src);
+        const sw = el('button', { type: 'button', class: 'ed-swap ed-swap-small', title: 'Trocar esta imagem', contenteditable: 'false', text: '⇄ Trocar' });
+        sw.addEventListener('click', e => { e.stopPropagation(); swapIt(); });
+        const gi = el('img', { src: it.src, alt: '', draggable: 'false', title: 'Clique duplo para trocar' });
+        gi.addEventListener('dblclick', swapIt);
+        g.append(el('figure', {}, [el('div', { class: 'ed-img-wrap' }, [gi, sw]), rm, rt('figcaption', b, 'items.' + i + '.caption', { ph: 'Legenda' })]));
       });
       g.append(el('button', {
         type: 'button', class: 'ed-gallery-add', contenteditable: 'false', text: '＋ Adicionar imagens',
@@ -1278,6 +1295,173 @@
   blocksEl.addEventListener('pointerup', endDrag);
   blocksEl.addEventListener('pointercancel', endDrag);
 
+  /* ── Imagens: segurar e arrastar para mover · bordas para redimensionar (como no Notion) ── */
+  const dropBadge = el('div', { class: 'ed-drop-badge', hidden: true });
+  document.body.append(dropBadge);
+  let imgDrag = null, imgResize = null;
+
+  const ZONE_LABEL = { esquerda: '⇤ Soltar à esquerda — o texto contorna', '': 'Soltar centralizada', direita: 'Soltar à direita — o texto contorna ⇥' };
+
+  function zoneOf(x) {
+    const r = blocksEl.getBoundingClientRect();
+    const rel = (x - r.left) / r.width;
+    return rel < 0.33 ? 'esquerda' : rel > 0.67 ? 'direita' : '';
+  }
+
+  function dropTarget(y) {
+    const blks = $$('.blk', blocksEl);
+    for (let i = 0; i < blks.length; i++) {
+      const r = blks[i].getBoundingClientRect();
+      if (r.height < 4) continue;                 // blocos só com imagem flutuante não têm altura
+      if (y < r.top + r.height / 2) return { to: i, ref: r.top };
+    }
+    const last = blks[blks.length - 1].getBoundingClientRect();
+    return { to: blks.length, ref: last.bottom };
+  }
+
+  blocksEl.addEventListener('pointerdown', e => {
+    if (e.button !== 0) return;
+    const handle = e.target.closest('.ed-resize');
+    if (handle) { startResize(e, handle); return; }
+    const img = e.target.closest('.blk[data-type="image"] .ed-img-wrap > img');
+    if (!img) return;
+    const touch = e.pointerType === 'touch';
+    imgDrag = { id: img.closest('.blk').dataset.id, x: e.clientX, y: e.clientY, moved: false, touch, ready: !touch, img };
+    // no celular: segure meio segundo para arrastar (assim a rolagem da tela continua normal)
+    if (touch) imgDrag.timer = setTimeout(() => { if (imgDrag && !imgDrag.moved) { imgDrag.ready = true; startImgDrag(); } }, 450);
+  });
+
+  // segurar a imagem no celular não deve abrir o menu "salvar imagem"
+  blocksEl.addEventListener('contextmenu', e => {
+    if (e.target.closest('.blk[data-type="image"] .ed-img-wrap')) e.preventDefault();
+  });
+
+  function startImgDrag() {
+    const d = imgDrag;
+    d.moved = true;
+    document.body.classList.add('is-dragging');
+    const w = $('.blk[data-id="' + d.id + '"]');
+    if (w) w.classList.add('is-drag-source');
+    d.ghost = el('img', { class: 'ed-drag-ghost', src: d.img.getAttribute('src'), alt: '' });
+    document.body.append(d.ghost);
+    closeMenu();
+    if (d.touch && navigator.vibrate) navigator.vibrate(15);
+  }
+
+  function updateImgDrag(x, y) {
+    const d = imgDrag;
+    d.ghost.style.left = (x + 14) + 'px';
+    d.ghost.style.top = (y + 14) + 'px';
+    const t = dropTarget(y);
+    d.to = t.to;
+    d.zone = zoneOf(x);
+    const host = blocksEl.getBoundingClientRect();
+    // a linha mostra onde a imagem vai ficar: lado esquerdo, centro ou lado direito
+    const part = d.zone === 'esquerda' ? [0, 0.45] : d.zone === 'direita' ? [0.55, 1] : [0.2, 0.8];
+    dropLine.hidden = false;
+    dropLine.style.top = (t.ref - 2) + 'px';
+    dropLine.style.left = (host.left + host.width * part[0]) + 'px';
+    dropLine.style.width = (host.width * (part[1] - part[0])) + 'px';
+    dropBadge.hidden = false;
+    dropBadge.textContent = ZONE_LABEL[d.zone];
+    dropBadge.style.left = Math.min(window.innerWidth - dropBadge.offsetWidth - 8, x + 14) + 'px';
+    dropBadge.style.top = Math.max(8, y - 34) + 'px';
+    if (y < 80) window.scrollBy(0, -14);
+    if (y > window.innerHeight - 60) window.scrollBy(0, 14);
+  }
+
+  function cleanupImgDrag() {
+    const d = imgDrag;
+    imgDrag = null;
+    if (!d) return;
+    clearTimeout(d.timer);
+    if (d.ghost) d.ghost.remove();
+    dropLine.hidden = true;
+    dropBadge.hidden = true;
+    document.body.classList.remove('is-dragging');
+    $$('.is-drag-source', blocksEl).forEach(x => x.classList.remove('is-drag-source'));
+    return d;
+  }
+
+  function startResize(e, handle) {
+    e.preventDefault();
+    e.stopPropagation();
+    const w = handle.closest('.blk');
+    const b = byId(w.dataset.id);
+    const fig = handle.closest('figure');
+    const wrap = handle.closest('.ed-img-wrap');
+    const floated = b.data.align === 'esquerda' || b.data.align === 'direita';
+    imgResize = {
+      b, fig, floated,
+      host: w.querySelector('.blk-body').getBoundingClientRect().width,
+      startW: (floated ? fig : wrap).getBoundingClientRect().width,
+      x: e.clientX,
+      side: +handle.dataset.side,
+      badge: wrap.querySelector('.ed-size-badge')
+    };
+    try { handle.setPointerCapture(e.pointerId); } catch (err) { /* ok */ }
+    document.body.classList.add('is-resizing');
+    setSelected(w);
+  }
+
+  function moveResize(x) {
+    const r = imgResize;
+    // centralizada cresce para os dois lados; flutuante, só para um
+    const dx = (x - r.x) * r.side * (r.floated ? 1 : 2);
+    const pct = Math.max(15, Math.min(100, Math.round((r.startW + dx) / r.host * 100)));
+    r.pct = pct;
+    r.fig.classList.remove('size-pequena', 'size-media', 'size-grande', 'size-total');
+    r.fig.classList.add('has-width');
+    r.fig.style.setProperty('--w', pct + '%');
+    r.badge.textContent = pct + '%';
+    r.badge.classList.add('is-on');
+  }
+
+  window.addEventListener('pointermove', e => {
+    if (imgResize) { e.preventDefault(); moveResize(e.clientX); return; }
+    if (!imgDrag) return;
+    if (!imgDrag.moved) {
+      const dist = Math.hypot(e.clientX - imgDrag.x, e.clientY - imgDrag.y);
+      if (imgDrag.touch) { if (dist > 10) cleanupImgDrag(); return; }   // estava rolando a tela
+      if (dist < 6) return;
+      startImgDrag();
+    }
+    e.preventDefault();
+    updateImgDrag(e.clientX, e.clientY);
+  }, { passive: false });
+
+  // no celular, impede a rolagem enquanto a imagem está sendo arrastada
+  document.addEventListener('touchmove', e => {
+    if ((imgDrag && imgDrag.moved) || imgResize) e.preventDefault();
+  }, { passive: false });
+
+  function endImg(e) {
+    if (imgResize) {
+      const r = imgResize;
+      imgResize = null;
+      document.body.classList.remove('is-resizing');
+      if (r.pct) {
+        r.b.data.width = String(r.pct);
+        r.b.data.size = '';
+        commit(true);
+        render({ id: r.b.id, keep: true });
+      }
+      return;
+    }
+    const d = cleanupImgDrag();
+    if (!d || !d.moved || e.type === 'pointercancel') return;
+    const b = byId(d.id);
+    if (!b) return;
+    b.data.align = d.zone || '';
+    // ao ir para a lateral, uma imagem muito larga não deixaria espaço para o texto
+    const tooWide = b.data.width ? +b.data.width > 60 : (!b.data.size || b.data.size === 'total');
+    if (b.data.align && tooWide) { b.data.width = '45'; b.data.size = ''; }
+    moveBlock(d.id, d.to == null ? idx(d.id) : d.to);
+    toast(b.data.align ? 'Imagem movida ' + (b.data.align === 'esquerda' ? 'à esquerda' : 'à direita') + ' do texto.' : 'Imagem movida.', false, 1500);
+  }
+  window.addEventListener('pointerup', endImg);
+  window.addEventListener('pointercancel', endImg);
+
   /* ── Emojis da caixa ── */
   const emojiEl = $('#ed-emoji');
   const EMOJIS = ['💡', '✝️', '🙏', '📖', '⚠️', '❗', '🕊️', '🌹', '⭐', '❤️', '🔥', '📿', '⛪', '👑', '🕯️', '🍷', '🍞', '💧', '☀️', '🌙', '✨', '📌', '✅', '❓'];
@@ -1365,21 +1549,67 @@
   const picker = $('#ed-picker');
   let pick = null, picked = [];
 
-  function openPicker(multi, onDone) {
-    pick = { multi, onDone };
+  // Pastas mostradas como abas no seletor
+  const FOLDERS = [
+    ['/images2', 'Fotos dos artigos'],
+    ['/images/gozosos', 'Gozosos'],
+    ['/images/luminosos', 'Luminosos'],
+    ['/images/dolorosos', 'Dolorosos'],
+    ['/images/gloriosos', 'Gloriosos'],
+    ['/images', 'Outras'],
+    ['', 'Todas']
+  ];
+  const folderOf = src => String(src || '').slice(0, String(src || '').lastIndexOf('/'));
+  let pickTab = '/images2';
+
+  function openPicker(multi, onDone, current) {
+    pick = { multi, onDone, current: current || '' };
     picked = [];
-    $('[data-picker-title]', picker).textContent = multi ? 'Escolha as imagens' : 'Escolha uma imagem';
+    $('[data-picker-title]', picker).textContent = multi ? 'Escolha as imagens'
+      : current ? 'Trocar imagem' : 'Escolha uma imagem';
     $('[data-multi]', picker).hidden = !multi;
     $('#ed-image-path').value = '';
-    $('.image-grid', picker).innerHTML = site.imagens.length ? site.imagens.map(src =>
-      '<button type="button" data-src="' + esc(src) + '" aria-pressed="false"><img src="' + esc(src) + '" alt="" loading="lazy"><small>' + esc(src.split('/').pop()) + '</small></button>'
-    ).join('') : '<p>Nenhuma imagem encontrada.</p>';
+    $('#ed-pick-search').value = '';
+    const f = folderOf(current);
+    if (current && FOLDERS.some(x => x[0] === f)) pickTab = f;
     updatePickButton();
     picker.showModal();
+    drawPicker();
+    const cur = $('.image-grid .is-current', picker);
+    if (cur) cur.scrollIntoView({ block: 'center' });
   }
 
+  function drawPicker() {
+    const q = normalize($('#ed-pick-search').value.trim());
+    // com busca, procura em todas as pastas
+    const list = site.imagens.filter(src => (q || !pickTab || folderOf(src) === pickTab) && (!q || normalize(src).indexOf(q) !== -1));
+    $('.ed-pick-tabs', picker).innerHTML = FOLDERS
+      .filter(([dir]) => !dir || site.imagens.some(s => folderOf(s) === dir))
+      .map(([dir, label]) => {
+        const n = dir ? site.imagens.filter(s => folderOf(s) === dir).length : site.imagens.length;
+        return '<button type="button" class="chip" data-tab="' + dir + '" aria-pressed="' + (!q && dir === pickTab) + '">' +
+          esc(label) + ' <span class="chip-count">' + n + '</span></button>';
+      }).join('');
+    $('.image-grid', picker).innerHTML = list.length ? list.map(src => {
+      const isCur = pick && src === pick.current;
+      return '<button type="button" data-src="' + esc(src) + '" aria-pressed="' + (picked.indexOf(src) !== -1) + '"' +
+        (isCur ? ' class="is-current"' : '') + '><img src="' + esc(src) + '" alt="" loading="lazy"><small>' +
+        (isCur ? '<b>Atual · </b>' : '') + esc(src.split('/').slice(-2).join('/')) + '</small></button>';
+    }).join('') : '<p class="ed-menu-empty">Nenhuma imagem encontrada.</p>';
+  }
+
+  $('#ed-pick-search').addEventListener('input', drawPicker);
+  $('.ed-pick-tabs', picker).addEventListener('click', e => {
+    const t = e.target.closest('[data-tab]');
+    if (!t) return;
+    pickTab = t.dataset.tab;
+    $('#ed-pick-search').value = '';
+    drawPicker();
+    $('.image-grid', picker).scrollTop = 0;
+  });
+
   function pickImage(b) {
-    openPicker(false, src => { b.data.src = src; commit(true); render({ id: b.id, keep: true }); });
+    openPicker(false, src => { b.data.src = src; commit(true); render({ id: b.id, keep: true }); }, b.data.src);
   }
 
   function updatePickButton() {
@@ -1499,11 +1729,86 @@
     applyAppearance();
     commit(true);
   }));
-  $('#ed-cover-change').addEventListener('click', () => openPicker(false, src => {
-    state.props.capa = src;
-    renderProps();
-    commit(true);
-  }));
+  function pickCover() {
+    openPicker(false, src => {
+      state.props.capa = src;
+      renderProps();
+      commit(true);
+    }, state.props.capa);
+  }
+  $('#ed-cover-change').addEventListener('click', pickCover);
+  $('#ed-cover-img').addEventListener('click', pickCover);
+
+  /* ── Painel "Imagens deste artigo" ── */
+  const imagesDialog = $('#ed-images');
+
+  function articleImages() {
+    const list = [{ label: 'Capa do artigo', note: 'Aparece no card da lista e no WhatsApp', src: state.props.capa,
+      set: src => { state.props.capa = src; renderProps(); } }];
+    let n = 0;
+    state.blocks.forEach(b => {
+      if (b.type === 'image') {
+        n++;
+        const pos = b.data.align === 'esquerda' ? 'à esquerda' : b.data.align === 'direita' ? 'à direita' : 'centralizada';
+        list.push({ label: 'Imagem ' + n, note: (b.data.caption ? '“' + b.data.caption + '” · ' : '') + pos, src: b.data.src, id: b.id,
+          set: src => { b.data.src = src; } });
+      }
+      if (b.type === 'gallery') {
+        b.data.items.forEach((it, i) => {
+          n++;
+          list.push({ label: 'Imagem ' + n, note: 'Galeria, foto ' + (i + 1) + (it.caption ? ' · “' + it.caption + '”' : ''), src: it.src, id: b.id,
+            set: src => { it.src = src; } });
+        });
+      }
+    });
+    return list;
+  }
+
+  function drawImagesDialog() {
+    const list = articleImages();
+    $('.ed-images-list', imagesDialog).innerHTML = list.map((it, i) =>
+      '<div class="ed-images-row">' +
+        (it.src ? '<img src="' + esc(it.src) + '" alt="">' : '<span class="ed-images-none">sem imagem</span>') +
+        '<div><b>' + esc(it.label) + '</b><small>' + esc(it.note) + '</small><code>' + esc(it.src || '—') + '</code></div>' +
+        '<span class="ed-images-actions">' +
+          '<button type="button" class="ed-btn ed-btn-primary" data-swap="' + i + '">Trocar</button>' +
+          (it.id ? '<button type="button" class="ed-btn" data-goto="' + it.id + '">Ver no texto</button>' : '') +
+        '</span>' +
+      '</div>').join('') + (list.length === 1 ? '<p class="ed-images-hint">Este artigo ainda não tem imagens no texto.</p>' : '');
+    imagesDialog._list = list;
+  }
+
+  function openImagesDialog() {
+    if (state.mode !== 'edit') setMode('edit');
+    drawImagesDialog();
+    imagesDialog.showModal();
+  }
+
+  imagesDialog.addEventListener('click', e => {
+    if (e.target.closest('[data-close]')) { imagesDialog.close(); return; }
+    const sw = e.target.closest('[data-swap]');
+    if (sw) {
+      const it = imagesDialog._list[+sw.dataset.swap];
+      imagesDialog.close();
+      openPicker(false, src => {
+        it.set(src);
+        commit(true);
+        render();
+        drawImagesDialog();
+        imagesDialog.showModal();
+        toast('Imagem trocada.', false, 1500);
+      }, it.src);
+      return;
+    }
+    const go = e.target.closest('[data-goto]');
+    if (go) {
+      imagesDialog.close();
+      const w = $('.blk[data-id="' + go.dataset.goto + '"]');
+      if (w) { w.scrollIntoView({ block: 'center' }); setSelected(w); }
+    }
+  });
+
+  $('#ed-images-open').addEventListener('click', openImagesDialog);
 
   /* ============================================================
      HISTÓRICO (desfazer / refazer) E RASCUNHO
@@ -1774,6 +2079,7 @@
     const items = [
       { group: 'Artigo', icon: '+', label: 'Novo artigo', run: () => $('#ed-new').click() },
       { group: 'Artigo', icon: '⤓', label: 'Baixar arquivo .md', run: () => $('#ed-download').click() },
+      { group: 'Artigo', icon: '🖼', label: 'Imagens deste artigo', run: openImagesDialog },
       { group: 'Artigo', icon: '?', label: 'Ajuda e atalhos', run: () => $('#ed-help').showModal() }
     ].concat(site.artigos.map(a => ({
       group: 'Editar publicado', icon: '✎', label: a.titulo, run: () => openPublished(a.arquivo, false)

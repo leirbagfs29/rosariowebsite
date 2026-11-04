@@ -1151,6 +1151,13 @@ a.article-category:hover { color: var(--crimson); }
 .article-figure.align-left.size-grande,
 .article-figure.align-right.size-grande { width: 60%; }
 
+/* Largura livre (definida arrastando a borda no editor): {45%} */
+.article-figure.has-width img { width: var(--w); }
+.article-figure.has-width.align-left,
+.article-figure.has-width.align-right { width: var(--w); }
+.article-figure.has-width.align-left img,
+.article-figure.has-width.align-right img { width: 100%; }
+
 /* Texto ao lado de imagem flutuante: caixas encolhem em vez de passar por baixo */
 .article-content .callout,
 .article-content .prayer-box,
@@ -1467,6 +1474,11 @@ a.article-category:hover { color: var(--crimson); }
   .article-figure.align-right.size-grande { float: none; width: auto; margin: 24px 0; }
   .article-figure.size-pequena img { width: 60%; }
   .article-figure.size-media img { width: 80%; }
+  .article-figure.has-width.align-left,
+  .article-figure.has-width.align-right { width: auto; }
+  .article-figure.has-width img { width: max(var(--w), 60%); }
+  .article-figure.has-width.align-left img,
+  .article-figure.has-width.align-right img { width: 100%; }
   .brand { font-size: 20px; letter-spacing: 3px; }
   .site-nav a { padding: 10px 8px; font-size: 11px; letter-spacing: 1px; }
   .today { padding: 26px 16px 22px; }

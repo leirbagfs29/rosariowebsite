@@ -322,8 +322,11 @@ ${urls.map(([u, d]) => `  <url><loc>${SITE_URL}${u}</loc>${d ? `<lastmod>${d}</l
 
 function editorData(all) {
   const imgs = [];
-  for (const dir of ['images2']) {
-    for (const f of fs.readdirSync(path.join(ROOT, dir))) {
+  // images2: fotos dos artigos · images/*: pinturas usadas nas meditações do Rosário
+  for (const dir of ['images2', 'images', 'images/gozosos', 'images/luminosos', 'images/dolorosos', 'images/gloriosos']) {
+    const full = path.join(ROOT, dir);
+    if (!fs.existsSync(full)) continue;
+    for (const f of fs.readdirSync(full)) {
       if (/\.(jpe?g|png|webp|gif)$/i.test(f)) imgs.push(`/${dir}/${f}`);
     }
   }

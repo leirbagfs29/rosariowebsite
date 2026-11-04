@@ -28,6 +28,7 @@
     <button type="button" data-mode="preview" aria-pressed="false">Visualizar</button>
     <button type="button" data-mode="markdown" aria-pressed="false" title="Texto puro (avançado)">Markdown</button>
   </div>
+  <button type="button" class="ed-btn" id="ed-images-open" title="Ver e trocar todas as imagens do artigo">🖼 Imagens</button>
   <button type="button" class="ed-btn" id="ed-help-open" title="Atalhos e ajuda">?</button>
   <button type="button" class="ed-btn" id="ed-download" title="Baixar o arquivo .md">⤓</button>
   <button type="button" class="ed-btn" id="ed-more" title="Mais opções" aria-label="Mais opções">⋯</button>
@@ -137,6 +138,10 @@
     <h2 data-picker-title>Escolha uma imagem</h2>
     <button type="button" class="ed-btn" data-close>Fechar</button>
   </div>
+  <div class="ed-pick-bar">
+    <div class="ed-pick-tabs" role="group" aria-label="Pastas de imagens"></div>
+    <input type="search" id="ed-pick-search" placeholder="Buscar pelo nome do arquivo…" autocomplete="off">
+  </div>
   <div class="image-grid"></div>
   <div class="image-path">
     <input id="ed-image-path" placeholder="Ou digite o caminho: /images2/nova-foto.jpg">
@@ -146,6 +151,16 @@
     <small>Imagem nova? <a href="https://github.com/leirbagfs29/rosariowebsite/upload/main/images2" target="_blank" rel="noopener">Envie para a pasta images2 no GitHub</a> e digite o nome acima.</small>
     <button type="button" class="ed-btn ed-btn-primary" data-insert data-multi hidden>Inserir</button>
   </div>
+</dialog>
+
+<!-- Imagens deste artigo -->
+<dialog class="ed-dialog" id="ed-images">
+  <div class="ed-dialog-head">
+    <h2>Imagens deste artigo</h2>
+    <button type="button" class="ed-btn" data-close>Fechar</button>
+  </div>
+  <p class="ed-images-hint">Troque qualquer imagem do artigo sem procurar no texto. Ideal ao duplicar um artigo para usar como base.</p>
+  <div class="ed-images-list"></div>
 </dialog>
 
 <!-- Ajuda -->
@@ -166,8 +181,10 @@
     <kbd>Ctrl+D</kbd><span>Duplicar bloco</span>
     <kbd>Esc</kbd><span>Seleciona o bloco inteiro (depois <kbd>Delete</kbd> exclui, <kbd>Alt+↑↓</kbd> move).</span>
     <kbd>Enter ×2</kbd><span>Dentro de caixas e orações, duas vezes Enter sai do bloco.</span>
-    <span>🖼</span><span>Clique na imagem para escolher a <b>posição</b> (esquerda, centro, direita — o texto contorna) e o <b>tamanho</b>.</span>
+    <span>🖼</span><span><b>Segure e arraste a imagem</b> para movê-la: soltando no lado esquerdo ou direito, o texto contorna; no meio, fica centralizada. No celular, segure meio segundo antes de arrastar.</span>
+    <span>↔</span><span><b>Arraste as bordas</b> da imagem para aumentar ou diminuir o tamanho. Clicar na imagem também mostra os botões de posição e tamanho (P, M, G).</span>
     <span>📋</span><span>Colar um texto com vários parágrafos cria os blocos automaticamente.</span>
+    <span>🖼</span><span>O botão <b>🖼 Imagens</b> lista a capa e todas as imagens do artigo para trocar de uma vez. Também dá para trocar clicando em <b>Trocar imagem</b> sobre cada imagem, ou com clique duplo nela.</span>
     <span>⧉</span><span>Em <b>Abrir artigo publicado… → Duplicar como base</b>, um artigo existente vira o ponto de partida de um artigo <b>novo</b> (o original não muda).</span>
   </div>
   <p style="margin-top:18px"><b>Publicar:</b> clique em <b>Publicar</b> → abre o GitHub com o arquivo pronto → botão verde <b>Commit changes</b>. Em 1–2 minutos o artigo está no site.</p>

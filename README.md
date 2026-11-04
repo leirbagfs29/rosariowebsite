@@ -12,7 +12,7 @@ Site do Santo Rosário meditado com imagens — [rosariomeditado.com](https://ro
    - arraste o **⋮⋮** para reordenar (clique nele para transformar, duplicar ou excluir);
    - atalhos: `## ` subtítulo, `- ` lista, `1. ` lista numerada, `> ` citação, `---` separador;
    - selecione um texto para negrito, itálico, marcar ou link;
-   - clique numa imagem para escolher a **posição** (esquerda, centro, direita) e o **tamanho**.
+   - **segure e arraste uma imagem** para movê-la (soltando à esquerda ou à direita, o texto contorna) e **arraste as bordas** dela para mudar o tamanho, como no Notion;
 3. Preencha as propriedades abaixo do título (categoria, data, resumo, capa…).
 4. Clique em **Publicar** → na página do GitHub que abrir, clique em **Commit changes**.
 5. Em 1–2 minutos o artigo aparece no site.
@@ -23,7 +23,11 @@ O rascunho fica salvo no navegador enquanto você escreve. O botão **?** do edi
 
 ### Imagens
 
-Envie a imagem para a pasta [`images2`](https://github.com/leirbagfs29/rosariowebsite/upload/main/images2)
+**Trocar imagens de um artigo:** no editor, clique em **🖼 Imagens** (no celular, menu **⋯**) para ver a capa e todas as imagens do artigo e trocar qualquer uma. Também dá para clicar em **Trocar imagem** sobre a própria imagem, ou dar um clique duplo nela. A legenda, a posição e o tamanho são mantidos.
+
+O seletor mostra as fotos dos artigos (`images2`) e as pinturas das meditações do Rosário, separadas por mistérios, com busca pelo nome.
+
+Para usar uma imagem nova, envie para a pasta [`images2`](https://github.com/leirbagfs29/rosariowebsite/upload/main/images2)
 (no GitHub: *Add file → Upload files*). Use nomes sem acento e sem espaço, ex.: `primeiros-sabados.jpg`.
 No artigo, a imagem é chamada como `/images2/primeiros-sabados.jpg`.
 
@@ -69,7 +73,7 @@ Obrigatórios: `titulo`, `resumo`, `categoria`, `capa` (e `data` para ordenar). 
 | Link / botão | `[texto](https://...)` / `[[Texto do botão]](/index.html)` |
 | Citação simples, listas | `> citação`, `- item`, `1. item` |
 | Separador com cruz | `---` |
-| Imagem | `![Legenda](/images2/foto.jpg){media direita}` — tamanho: `pequena`, `media`, `grande`, `total`; posição: `esquerda`, `centro`, `direita` (o texto contorna) |
+| Imagem | `![Legenda](/images2/foto.jpg){media direita}` — tamanho: `pequena`, `media`, `grande`, `total` ou uma largura como `45%`; posição: `esquerda`, `centro`, `direita` (o texto contorna) |
 | Vídeo do YouTube | `::: video https://youtube.com/... \| Legenda` (uma linha) |
 | Tabela | `\| A \| B \|` + `\|---\|---\|` + linhas |
 

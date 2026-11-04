@@ -116,12 +116,16 @@
   /* "{media direita}"  →  { size: 'media', align: 'direita' } */
   var SIZES = ['pequena', 'media', 'grande', 'total'];
   var ALIGNS = ['esquerda', 'centro', 'direita'];
+  /* também aceita largura livre: "{45% direita}" */
   function imageOptions(spec) {
-    var o = { size: '', align: '' };
+    var o = { size: '', align: '', width: '' };
     String(spec || '').replace('média', 'media').split(/\s+/).forEach(function (w) {
       if (SIZES.indexOf(w) !== -1) o.size = w;
       if (ALIGNS.indexOf(w) !== -1) o.align = w;
+      var pct = w.match(/^(\d{1,3})%$/);
+      if (pct) o.width = String(Math.max(10, Math.min(100, +pct[1])));
     });
+    if (o.width) o.size = '';
     return o;
   }
 
@@ -266,9 +270,9 @@
       var img = t.match(/^!\[([^\]]*)\]\(([^)\s]+)\)(?:\{([^}]*)\})?$/);
       if (img) {
         var io = imageOptions(img[3]);
-        var cls = (io.size ? ' size-' + io.size : '') +
+        var cls = (io.size ? ' size-' + io.size : '') + (io.width ? ' has-width' : '') +
           (io.align === 'esquerda' ? ' align-left' : io.align === 'direita' ? ' align-right' : '');
-        out.push('<figure class="article-figure' + cls + '"><img src="' + escapeHtml(img[2]) + '" alt="' +
+        out.push('<figure class="article-figure' + cls + '"' + (io.width ? ' style="--w:' + io.width + '%"' : '') + '><img src="' + escapeHtml(img[2]) + '" alt="' +
           escapeHtml(img[1]) + '" loading="lazy">' +
           (img[1] ? '<figcaption>' + inline(img[1]) + '</figcaption>' : '') + '</figure>');
         i++;
