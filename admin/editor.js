@@ -39,7 +39,7 @@
      ESTADO
      ============================================================ */
   const DEFAULT_PROPS = {
-    titulo: '', resumo: '', data: '', categoria: '', capa: '', autor: '', fonte: '',
+    titulo: '', titulo_seo: '', resumo: '', data: '', categoria: '', capa: '', capa_alt: '', autor: '', fonte: '',
     cor: 'vermelho', capitular: false, sumario: false, capa_topo: false, rascunho: false
   };
   const state = {
@@ -353,7 +353,7 @@
   function buildMarkdown() {
     const p = state.props;
     const lines = ['---'];
-    ['titulo', 'resumo', 'data', 'categoria', 'capa', 'autor', 'fonte'].forEach(k => {
+    ['titulo', 'titulo_seo', 'resumo', 'data', 'categoria', 'capa', 'capa_alt', 'autor', 'fonte'].forEach(k => {
       const v = clean1(p[k]);
       if (v) lines.push(k + ': ' + v);
     });

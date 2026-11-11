@@ -238,9 +238,22 @@
     "/images2/9.png",
     "/images2/10.png",
     "/images2/11.png",
-    "/images2/12.png"
+    "/images2/12.png",
+    "/images2/la-salette-assuncao.jpg",
+    "/images2/la-salette-capa.jpg",
+    "/images2/la-salette-criancas.jpg",
+    "/images2/la-salette-montanha.jpg",
+    "/images2/la-salette-panorama-antigo.jpg",
+    "/images2/la-salette-santuario.jpg",
+    "/images2/la-salette-sinais.jpg"
   ],
   "artigos": [
+    {
+      "arquivo": "nossa-senhora-de-la-salette-historia-mensagem.md",
+      "titulo": "Nossa Senhora de La Salette: a história, a mensagem e as lágrimas da Mãe",
+      "data": "2026-11-11",
+      "categoria": "Aparições Marianas"
+    },
     {
       "arquivo": "importancia-consagracao-nossa-senhora.md",
       "titulo": "A Importância de se Consagrar a Nossa Senhora e os Frutos da Consagração",

@@ -64,6 +64,8 @@ function loadArticles() {
       source: data.fonte || '',
       external: data.link || '',
       author: data.autor || '',
+      seoTitle: data.titulo_seo || '',
+      coverAlt: data.capa_alt || '',
       data,
       body,
       minutes: md.readingMinutes(body)
@@ -184,7 +186,7 @@ function articlePage(a, all) {
   });
 
   return head({
-    title: a.title, description: a.summary, prefix: '../', url, image: a.cover, type: 'article',
+    title: a.seoTitle || a.title, description: a.summary, prefix: '../', url, image: a.cover, type: 'article',
     extra: `\n<script type="application/ld+json">${jsonLd}</script>`
   }) + '\n\n' + header('../') + `
 <main id="conteudo" class="article-container">
@@ -196,7 +198,7 @@ function articlePage(a, all) {
       <h1>${esc(a.title)}</h1>
       <p class="article-meta">${author}${date}${a.minutes} min de leitura</p>${source}
     </div>
-${parts.hero ? `\n    <img class="article-hero" src="${esc(parts.hero)}" alt="">\n` : ''}${parts.toc ? `\n${parts.toc}\n` : ''}
+${parts.hero ? `\n    <img class="article-hero" src="${esc(parts.hero)}" alt="${esc(a.coverAlt)}">\n` : ''}${parts.toc ? `\n${parts.toc}\n` : ''}
     <div class="article-content${parts.contentClass ? ' ' + parts.contentClass : ''}">
 ${parts.html}
     </div>
